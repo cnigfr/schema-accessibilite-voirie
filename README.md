@@ -20,3 +20,22 @@ Le standard détermine, entre autres :
 - v2021-10 (révision juin 2023) : 1.2.0
 - v2021-10 (révision mai 2022) : 1.1.0
 - v2021-10 (version initiale) : 1.0.0
+
+
+## /!\ En chantier temporaire : Paragraphes transférés de l'ancien Github /!\ 
+
+### GT CNIG Accessibilite
+
+- [GT CNIG Accessibilité](http://cnig.gouv.fr/gt-accessibilite-a18058.html) : [Mandat](http://cnig.gouv.fr/IMG/pdf/2018-09-mandat-netex-inspire-v5.pdf) et [compte-rendus de réunion](http://cnig.gouv.fr/gt-accessibilite-a18058.html)
+- [Ressources associées](http://cnig.gouv.fr/ressources-accessibilite-a25335.html)
+
+### Standard CNIG Accessibilité
+
+Consulter le dossier [Standard](https://github.com/GT-CNIG-Accessibilite-TEAM/GT-CNIG-Accessibilite/tree/main/Standard)
+
+Les contributions, demandes de corrections et d'évolutions du standard sont répertoriées dans les [issues](https://github.com/cnigfr/schema-accessibilite-voirie/issues).
+
+### Gitbook du GT CNIG Accessibilité
+
+Le [Gitbook du GT CNIG Accessibilité](https://app.gitbook.com/@cnig/s/guide-methodo-cnig-accessibilite/) constitue le Guide méthodologique du standard CNIG Accessibilité
+
