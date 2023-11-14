@@ -4,7 +4,7 @@
 Ce schéma, produit par le [GT CNIG Accessibilité](http://cnig.gouv.fr/gt-accessibilite-a18058.html), vise à spécifier et standardiser les données utiles au cheminement des personnes à mobilité réduite ou en situation de handicap dans les domaines voirie, espace public, et établissements recevant du public.
 
 ## GT CNIG Accessibilite
-- Le [GT CNIG Accessibilité](http://cnig.gouv.fr/gt-accessibilite-a18058.html) est régi par ce [Mandat](http://cnig.gouv.fr/IMG/pdf/2018-09-mandat-netex-inspire-v5.pdf) et se réunit depuis 2020 : [compte-rendus de réunion](http://cnig.gouv.fr/gt-accessibilite-a18058.html)
+- Le [GT CNIG Accessibilité](http://cnig.gouv.fr/gt-accessibilite-a18058.html) est régi par ce [Mandat](http://cnig.gouv.fr/IMG/pdf/2018-09-mandat-netex-inspire-v5.pdf) et se réunit depuis 2020 : [compte-rendus de réunion](https://cnig.gouv.fr/gt-accessibilite-a18058.html#H_Reunions)
 - [Ressources associées](http://cnig.gouv.fr/ressources-accessibilite-a25335.html)
 
 ## Standard CNIG Accessibilité
