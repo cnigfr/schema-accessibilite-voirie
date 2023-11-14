@@ -26,9 +26,9 @@ Le standard détermine, entre autres :
 - v2021-10 (révision mai 2022) : 1.1.0
 - v2021-10 (version initiale) : 1.0.0
 
-Le standard CNIG Accessibilité (version validée) est publié [sur le site du CNIG](http://cnig.gouv.fr/ressources-accessibilite-a25335.html).
-La version courante (non encore validée) est disponilble [sur le présent référentiel Github](https://github.com/GT-CNIG-Accessibilite-TEAM/GT-CNIG-Accessibilite/tree/main/Standard).
-Les contributions, demandes de corrections et d'évolutions du standard sont répertoriées dans les [issues](https://github.com/cnigfr/schema-accessibilite-voirie/issues).
+- Le standard CNIG Accessibilité (dernière version validée) est publié [sur le site du CNIG](http://cnig.gouv.fr/ressources-accessibilite-a25335.html).
+- La version courante (version projet non encore validée) est disponilble [sur le présent référentiel Github](https://github.com/cnigfr/schema-accessibilite-voirie/standard).
+- Les contributions, demandes de corrections et d'évolutions du standard sont répertoriées dans les [issues](https://github.com/cnigfr/schema-accessibilite-voirie/issues).
 
 ## Gitbook du GT CNIG Accessibilité
 
