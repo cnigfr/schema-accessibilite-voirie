@@ -2,7 +2,7 @@
 24/01/2025
 
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLFrame</id><coordinates><x>180</x><y>50</y><w>960</w><h>610</h></coordinates><panel_attributes>*Modèle de données Accessibilité VOIRIE*
-lw=2</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>920</x><y>90</y><w>200</w><h>180</h></coordinates><panel_attributes>*NOEUD*
+lw=2</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>920</x><y>90</y><w>200</w><h>180</h></coordinates><panel_attributes>*NOEUD_CHEMINEMENT*
 --
 bg=orange
 pk   idNoeud : identifiant
