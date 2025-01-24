@@ -1,0 +1,162 @@
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><help_text></help_text><element><id>UMLFrame</id><coordinates><x>0</x><y>30</y><w>1030</w><h>620</h></coordinates><panel_attributes>*Equipements d'accès*
+lw=2</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>30</x><y>100</y><w>230</w><h>210</h></coordinates><panel_attributes>*TRAVERSEE*
+--
+bg=orange
+pk   idTraversee : identifiant
+       etatRevetement : string
+       typeMarquage : string
+       etatMarquage : string
+       eclairage : string
+       feuPietons : booléen
+       aideSonore : string
+       typeAideSonore : string
+       repereLineaire : string
+       presenceIlot : booléen
+       chausseeBombee : booléen
+       voiesTraversees : string
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLState</id><coordinates><x>10</x><y>60</y><w>1010</w><h>580</h></coordinates><panel_attributes>/        Equipement d'accès/
+halign=left
+fg=#995400
+valign=top</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>30</x><y>320</y><w>230</w><h>150</h></coordinates><panel_attributes>*RAMPE ACCES*
+--
+bg=orange
+pk   idRampe : identifiant
+       etatRevetement : string
+       largeurUtile : décimal(2)
+       mainCourante : string
+       distPalierRepos : décimal(2)
+       chasseRoue : string
+       aireRotation : string
+/       poidsSupporté : entier/</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>270</x><y>100</y><w>230</w><h>210</h></coordinates><panel_attributes>*ESCALIER*
+--
+bg=orange
+pk   idEscalier : identifiant
+       etatRevetement : string
+       mainCourante : string
+       dispositifVigilance : string
+       dispositifMarche : string
+       largeurUtile : décimal(2)
+/       mainCouranteContinue : string/
+/       prolongMainCourante : string/
+/       nbMarches : entier/
+/       nbVoleeMarches : entier/
+/       hauteurMarche : décimal(2)/
+/       giron : décimal(2)/
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>530</x><y>100</y><w>230</w><h>300</h></coordinates><panel_attributes>*ASCENSEUR*
+--
+bg=orange
+pk   idAscenseur : identifiant
+       largeurUtile : décimal(2)
+       diamZoneManoeuvre : décimal(2)
+       largeurCabine : décimal(2)
+       longueurCabine : décimal(2)
+       touchesEnRelief : string
+       signalSonore : booléen
+       equipBim : booléen
+       miroir : booléen
+       eclairage : entier
+       voyantAlerte : string
+       annonceEtage : string
+       typeOuverture : string
+       barreAppu : string
+       hauteurBarreAppui : décimal(2)
+/       etatRevetemen : string/
+/       supervision : booléen/
+/       autrePorteSortie : string/
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>530</x><y>410</y><w>230</w><h>210</h></coordinates><panel_attributes>*ELEVATEUR*
+--
+bg=orange
+pk   idElevateur : identifiant
+       largeurUtile : décimal(2)
+       touchesEnRelief : string
+       typeOuverture : string
+       largeurPlateforme : décimal(2)
+       longueurPlateforme : décimal(2)
+       utilisableAutonomie : booléen
+/       chargeMax : entier/
+/       accompagnateur : string/
+/       etatRevetement : string/
+/       supervision : booléen/
+/       autrePorteSortie : string/</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>270</x><y>320</y><w>230</w><h>120</h></coordinates><panel_attributes>*ESCALATOR*
+--
+bg=orange
+pk   idEscalator : identifiant
+       transition : string
+       dispositifVigilance : string
+       largeurUtile : décimal(2)
+/       detecteur : booléen/
+/       supervision : booléen/</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>270</x><y>450</y><w>230</w><h>110</h></coordinates><panel_attributes>*TAPIS ROULANT*
+--
+bg=orange
+pk   idTapis : identifiant
+       sens : string
+       dispositifVigilance : string
+       largeurUtile : décimal(2)
+/       detecteur : booléen/
+
+
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>770</x><y>100</y><w>230</w><h>390</h></coordinates><panel_attributes>*ENTREE*
+--
+bg=orange
+pk   idEntree : identifiant
+       adresse : texte
+       typeEntree : string
+       rampe : string
+       rampeSonnette : booléen
+       ascenseur : booléen
+       escalierNbMarche : entier
+       escalierMainCourante : booléen
+       reperabilite : booléen
+       reperageEltsVitres : booléen
+       signaletique : booléen
+       largeurPassage : décimal(2)
+       controleAcces : string
+       entreeAccueilVisible : booléen
+       eclairage : entier
+       typePorte : string
+       typeOuverture : string
+       espaceManœuvre : string
+       largManoeuvreExt : décimal(2)
+       longManoeuvreExt : décimal(2)
+       largManoeuvreInt : décimal(2)
+       longManoeuvreInt : décimal(2)
+/       typePoignée : string/
+/       effortOuverture : entier/
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>770</x><y>500</y><w>230</w><h>100</h></coordinates><panel_attributes>*PASSAGE SELECTIF*
+--
+bg=orange
+pk   idPassageSelectif : identifiant
+       passageMecanique : booléen
+       largeurUtile : décimal(2)
+       profondeur : décimal(2)
+       contrasteVisuel : booléen
+
+
+
+
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLState</id><coordinates><x>20</x><y>90</y><w>490</w><h>540</h></coordinates><panel_attributes>/ /
+halign=left
+fg=#995400
+valign=top</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLState</id><coordinates><x>520</x><y>90</y><w>490</w><h>540</h></coordinates><panel_attributes>/ /
+halign=left
+fg=#995400
+valign=top</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>960</x><y>30</y><w>70</w><h>20</h></coordinates><panel_attributes>24/01/2025</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>30</x><y>480</y><w>230</w><h>140</h></coordinates><panel_attributes>*QUAI*
+--
+bg=orange
+pk   idQuai : identifiant
+       etatRevetemen : string
+       hauteur : décimal(2)
+       largeurPassage : décimal(2)
+       signalisationPorte : string
+       dispositifVigilance : string
+       diamZoneManoeuvre : décimal(2)
+
+
+</panel_attributes><additional_attributes></additional_attributes></element></diagram>
