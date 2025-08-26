@@ -76,8 +76,8 @@ Remarque : Les tables de la livraison listées dans la table gpkg\_geometry\_co
 - l'identifiant numérique de ce système de coordonnées pour cette organisation (organization\_coordsys\_id) ;
 - la définition au format WKT de ce système de coordonnées (definition) ;
 - Une description textuelle lisible par un être humain de ce système de coordonnées (description).
-
 La présence de cette table dans un fichier GeoPackage est obligatoire.
+
 ### 3.4 **Table gpkg\_metadata**
 La table gpkg\_metadata est une table définie dans [les spécifications du format GeoPackage](https://www.geopackage.org/spec131/#metadata_table_table_definition) qui permet d'associer un ensemble d'éléments de métadonnées à différents éléments du fichier GeoPackage. Pour chaque ensemble d'éléments de métadonnées elle permet de préciser :
 - un identifiant unique (clef primaire) de cet ensemble d'éléments (id) ;
@@ -104,23 +104,19 @@ La livraison en GeoPackage des données conformes au standard CNIG Accessibilit�
 La livraison en GeoPackage implique une implémentation du §3.2 Modèle conceptuel de données et du §3.3 Catalogue d’objets en modèle relationnel sous forme de tables.
 
 Cette partie les décrit en s'appuyant sur le formalisme et les types définis par le format GeoPackage.
-1  ## **Du modèle de données vers le format géopackage**
-   1. ### <a name="__refheading___toc27168_3998824111 copie 1 copie 2 copie 2 copie 1 copie 3 copie 1 copie 1"></a>**Nomenclature des tables**
+
+### 4.1 **Nomenclature des tables**
 Les noms des tables intègrent des éléments d'identification du lot des données.
-
 Ces noms sont écrits intégralement en minuscules, ce qui évite d’avoir à les mettre entre quotes ( " ) lorsqu'on les manipule dans des systèmes comme PostgreSQL.
-1. ### **Dictionnaire des tables**
-Le tableau suivant liste l'ensemble des tables faisant partie de la livraison en précisant :
 
+### 4.2 **Dictionnaire des tables**
+Le tableau suivant liste l'ensemble des tables faisant partie de la livraison en précisant :
 - le nom de la table : valeur de table\_name dans la table **gpkg\_contents** ;
 - le type de table selon la nomenclature de GeoPackage (valeur de l’attribut data\_type dans la table **gpkg\_contents**) ;
 - le type de Géométrie de la table dans la nomenclature de GeoPackage (valeur de l’attribut geometry\_type\_name dans la table **gpkg\_geometry\_columns**) ;
 - les références aux entités du modèle conceptuel implémentées par la table.
-
 Les tables du standard présentes dans la livraison doivent être déclarées dans la table **gpkg\_contents** avec le type de table indiqué dans le tableau suivant.
-
 Les tables ayant pour type features doivent également être déclarées dans la table **gpkg\_geometry\_columns** avec le type de géométrie indiqué dans le tableau suivant.
-
 Remarque : Toutes les tables sont obligatires. Un lot de données ne comprenant pas de passages sélectifs comprendra bien la table **passage\_selectif** mais vide (aucun enregistrement à l’intérieur de la table)
 
 |**Nom de la table**|<p>**Type de table**</p><p>**(GPKG)**</p>|<p>**Type de**</p><p>**géométrie**</p>|**Classes d’objets implémentées**|
@@ -131,7 +127,7 @@ Remarque : Toutes les tables sont obligatires. Un lot de données ne comprenant
 |**gpkg\_metadata**||aucune|table des éléments de métadonnées|
 |**gpkg\_metadata\_reference**||aucune|table référençant la table des éléments de métadonnées|
 
-1. ### **Tables correspondant aux classes d’objets**
+### 4.3 **Tables correspondant aux classes d’objets**
 
 |**cheminement**|attributes|aucune|
 | :- | :- | :- |
@@ -153,15 +149,15 @@ Remarque : Toutes les tables sont obligatires. Un lot de données ne comprenant
 |**erp**|features|POLYGON|
 |**cheminement\_erp**|attributes|aucune|
 
-1. ### **Description des tables**
+### 4.4 **Description des tables**
 Chaque table correspondant à une classe d’objets reprend la structure définie au [§3.3 Catalogue d’objets](#3.3.catalogue d’objets|outline).
-1. ### **Noms des attributs**
+
+### 4.5 **Noms des attributs**
 Les noms des attributs sont identiques à ceux du catalogue d’objet.
-
 Leur graphie est en minuscules et sans caractère accentué ni cédille.
-1. ### **Couches géométriques**
-L’attribut « geom » est ajouté en dernière position aux classes porteuses de géométrie (features) listées ci-dessus.
 
+### 4.6 **Couches géométriques**
+L’attribut « geom » est ajouté en dernière position aux classes porteuses de géométrie (features) listées ci-dessus.
 Exemple sur la classe [troncon_cheminement](#2.tronçon de cheminement|outline) :
 
 |idtroncon|
@@ -176,7 +172,8 @@ Exemple sur la classe [troncon_cheminement](#2.tronçon de cheminement|outline)
 |geom|
 
 l’attribut « geom » est ajouté en dernière position.
-1. ### **Type des attributs**
+
+### 4.7 **Type des attributs**
 Le type Géopackage des attributs respecte la nomenclature GeoPackage et est établi en suivant ce tableau de correspondance :
 
 |Type dans le [catalogue d’objet](#3.3.catalogue d’objets|outline)|Type Géopackage|
@@ -194,7 +191,7 @@ Le type Géopackage des attributs respecte la nomenclature GeoPackage et est ét
 |*(geom) géométrie ponctuelle*|POINT|
 |*(geom) géométrie surfacique*|POLYGON|
 
-1. ### **Admission de la valeur “NULL”**
+### 4.8 **Admission de la valeur “NULL”**
 Le [§3.3 Catalogue d’objets](#3.3.catalogue d’objets|outline) présente trois niveaux d’attributs :
 
 1. Les attributs obligatoirement présents dont le renseignement est obligatoire. Ces attributs sont désignés **en gras**. Pour ces attributs :
@@ -207,16 +204,14 @@ Le [§3.3 Catalogue d’objets](#3.3.catalogue d’objets|outline) présente tro
    - ces attributs peuvent être absents de la table concernée
    - s’ils sont présents, la valeur NULL est admise
 
-1. ### **Contraintes ou restrictions sur les valeurs d’attributs**
+### 4.9 **Contraintes ou restrictions sur les valeurs d’attributs**
 On respectera les contraintes définies pour chaque attribut dans le [§3.3 Catalogie d’objet](#3.3.catalogue d’objets|outline).
-
 Il s’agit notamment des mentions :
-
 - « valeur NC non autorisée » (dans le cas d’une liste de valeurs),
 - « valeur vide autorisée » (comprendre : valeur null autorisée, cf. ci-dessus)
 - des valeurs d’attributs conditionnées par la valeur d’un autre attribut de la même table
 
-1. ### **Clés primaires**
+### 4.10 **Clés primaires**
 Le premier attribut de chaque table est son identifiant : id<classe>. Cet attribut correspond à la clé primaire de la table relationnelle :
 
 |**Classe**|**Clé primaire**|
@@ -240,7 +235,7 @@ Le premier attribut de chaque table est son identifiant : id<classe>. Cet attri
 |**erp**|iderp|
 |**cheminement\_erp**|idcheminementerp|
 
-1  ## **Tables correspondant aux listes de valeurs énumérées**
+### 4.11 **Tables correspondant aux listes de valeurs énumérées**
 
 |**enum\_categorie\_erp**|attributes|aucune|
 | :- | :- | :- |
@@ -278,9 +273,10 @@ Le premier attribut de chaque table est son identifiant : id<classe>. Cet attri
 |**enum\_type\_sol**|attributes|aucune|
 |**enum\_voyant\_ascenseur**|attributes|aucune|
 
-1  ## **Tables correspondant aux relations entre les classes d’objets**
+### 4.12 **Tables correspondant aux relations entre les classes d’objets**
 Les relations entre les classes d'objets, décrites au [§3.4 Relations entre les classes d’objets](#3.4.relations entre les classes d'objets|outline), se traduisent pour les relations de cardinalité [1..n] (soit : 1 à plusieurs) par l’intégration d’attributs désignant des [clés étrangères](https://fr.wikipedia.org/wiki/Clé_étrangère) (fk pour « foreign key ») dans les tables.
-1. ### **Relation entre troncon\_cheminement et nœud\_cheminement**
+
+#### 4.12.1 **Relation entre troncon\_cheminement et nœud\_cheminement**
 La relation topologique *« est nœud initial / final »* se traduit par la présence des attributs from et to comme clé étrangères dans la table troncon\_cheminement.
 
 |**troncon\_cheminement**||
@@ -291,17 +287,12 @@ La relation topologique *« est nœud initial / final »* se traduit par la pr
 |*<attributs suivants de la table troncon\_cheminement...>*||
 |geom|géométrie linéaire du troncon\_cheminement|
 
-1. ### **Relations « 1 à (0 ou 1) »**
+#### 4.12.2 **Relations « 1 à (0 ou 1) »**
 Il s’agit des relations de correspondance entre :
-
 a) un tronçon de cheminement et une circulation
-
 b) ou (ou exclusif) un tronçon de cheminement et un équipement d’accès linéaire
-
 c) un nœud de cheminement et un équipement d’accès ponctuel ou un stationnement\_pmr
-
 Ces relations se traduisent par :
-
 a-b) la présence de l’attribut idtroncon comme clé étrangère et les attributs  de la table troncon\_cheminement dans la table circulation et dans les tables correspondant à des équipements d’accès linéaires : traversee ; rampe\_acces ; escalier ; escalator ; tapis\_roulant ; quai
 
 |**circulation**||
@@ -320,11 +311,9 @@ a-b) la présence de l’attribut idtroncon comme clé étrangère et les attrib
 |*<attributs suivants de la table ascenseur...>*||
 |*geom*|géométrie du noeud de cheminement|
 
-1. ### <a name="__refheading___toc27168_3998824111 copie 1 copie 2 copie 2 copie 2 copie 3 copie 1 copie 1 copie 1 copie 2 copie 2"></a>**Relations « 1 à n »**
+#### 4.12.3 **Relations « 1 à n »**
 Il s’agit des relations « 1 à plusieurs », par exemple la relation : [troncon_cheminement (1,1) comporte obstacle (0,n)](#tableau45|table), que l’on peut traduire par : *« un tronçon de cheminement comporte aucun, un ou plusieurs obstacles, et un obstacle se situe sur un tronçon de cheminement et un seul »*
-
 Dans ce cas, l’identifiant de la classe mettant en relation 1 élément au maximum devient clé étrangère de la classe mettant en relation potentiellement plusieurs éléments.
-
 Dans cet exemple : idtroncon devient clé étrangère dans la table obstacle :
 
 |**obstacle**||
@@ -335,23 +324,16 @@ Dans cet exemple : idtroncon devient clé étrangère dans la table obstacle :
 |geom|géométrie ponctuelle de l’obstacle|
 
 On adoptera le même principe pour les relations de cardinalité « 1 à plusieurs » :
-
 \- troncon\_cheminement (1,1) comporte obstacle (0,n),
-
 \- ERP (1,1) dispose de CHEMINEMENT\_ERP (0,n)
-
 etc.
-1. ### **Relations « n à m »**
+
+#### 4.12.4 **Relations « n à m »**
 Il s’agit des relations « plusieurs à plusieurs », que l’on retrouve dans :
-
 \- la relation d’association entre les cheminements et les tronçons qui les composent :
-
 « Un cheminement est composé de plusieurs tronçons de cheminement, mais un tronçon de cheminement peut également appartenir à plusieurs cheminements. »
-
 \- la relation d’association entre nœud de cheminement et stationnement PMR
-
 \- la relation d’association entre une entrée et un ERP
-
 Ces relations impliquent la création de trois tables relationnelles spécifiques :
 
 |**relation\_cheminement\_troncon**||
@@ -379,7 +361,7 @@ Ces relations impliquent la création de trois tables relationnelles spécifique
 ## 5. **Tables de métadonnées**
 Les éléments de métadonnées du lot de données formatées en GeoPackage sont à renseigner par une ligne dans la table gpkg\_metadata et une ligne dans la table gpkg\_metadata\_reference, de la manière suivante :
 
-### **Table gpkg\_metadata**
+### 5.1 **Table gpkg\_metadata**
 
 |**gpkg\_metadata**||
 | :- | :- |
@@ -389,7 +371,7 @@ Les éléments de métadonnées du lot de données formatées en GeoPackage sont
 |mime\_type|text/xml|
 |metadata|Contenu des métadonnées implémenté en XML suivant le [§4.5 Métadonnées](#4.5. métadonnées|outline)|
 
-### **Table gpkg\_metadata\_reference**
+### 5.2 **Table gpkg\_metadata\_reference**
 
 |**gpkg\_metadata\_reference**|||
 | :- | :- | :- |
