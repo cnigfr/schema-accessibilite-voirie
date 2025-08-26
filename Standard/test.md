@@ -330,10 +330,9 @@ etc.
 
 #### 4.12.4 **Relations « n à m »**
 Il s’agit des relations « plusieurs à plusieurs », que l’on retrouve dans :
-\- la relation d’association entre les cheminements et les tronçons qui les composent :
-« Un cheminement est composé de plusieurs tronçons de cheminement, mais un tronçon de cheminement peut également appartenir à plusieurs cheminements. »
-\- la relation d’association entre nœud de cheminement et stationnement PMR
-\- la relation d’association entre une entrée et un ERP
+- la relation d’association entre les cheminements et les tronçons qui les composent : « Un cheminement est composé de plusieurs tronçons de cheminement, mais un tronçon de cheminement peut également appartenir à plusieurs cheminements. »
+- la relation d’association entre nœud de cheminement et stationnement PMR
+- la relation d’association entre une entrée et un ERP
 Ces relations impliquent la création de trois tables relationnelles spécifiques :
 
 |**relation\_cheminement\_troncon**||
@@ -353,11 +352,6 @@ Ces relations impliquent la création de trois tables relationnelles spécifique
 |identree|clé étrangère issue de la table noeud\_cheminement|
 |iderp|clé étrangère issue de la table stationnement|
 
-|**relation\_cheminement\_troncon**|relation|aucune|relation entre [cheminement et troncon_cheminement](#tableau137|table)|
-| :- | :- | :- | :- |
-|**relation\_noeud\_stationnement**|relation|aucune|relation entre [noeud_cheminement et stationnement_pmr](#tableau140|table)|
-|**relation\_entree\_erp**|relation|aucune|relation entre [entree et erp](#tableau100|table)|
-
 ## 5. **Tables de métadonnées**
 Les éléments de métadonnées du lot de données formatées en GeoPackage sont à renseigner par une ligne dans la table gpkg\_metadata et une ligne dans la table gpkg\_metadata\_reference, de la manière suivante :
 
@@ -373,15 +367,15 @@ Les éléments de métadonnées du lot de données formatées en GeoPackage sont
 
 ### 5.2 **Table gpkg\_metadata\_reference**
 
-|**gpkg\_metadata\_reference**|||
-| :- | :- | :- |
-|reference\_scope|'geopackage'||
-|table\_name|NULL||
-|column\_name|NULL||
-|row\_id\_value|NULL||
-|timestamp|< date AAAAMMJJ de production des métadonnées >||
-|md\_file\_id|1 (identifiant des métadonnées dans la table gpkg\_metadata)||
-|md\_parent\_id|NULL||
+|**gpkg\_metadata\_reference**||
+| :- | :- |
+|reference\_scope|'geopackage'|
+|table\_name|NULL|
+|column\_name|NULL|
+|row\_id\_value|NULL|
+|timestamp|< date AAAAMMJJ de production des métadonnées >|
+|md\_file\_id|1 (identifiant des métadonnées dans la table gpkg\_metadata)|
+|md\_parent\_id|NULL|
 
 
 
