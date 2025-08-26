@@ -18,10 +18,11 @@ Les échanges des données conformes au standard CNIG Accessibilité se font au 
 
 ## 2. **Contenu de la livraison**
 Le modèle physique implémenté avec GeoPackage est un modèle de données relationnel à l'instar de SQLite sur lequel il s'appuie. De ce fait, l'implémentation des données proposées pour la livraison se fera sous forme de tables :
-- les tables intrinsèques au format GeoPackage, décrites au [§6.3](#6.3.tables intrinsèques à geopackage|outline) ;
+- les tables intrinsèques au format GeoPackage, décrites ci-dessous ;
 - les tables implémentant les données du standard CNIG Accessibilité.
+  
 La granularité d'un lot de données correspond à une campagne de collecte et de production de données du cheminement accessible en voirie.
-Une livraison comprend l'ensemble des tables définies dans le standard CNIG Accessibilité et listées au [§ Tables à livrer](#19.tables à livrer|outline).
+Une livraison comprend l'ensemble des tables définies dans le standard CNIG Accessibilité et listées au § Tables à livrer.
 Des gabarits au format GeoPackage implémentant la stucture des tables décrites par ce standard seront disponibles sur le dépôt [Github du standard CNIG Accessibilité](https://github.com/cnigfr/schema-accessibilite-voirie) et sur [le site du CNIG](https://cnig.gouv.fr/ressources-accessibilite-a25335.html).
 
 ### 2.1 **Nom du fichier de livraison**
@@ -40,7 +41,7 @@ Ce schéma, issu de GeoPackage v1.3.1, illustre la structure des tables intrins�
 
 Les trois tables gpkg\_contents, gpkg\_geometry\_columns et gpkg\_spatial\_ref\_sys permettent de décrire les tables de données « accessibilité » du GeoPackage et d'en gérer l'aspect géographique.
 Les deux tables gpkg\_metadata et gpkg\_metadata\_reference permettent d'associer des informations de métadonnées.
-Les métadonnées décrites au [§4.5 Métadonnées](#4.5. métadonnées|outline) peuvent ainsi intégrer le fichier GeoPackage.
+Les métadonnées décrites au §4.5 Métadonnées peuvent ainsi intégrer le fichier GeoPackage.
 
 ### 3.1 **Table gpkg\_contents**
 La table gpkg\_contents est définie dans [les spécifications du format GeoPackage](https://www.geopackage.org/spec131/#_contents).
@@ -68,7 +69,7 @@ Remarque : Les tables de la livraison listées dans la table gpkg\_geometry\_co
 ### 3.3 **Table gpkg\_spatial\_ref\_sys**
    La table gpkg\_spatial\_ref\_sys est une table définie dans [les spécifications du format GeoPackage](https://www.geopackage.org/spec131/).
    Elle liste l'ensemble des systèmes de coordonnées et leurs définitions sur lesquels s'appuient les géométries des tables de données de type features du GeoPackage.
-   Pour chacun des systèmes de coordonnées déclarés et décrits au [§ 3.1 Système de référence spatial](#système de référence spatial|outline), elle permet de préciser :
+   Pour chacun des systèmes de coordonnées déclarés et décrits au § 3.1 Système de référence spatial, elle permet de préciser :
 
 - un nom lisible par une personne (srs\_name) ;
 - un identifiant unique pour de ce système de coordonnées (clef primaire) dans le GeoPackage (srs\_id) ;
