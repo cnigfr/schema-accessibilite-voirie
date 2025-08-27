@@ -64,72 +64,72 @@ Les métadonnées décrites au §4.5 Métadonnées du [Standard CNIG Accessibili
 La table `gpkg_contents` est définie dans [les spécifications du format GeoPackage](https://www.geopackage.org/spec131/#_contents).
 
 Il s’agit de la table dictionnaire des tables de données (hors tables "systèmes") présentes dans l’échange de données. Elle liste l'ensemble de ces tables en indiquant pour chacune :
-- son nom (table_name) ;
-- son type de données (data_type), à savoir vecteur (features), raster (tiles) ou tabulaire sans géométrie (attributes) ;
-- un identifiant (identifier) ;
-- sa description optionnelle (description) ;
-- la date de dernière modification (last\_change) ;
-- l'emprise géographique de la table (si elle est de type vecteur ou raster) : min_x, min_y, max_x, max_y ;
-- l'identifiant du système de coordonnées pour la géométrie s'il y en a une (srs_id) indiqué dans la table `gpkg_spatial_ref_sys.srs_id`.
+- son nom (`table_name`) ;
+- son type de données (`data_type`), à savoir vecteur (features), raster (tiles) ou tabulaire sans géométrie (`attributes`) ;
+- un identifiant (`identifier`) ;
+- sa description optionnelle (`description`) ;
+- la date de dernière modification (`last_change`) ;
+- l'emprise géographique de la table (si elle est de type vecteur ou raster) : `min_x`, `min_y`, `max_x`, `max_y` ;
+- l'identifiant du système de coordonnées pour la géométrie s'il y en a une (`srs_id`) indiqué dans la table `gpkg_spatial_ref_sys.srs_id`.
 
 L’échange des données au format GeoPackage contient obligatoirement la table `gpkg_contents` conforme à la structure du format GeoPackage qui liste l'ensemble des tables du standard CNIG Accessibilité présentes dans la livraison.
 
 ### 3.2 **Table gpkg_geometry_columns**
-La table `gpkg_geometry_columns` est une table définie dans [les spécifications du format GeoPackage](https://www.geopackage.org/spec131/#_gpkg_geometry_columns) qui identifie les colonnes portant la géométrie ainsi que leur type dans les tables de données de type features du GeoPackage.
+La table `gpkg_geometry_columns` est une table définie dans [les spécifications du format GeoPackage](https://www.geopackage.org/spec131/#_gpkg_geometry_columns) qui identifie les colonnes portant la géométrie ainsi que leur type dans les tables de données de type `features` du GeoPackage.
 
 Pour chacune d'elle, elle permet de préciser :
-- son nom (table_name) ;
-- le nom de la colonne portant la géométrie pour cette table (column_name) ;
-- le type de géométrie porté par cette colonne (geometry_type_name) ;
-- l'identifiant du système de coordonnées pour cette géométrie (srs_id) indiqué dans la table `gpkg_spatial_ref_sys.srs_id` ;
-- une valeur entière indiquant si la géométrie peut comporter une composante altimétrique (z) ;
-- une valeur entière indiquant si la géométrie peut comporter une composante temporelle (m).
+- son nom (`table_name`) ;
+- le nom de la colonne portant la géométrie pour cette table (`column_name`) ;
+- le type de géométrie porté par cette colonne (`geometry_type_name`) ;
+- l'identifiant du système de coordonnées pour cette géométrie (`srs_id`) indiqué dans la table `gpkg_spatial_ref_sys.srs_id` ;
+- une valeur entière indiquant si la géométrie peut comporter une composante altimétrique (`z`) ;
+- une valeur entière indiquant si la géométrie peut comporter une composante temporelle (`m`).
 
 Remarque : Les tables de la livraison listées dans la table `gpkg_geometry_columns` conformes au standard CNIG Accessibilité n'ont pas de composante altimétrique (car l’altitude des nœuds de cheminement n’est pas portée par leur géométrie mais par l’attribut « altitude »), ni de composante temporelle. Les valeurs de z et m pour ces tables sont donc égales à 0.
 
 ### 3.3 **Table gpkg_spatial_ref_sys**
 La table `gpkg_spatial_ref_sys` est une table définie dans [les spécifications du format GeoPackage](https://www.geopackage.org/spec131/).
 
-Elle liste l'ensemble des systèmes de coordonnées et leurs définitions sur lesquels s'appuient les géométries des tables de données de type features du GeoPackage.
+Elle liste l'ensemble des systèmes de coordonnées et leurs définitions sur lesquels s'appuient les géométries des tables de données de type `features` du GeoPackage.
 
-Pour chacun des systèmes de coordonnées déclarés et décrits au § 3.1 Système de référence spatial, elle permet de préciser :
+Pour chacun des systèmes de coordonnées déclarés et décrits au § 3.1 Système de référence spatial du [standard CNIG Accessibilité](https://cnig.gouv.fr/ressources-accessibilite-a25335.html), elle permet de préciser :
 
-- un nom lisible par une personne (srs_name) ;
-- un identifiant unique pour de ce système de coordonnées (clef primaire) dans le GeoPackage (srs_id) ;
-- le nom de l'organisation qui définit ce système de coordonnées (organization) ;
-- l'identifiant numérique de ce système de coordonnées pour cette organisation (organization_coordsys_id) ;
-- la définition au format WKT de ce système de coordonnées (definition) ;
-- Une description textuelle lisible par un être humain de ce système de coordonnées (description).
+- un nom lisible par une personne (`srs_name`) ;
+- un identifiant unique pour de ce système de coordonnées (clef primaire) dans le GeoPackage (`srs_id`) ;
+- le nom de l'organisation qui définit ce système de coordonnées (`organization`) ;
+- l'identifiant numérique de ce système de coordonnées pour cette organisation (`organization_coordsys_id`) ;
+- la définition au format WKT de ce système de coordonnées (`definition`) ;
+- Une description textuelle lisible par un être humain de ce système de coordonnées (`description`).
 
 La présence de cette table dans un fichier GeoPackage est obligatoire.
 
 ### 3.4 **Table gpkg_metadata**
 La table `gpkg_metadata` est une table définie dans [les spécifications du format GeoPackage](https://www.geopackage.org/spec131/#metadata_table_table_definition) qui permet d'associer un ensemble d'éléments de métadonnées à différents éléments du fichier GeoPackage. Pour chaque ensemble d'éléments de métadonnées elle permet de préciser :
-- un identifiant unique (clef primaire) de cet ensemble d'éléments (id) ;
-- le niveau hiérarchique de cet ensemble d'éléments (md_scope) ;
-- l'URI correspondant au formalisme de métadonnées utilisé pour ces éléments (md_standard_uri) ;
-- le type MIME correspondant à l'encodage de ces ensembles d'éléments de métadonnées (mime_type) ;
-- l'implémentation de cet ensemble d'éléments de métadonnées (metadata).
+- un identifiant unique (clef primaire) de cet ensemble d'éléments (`id`) ;
+- le niveau hiérarchique de cet ensemble d'éléments (`md_scope`) ;
+- l'URI correspondant au formalisme de métadonnées utilisé pour ces éléments (`md_standard_uri`) ;
+- le type MIME correspondant à l'encodage de ces ensembles d'éléments de métadonnées (`mime_type`) ;
+- l'implémentation de cet ensemble d'éléments de métadonnées (`metadata`).
 
 La livraison en GeoPackage des données conformes doit contenir une table gpkg_metadata qui contient à minima une ligne correspondant aux éléments de métadonnées du jeu de données constituant la livraison telle que décrite au §4.5 Métadonnées du [standard CNIG Accessibilité](https://cnig.gouv.fr/ressources-accessibilite-a25335.html).
 
 ### 3.5 **Table gpkg_metadata_reference**
-La table `gpkg_metadata_reference` est une table définie dans [les spécifications du format GeoPackage](https://www.geopackage.org/spec131/#metadata_table_table_definition) qui permet de lier les éléments de métadonnées présents dans la table gpkg_metadata avec les données de la livraison qu'ils décrivent en fonction de leur niveau de granularité (ou domaine d'application) et d'établir une hiérarchie entre eux.
+La table `gpkg_metadata_reference` est une table définie dans [les spécifications du format GeoPackage](https://www.geopackage.org/spec131/#metadata_table_table_definition) qui permet de lier les éléments de métadonnées présents dans la table `gpkg_metadata` avec les données de la livraison qu'ils décrivent en fonction de leur niveau de granularité (ou domaine d'application) et d'établir une hiérarchie entre eux.
 Pour chacun de ces éléments, elle permet de préciser :
-- le domaine d'application de l'ensemble des éléments de métadonnées (reference_scope) ;
-- éventuellement le nom de la table qui est référencée par ces métadonnées (table_name) ;
-- éventuellement le nom de la colonne de la table mentionnée précédemment qui est référencée par ces métadonnées (column_name) ;
-- éventuellement la valeur de l'identifiant d'un objet (ligne) de la table mentionnée précédemment qui est référencée par ces métadonnées (row_id\value) ;
-- l’horodatage de cet élément (timestamp) ;
-- l'identifiant de l'ensemble des éléments de métadonnées dans la table gpkg_metadata (clef étrangère) auquel s'applique cet élément (md_file_id) ;
-- l'identifiant de l'ensemble des éléments de métadonnées parent (clef étrangère) dans la table gpkg_metadata (md_file_id).
+- le domaine d'application de l'ensemble des éléments de métadonnées (`reference_scope`) ;
+- éventuellement le nom de la table qui est référencée par ces métadonnées (`table_name`) ;
+- éventuellement le nom de la colonne de la table mentionnée précédemment qui est référencée par ces métadonnées (`column_name`) ;
+- éventuellement la valeur de l'identifiant d'un objet (ligne) de la table mentionnée précédemment qui est référencée par ces métadonnées (`row_id_value`) ;
+- l’horodatage de cet élément (`timestamp`) ;
+- l'identifiant de l'ensemble des éléments de métadonnées dans la table gpkg_metadata (clef étrangère) auquel s'applique cet élément (`md_file_id`) ;
+- l'identifiant de l'ensemble des éléments de métadonnées parent (clef étrangère) dans la table `gpkg_metadata` (`md_file_id`).
 
-La présence de cette table dans un fichier GeoPackage est facultative mais devient obligatoire lorsqu’une une table gpkg_metadata est présente.
+La présence de cette table dans un fichier GeoPackage est facultative mais devient obligatoire lorsqu’une une table `gpkg_metadata` est présente.
 
 La livraison en GeoPackage des données conformes au standard CNIG Accessibilité doit contenir une table `gpkg_metadata_reference` qui contient à minima une ligne correspondant aux éléments de métadonnées du jeu de données constituant la livraison telle que décrite au §4.5 Métadonnées du [standard CNIG Accessibilité](https://cnig.gouv.fr/ressources-accessibilite-a25335.html).
 
 ## 4. **Tables des données d’accessibilité**
-La livraison en GeoPackage implique une implémentation du §3.2 Modèle conceptuel de données et du §3.3 Catalogue d’objets en modèle relationnel sous forme de tables.
+La livraison en GeoPackage implique une implémentation du §3.2 Modèle conceptuel de données et du §3.3 Catalogue d’objets du [standard CNIG Accessibilité](https://cnig.gouv.fr/ressources-accessibilite-a25335.html) en modèle relationnel sous forme de tables.
 
 Cette partie les décrit en s'appuyant sur le formalisme et les types définis par le format GeoPackage.
 
@@ -178,7 +178,7 @@ Remarque : Toutes les tables sont obligatires. Un lot de données ne comprenant
 |**cheminement\_erp**|attributes|aucune|
 
 ### 4.4 **Description des tables**
-Chaque table correspondant à une classe d’objets reprend la structure définie au §3.3 Catalogue d’objets.
+Chaque table correspondant à une classe d’objets reprend la structure définie au §3.3 Catalogue d’objets du [standard CNIG Accessibilité](https://cnig.gouv.fr/ressources-accessibilite-a25335.html).
 
 ### 4.5 **Noms des attributs**
 Les noms des attributs sont identiques à ceux du catalogue d’objet.
@@ -220,7 +220,7 @@ Le type Géopackage des attributs respecte la nomenclature GeoPackage et est ét
 |*(geom) géométrie surfacique*|POLYGON|
 
 ### 4.8 **Admission de la valeur “NULL”**
-Le §3.3 Catalogue d’objets présente trois niveaux d’attributs :
+Le §3.3 Catalogue d’objets du [standard CNIG Accessibilité](https://cnig.gouv.fr/ressources-accessibilite-a25335.html) présente trois niveaux d’attributs :
 
 1. Les attributs obligatoirement présents dont le renseignement est obligatoire. Ces attributs sont désignés **en gras**. Pour ces attributs :
    - la valeur NULL n’est pas admise. Ces attributs sont désignés NOT NULL
@@ -302,7 +302,7 @@ Le premier attribut de chaque table est son identifiant : id<classe>. Cet attri
 |**enum\_voyant\_ascenseur**|attributes|aucune|
 
 ### 4.12 **Tables correspondant aux relations entre les classes d’objets**
-Les relations entre les classes d'objets, décrites au §3.4 Relations entre les classes d’objets, se traduisent pour les relations de cardinalité [1..n] (soit : 1 à plusieurs) par l’intégration d’attributs désignant des [clés étrangères](https://fr.wikipedia.org/wiki/Clé_étrangère) (fk pour « foreign key ») dans les tables.
+Les relations entre les classes d'objets, décrites au §3.4 Relations entre les classes d’objets du [standard CNIG Accessibilité](https://cnig.gouv.fr/ressources-accessibilite-a25335.html), se traduisent pour les relations de cardinalité [1..n] (soit : 1 à plusieurs) par l’intégration d’attributs désignant des [clés étrangères](https://fr.wikipedia.org/wiki/Clé_étrangère) (fk pour « foreign key ») dans les tables.
 
 #### 4.12.1 **Relation entre troncon\_cheminement et nœud\_cheminement**
 La relation topologique *« est nœud initial / final »* se traduit par la présence des attributs from et to comme clé étrangères dans la table troncon\_cheminement.
@@ -393,7 +393,7 @@ Les éléments de métadonnées du lot de données formatées en GeoPackage sont
 |md\_scope|dataset|
 |md\_standard\_uri|http://www.isotc211.org/2005/gmd|
 |mime\_type|text/xml|
-|metadata|Contenu des métadonnées implémenté en XML suivant le §4.5 Métadonnées|
+|metadata|Contenu des métadonnées implémenté en XML suivant le §4.5 Métadonnées du [standard CNIG Accessibilité](https://cnig.gouv.fr/ressources-accessibilite-a25335.html)|
 
 ### 5.2 **Table gpkg\_metadata\_reference**
 
