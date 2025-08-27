@@ -251,7 +251,7 @@ Le premier attribut de chaque table est son identifiant : id<classe>. Cet attri
 |**troncon_cheminement**|`idtroncon`|
 |**noeud_cheminement**|`idnoeud`|
 |**obstacle**|`idobstacle`|
-|**circulation**|vidcirculation`|
+|**circulation**|`circulation`|
 |**traversee**|`idtraversee`|
 |**rampe_acces**|`idrampe`|
 |**escalier**|`idescalier`|
@@ -269,147 +269,111 @@ Le premier attribut de chaque table est son identifiant : id<classe>. Cet attri
 ### 4.11 **Tables correspondant aux listes de valeurs énumérées**
 
 Toutes les tables correspondant aux listes de valeurs énumérées
-- sont préixées par **enum_**. Par exemple : **enum_controle_acces**, **enum_controle_bev**, etc.
+- sont préfixées par **enum_**. Exemples : **enum_controle_acces**, **enum_controle_bev**, etc.
 - sont des tables de type `attributes` pour le format Géopackage
-
-|**enum\_categorie\_erp**|attributes|aucune|
-| :- | :- | :- |
-|**enum_controle_acces**|attributes|aucune|
-|**enum_controle_bev**|attributes|aucune|
-|**enum_cote**|attributes|aucune|
-|**enum_couvert**|attributes|aucune|
-|**enum_dispositif_signalisation**|attributes|aucune|
-|**enum_eclairage**|attributes|aucune|
-|**enum_etat**|attributes|aucune|
-|**enum_etat_revetement**|attributes|aucune|
-|**enum_marquage**|attributes|aucune|
-|**enum_masque_covisibilite**|attributes|aucune|
-|**enum_personnel_erp**|attributes|aucune|
-|**enum_position_espace**|attributes|aucune|
-|**enum_position_hauteur**|attributes|aucune|
-|**enum_position_obstacle**|attributes|aucune|
-|**enum_rampe_erp**|attributes|aucune|
-|**enum_rappel_obstacle**|attributes|aucune|
-|**enum_relief_boutons**|attributes|aucune|
-|**enum_repere_lineaire**|attributes|aucune|
-|**enum_sens**|attributes|aucune|
-|**enum_statut_voie**|attributes|aucune|
-|**enum_temporalite**|attributes|aucune|
-|**enum_transition**|attributes|aucune|
-|**enum_type_passage**|attributes|aucune|
-|**enum_type_poignee**|attributes|aucune|
-|**enum_type_porte**|attributes|aucune|
-|**enum_type_troncon**|attributes|aucune|
-|**enum_type_entree**|attributes|aucune|
-|**enum_type_erp**|attributes|aucune|
-|**enum_type_obstacle**|attributes|aucune|
-|**enum_type_ouverture**|attributes|aucune|
-|**enum_type_stationnement**|attributes|aucune|
-|**enum_type_sol**|attributes|aucune|
-|**enum_voyant_ascenseur**|attributes|aucune|
 
 ### 4.12 **Tables correspondant aux relations entre les classes d’objets**
 Les relations entre les classes d'objets, décrites au §3.4 Relations entre les classes d’objets du [standard CNIG Accessibilité](https://cnig.gouv.fr/ressources-accessibilite-a25335.html), se traduisent pour les relations de cardinalité [1..n] (soit : 1 à plusieurs) par l’intégration d’attributs désignant des [clés étrangères](https://fr.wikipedia.org/wiki/Clé_étrangère) (fk pour « foreign key ») dans les tables.
 
-#### 4.12.1 **Relation entre troncon\_cheminement et nœud\_cheminement**
-La relation topologique *« est nœud initial / final »* se traduit par la présence des attributs from et to comme clé étrangères dans la table troncon\_cheminement.
+#### 4.12.1 **Relation entre troncon_cheminement et nœud_cheminement**
+La relation topologique *« est nœud initial / final »* se traduit par la présence des attributs `from` et `to` comme clé étrangères dans la table `troncon_cheminement`.
 
-|**troncon\_cheminement**||
+|**troncon_cheminement**||
 | :- | :- |
-|idtroncon|clé primaire de la table  troncon\_cheminement|
-|from|clé étrangère issue de la table nœud\_cheminement|
-|to|clé étrangère issue de la table nœud\_cheminement|
-|*<attributs suivants de la table troncon\_cheminement...>*||
-|geom|géométrie linéaire du troncon\_cheminement|
+|`idtroncon`|clé primaire de la table `troncon_cheminement`|
+|`from`|clé étrangère issue de la table `noeud_cheminement`|
+|`to`|clé étrangère issue de la table `noeud_cheminement`|
+|*\<attributs suivants de la table troncon_cheminement...>*|
+|`geom`|géométrie linéaire du troncon_cheminement|
 
 #### 4.12.2 **Relations « 1 à (0 ou 1) »**
 Il s’agit des relations de correspondance entre :
 a) un tronçon de cheminement et une circulation
 b) ou (ou exclusif) un tronçon de cheminement et un équipement d’accès linéaire
-c) un nœud de cheminement et un équipement d’accès ponctuel ou un stationnement\_pmr
+c) un nœud de cheminement et un équipement d’accès ponctuel ou (ou exclusif) un stationnement_pmr
 Ces relations se traduisent par :
-a-b) la présence de l’attribut idtroncon comme clé étrangère et les attributs  de la table troncon\_cheminement dans la table circulation et dans les tables correspondant à des équipements d’accès linéaires : traversee ; rampe\_acces ; escalier ; escalator ; tapis\_roulant ; quai
+a-b) la présence de l’attribut `idtroncon` comme clé étrangère, et les attributs  de la table `troncon_cheminement` dans la table `circulation` et dans les tables correspondant à des équipements d’accès linéaires : `traverse`e ; `rampe_acces` ; `escalier` ; `escalator` ; `tapis_roulant` ; `quai`
 
 |**traversee**||
 | :- | :- |
-|idtraversee|clé primaire de la table|
-|idtroncon|clé étrangère issue de la table troncon\_cheminement|
-|*<attributs  de la table troncon\_cheminement...>*||
-|*\<attributs de la table traversee...\>*||
-|*geom*|géométrie du tronçon de cheminement|
+|`idtraversee`|clé primaire de la table|
+|`idtroncon`|clé étrangère issue de la table troncon_cheminement|
+|*\<attributs  de la table `troncon_cheminement`...>*||
+|*\<attributs de la table `traversee`...\>*||
+|*`geom`*|géométrie du tronçon de cheminement|
 
-c) le même principe est adopté dans les tables correspondant à des équipements d’accès ponctuels ou un stationnement\_pmr :
+c) le même principe est adopté pour les tables correspondant à des équipements d’accès ponctuels ou un stationnement_pmr :
 
 |**ascenseur**||
 | :- | :- |
-|idascenseur|clé primaire de la table|
-|idnoeud|clé étrangère issue de la table noeud\_cheminement|
-|*<attributs de la table noeud\_cheminement...>*||
-|*\<attributs de la table ascenseur...\>*||
-|*geom*|géométrie du noeud de cheminement|
+|`idascenseur`|clé primaire de la table `ascenseur`|
+|`idnoeud`|clé étrangère issue de la table `noeud_cheminement`|
+|*\<attributs de la table noeud_cheminement...>*||
+|*\<attributs de la table ascenseur...>*||
+|*`geom`*|géométrie du noeud de cheminement|
 
 #### 4.12.3 **Relations « 1 à n »**
-Il s’agit des relations « 1 à plusieurs », par exemple la relation : [troncon_cheminement (1,1) comporte obstacle (0,n)](#tableau45|table), que l’on peut traduire par : *« un tronçon de cheminement comporte aucun, un ou plusieurs obstacles, et un obstacle se situe sur un tronçon de cheminement et un seul »*
+Il s’agit des relations « 1 à plusieurs », par exemple la relation : **troncon_cheminement (1,1) comporte obstacle (0,n)**, que l’on peut traduire par : *« un tronçon de cheminement comporte aucun, un ou plusieurs obstacles, et un obstacle se situe sur un tronçon de cheminement et un seul »*
 Dans ce cas, l’identifiant de la classe mettant en relation 1 élément au maximum devient clé étrangère de la classe mettant en relation potentiellement plusieurs éléments.
-Dans cet exemple : idtroncon devient clé étrangère dans la table obstacle :
+Dans cet exemple : `idtroncon` devient clé étrangère dans la table `obstacle` :
 
 |**obstacle**||
 | :- | :- |
-|idobstacle|clé primaire de la table|
-|idtroncon|clé étrangère issue de la table troncon\_cheminement|
-|*<attributs suivants de la table obstacle...>*||
-|geom|géométrie ponctuelle de l’obstacle|
+|`idobstacle`|clé primaire de la table|
+|`idtroncon`|clé étrangère issue de la table `troncon_cheminement`|
+|*\<attributs suivants de la table obstacle...>*||
+|`geom`|géométrie ponctuelle de l’obstacle|
 
 On adoptera le même principe pour les relations de cardinalité « 1 à plusieurs » :
-\- troncon\_cheminement (1,1) comporte obstacle (0,n),
-\- ERP (1,1) dispose de CHEMINEMENT\_ERP (0,n)
+- troncon_cheminement (1,1) comporte obstacle (0,n),
+- ERP (1,1) dispose de CHEMINEMENT_ERP (0,n)
 etc.
 
 #### 4.12.4 **Relations « n à m »**
 Il s’agit des relations « plusieurs à plusieurs », que l’on retrouve dans :
 - la relation d’association entre les cheminements et les tronçons qui les composent : « Un cheminement est composé de plusieurs tronçons de cheminement, mais un tronçon de cheminement peut également appartenir à plusieurs cheminements. »
-- la relation d’association entre nœud de cheminement et stationnement PMR
+- la relation d’association entre noeud de cheminement et stationnement_PMR
 - la relation d’association entre une entrée et un ERP
 Ces relations impliquent la création de trois tables relationnelles spécifiques :
 
-|**relation\_cheminement\_troncon**||
+|**relation_cheminement_troncon**||
 | :- | :- |
-|idcheminement|clé étrangère issue de la table cheminement|
-|idtroncon|clé étrangère issue de la table troncon\_cheminement|
+|`idcheminement`|clé étrangère issue de la table `cheminement`|
+|`idtroncon`|clé étrangère issue de la table `troncon_cheminement`|
 
 
-|**relation\_noeud\_stationnement**||
+|**relation_noeud_stationnement**||
 | :- | :- |
-|idnoeud|clé étrangère issue de la table noeud\_cheminement|
-|idstationnement|clé étrangère issue de la table stationnement|
+|`idnoeud`|clé étrangère issue de la table `noeud_cheminement`|
+|`idstationnement`|clé étrangère issue de la table `stationnement_pmr`|
 
 
-|**relation\_entree\_erp**||
+|**relation_entree_erp**||
 | :- | :- |
-|identree|clé étrangère issue de la table noeud\_cheminement|
-|iderp|clé étrangère issue de la table stationnement|
+|`identree`|clé étrangère issue de la table `noeud_cheminement`|
+|`iderp`|clé étrangère issue de la table `stationnement_pmr`|
 
 ## 5. **Tables de métadonnées**
-Les éléments de métadonnées du lot de données formatées en GeoPackage sont à renseigner par une ligne dans la table gpkg\_metadata et une ligne dans la table gpkg\_metadata\_reference, de la manière suivante :
+Les éléments de métadonnées du lot de données formatées en GeoPackage sont à renseigner par une ligne dans la table `gpkg_metadata` et une ligne dans la table `gpkg_metadata_reference`, de la manière suivante :
 
-### 5.1 **Table gpkg\_metadata**
+### 5.1 **Table gpkg_metadata**
 
-|**gpkg\_metadata**||
+|**gpkg_metadata**||
 | :- | :- |
-|id|1|
-|md\_scope|dataset|
-|md\_standard\_uri|http://www.isotc211.org/2005/gmd|
-|mime\_type|text/xml|
-|metadata|Contenu des métadonnées implémenté en XML suivant le §4.5 Métadonnées du [standard CNIG Accessibilité](https://cnig.gouv.fr/ressources-accessibilite-a25335.html)|
+|`id`|1|
+|`md_scope`|dataset|
+|`md_standard_uri`|http://www.isotc211.org/2005/gmd|
+|`mime_type`|text/xml|
+|`metadata`|Contenu des métadonnées implémenté en XML suivant le §4.5 Métadonnées du [standard CNIG Accessibilité](https://cnig.gouv.fr/ressources-accessibilite-a25335.html)|
 
-### 5.2 **Table gpkg\_metadata\_reference**
+### 5.2 **Table gpkg_metadata_reference**
 
-|**gpkg\_metadata\_reference**||
+|**gpkg_metadata_reference**||
 | :- | :- |
-|reference\_scope|'geopackage'|
-|table\_name|NULL|
-|column\_name|NULL|
-|row\_id\_value|NULL|
-|timestamp|< date AAAAMMJJ de production des métadonnées >|
-|md\_file\_id|1 (identifiant des métadonnées dans la table gpkg\_metadata)|
-|md\_parent\_id|NULL|
+|`reference_scope`|geopackage|
+|`table_name`|NULL|
+|`column_name`|NULL|
+|`row_id_value`|NULL|
+|`timestamp`|< date AAAAMMJJ de production des métadonnées >|
+|`md_file\_id`|1 (identifiant des métadonnées dans la table gpkg\_metadata)|
+|`md_parent_id`|NULL|
