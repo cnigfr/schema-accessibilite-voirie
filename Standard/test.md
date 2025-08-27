@@ -4,8 +4,8 @@
 Le modèle conceptuel de données, le catalogue d’objets, les règles de saisie des données et des métadonnées présentés dans les parties précédentes sont traduits en un format d’échange des données basé sur le format standardisé [GeoPackage.](https://fr.wikipedia.org/wiki/Geopackage)
 
 Le format d’échange des données d‘accessibilité du cheminement en voirie et espace public défini à la fois :
-\- la forme et les exigences d’échange et/ou livraison des données collectées et produites conformément au standard CNIG Accessibilité ;
-\- le point d’entrée de la chaîne de conversion et de diffusion des données de cheminement suivant la norme NeTEx en se conformant au [profil NeTEx accessibilité France](https://normes.transport.data.gouv.fr/normes/netex/accessibilite/).
+- la forme et les exigences d’échange et/ou livraison des données collectées et produites conformément au standard CNIG Accessibilité ;
+- le point d’entrée de la chaîne de conversion et de diffusion des données de cheminement suivant la norme NeTEx en se conformant au [profil NeTEx accessibilité France](https://normes.transport.data.gouv.fr/normes/netex/accessibilite/).
 
 ### 1.1 **Format GeoPackage**
 GeoPackage est un format standard défini par l'[OGC](https://www.ogc.org/standards/geopackage/) (Open Geospatial Consortium).
@@ -28,7 +28,7 @@ Le modèle physique implémenté avec GeoPackage est un modèle de données rela
   
 La granularité d'un lot de données correspond à une campagne de collecte et de production de données du cheminement accessible en voirie.
 
-Une livraison comprend l'ensemble des tables définies dans le standard CNIG Accessibilité et listées au § Tables à livrer.
+Une livraison comprend l'ensemble des tables définies dans le standard CNIG Accessibilité et listées dans ce document.
 
 Des gabarits au format GeoPackage implémentant la stucture des tables décrites par ce standard seront disponibles sur le dépôt [Github du standard CNIG Accessibilité](https://github.com/cnigfr/schema-accessibilite-voirie) et sur [le site du CNIG](https://cnig.gouv.fr/ressources-accessibilite-a25335.html).
 
@@ -38,11 +38,14 @@ Afin de normaliser et d'identifier les fichiers de livraisons entre eux, le nomm
 La livraison des données conformes au standard et au format GeoPackage se fait sous la forme d'un unique fichier comprenant les données et les métadonnées.
 
 Le nom du fichier GeoPackage est composé en lettres minuscules sans accent selon le modèle :
+
 **<INSEE/SIREN>\_accessibilite\_voirie\_AAAAMMJJ.gpkg**
 - INSEE correspond au code INSEE de la commune concernée.\
   Il est remplacé par le code SIREN de l’EPCI dans le cas d’une emprise intercommunale.
 - AAAAMMJJ correspond à la date de production du fichier géopackage. Par exemple : 20250507 pour le 7 mai 2025
 - l'extension de fichier est celle du format GeoPackage : .gpkg
+
+Exemple : **44300\_accessibilite\_voirie\_20250507.gpkg**
 
 ## 3. **Tables intrinsèques à GeoPackage**
 Le format GeoPackage définit un certain nombre de tables "système" qui lui permettent d'organiser les données de façon structurée et dont le caractère obligatoire ou non de leur implémentation dépend du type de données échangées et de leur utilisation.
