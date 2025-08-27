@@ -51,12 +51,13 @@ Exemple : **44300\_accessibilite\_voirie\_20250507.gpkg**
 Le format GeoPackage définit un certain nombre de tables "système" qui lui permettent d'organiser les données de façon structurée et dont le caractère obligatoire ou non de leur implémentation dépend du type de données échangées et de leur utilisation.
 
 Ce schéma, issu de GeoPackage v1.3.1, illustre la structure des tables intrinsèques à ce format :
+<img width="873" height="783" alt="schema_classes_gpkg" src="https://github.com/user-attachments/assets/cf0bdedf-e20d-4602-abaa-874ddf893710" />
 
-Les trois tables gpkg\_contents, gpkg\_geometry\_columns et gpkg\_spatial\_ref\_sys permettent de décrire les tables de données « accessibilité » du GeoPackage et d'en gérer l'aspect géographique.
+Les trois tables `gpkg\_contents`, `gpkg\_geometry\_columns` et `gpkg\_spatial\_ref\_sys` permettent de décrire les tables de données « accessibilité » du GeoPackage et d'en gérer l'aspect géographique.
 
-Les deux tables gpkg\_metadata et gpkg\_metadata\_reference permettent d'associer des informations de métadonnées.
+Les deux tables `gpkg\_metadata` et `gpkg\_metadata\_reference` permettent d'associer des informations de métadonnées.
 
-Les métadonnées décrites au §4.5 Métadonnées peuvent ainsi intégrer le fichier GeoPackage.
+Les métadonnées décrites au §4.5 Métadonnées du Standard CNIG Accessibilité peuvent ainsi intégrer le fichier GeoPackage.
 
 ### 3.1 **Table gpkg\_contents**
 La table gpkg\_contents est définie dans [les spécifications du format GeoPackage](https://www.geopackage.org/spec131/#_contents).
