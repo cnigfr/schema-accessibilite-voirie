@@ -191,52 +191,52 @@ Leur graphie est en minuscules et sans caractère accentué ni cédille.
 L’attribut « geom » est ajouté en dernière position aux classes porteuses de géométrie (features) listées ci-dessus.
 Exemple sur la classe troncon_cheminement :
 
-|idtroncon|
+|`idtroncon`|
 | :- |
-|from|
-|to|
-|longueur|
-|typetroncon|
-|statutvoie|
-|pente|
-|devers|
-|geom|
+|`from`|
+|`to`|
+|`longueur`|
+|`typetroncon`|
+|`statutvoie`|
+|`pente`|
+|`devers`|
+|`geom`|
 
-l’attribut « geom » est ajouté en dernière position.
+l’attribut « `geom` » est ajouté en dernière position.
 
 ### 4.7 **Type des attributs**
 Le type Géopackage des attributs respecte la nomenclature GeoPackage et est établi en suivant ce tableau de correspondance :
 
 |Type dans le catalogue d’objet|Type Géopackage|
 | :- | :- |
-|identifiant|TEXT|
-|string|TEXT|
-|string(n)|TEXT(n)|
-|entier|INTEGER|
-|entier relatif|TYNYINT|
-|décimal(n)|REAL|
-|booléen|BOOLEAN|
-|url|TEXT|
-|date|DATE|
-|*(geom) géométrie linéaire*|LINESTRING|
-|*(geom) géométrie ponctuelle*|POINT|
-|*(geom) géométrie surfacique*|POLYGON|
+|identifiant|`TEXT`|
+|string|`TEXT`|
+|string(n)|`TEXT(n)`|
+|entier|`INTEGER`|
+|entier relatif|`TYNYINT`|
+|décimal(n)|`REAL`|
+|booléen|`BOOLEAN`|
+|url|`TEXT`|
+|date|`DATE`|
+|*géométrie linéaire*|`LINESTRING`|
+|*géométrie ponctuelle*|`POINT`|
+|*géométrie surfacique*|`POLYGON`|
 
 ### 4.8 **Admission de la valeur “NULL”**
 Le §3.3 Catalogue d’objets du [standard CNIG Accessibilité](https://cnig.gouv.fr/ressources-accessibilite-a25335.html) présente trois niveaux d’attributs :
 
 1. Les attributs obligatoirement présents dont le renseignement est obligatoire. Ces attributs sont désignés **en gras**. Pour ces attributs :
-   - la valeur NULL n’est pas admise. Ces attributs sont désignés NOT NULL
-   - s’il s’agit d’un attribut à liste de valeurs (ou énumération), la valeur conventionnelle NC exprimant « inconnu, non renseigné » n’est pas admise.
+   - la valeur `NULL` n’est pas admise. Ces attributs sont désignés `NOT NULL`
+   - s’il s’agit d’un attribut à liste de valeurs (ou énumération), la valeur conventionnelle `NC` exprimant « inconnu, non renseigné » n’est pas admise.
 1. Les attributs obligatoirement présents mais dont le renseignement est facultatif. Ces attributs sont désignés en style normal. Ils portent la mention "valeur vide autorisée".
-   - s’il ne s’agit pas d’un attribut à liste de valeurs, la valeur NULL est admise
-   - s’il s’agit d’un attribut à liste de valeurs, la valeur NULL n’est pas admise et remplacée par la valeur conventionnelle NC exprimant « inconnu, non renseigné », sauf si le Catalogie d’objets indique « valeur NC non autorisée ». Dans ce cas une valeur « signifiante » doit être choisie parmi les autres valeurs de la liste de valeurs.
+   - s’il ne s’agit pas d’un attribut à liste de valeurs, la valeur `NULL` est admise
+   - s’il s’agit d’un attribut à liste de valeurs, la valeur `NULL `n’est pas admise et remplacée par la valeur conventionnelle `NC` exprimant « inconnu, non renseigné », sauf si le Catalogie d’objets indique « valeur NC non autorisée ». Dans ce cas une valeur « signifiante » doit être choisie parmi les autres valeurs de la liste de valeurs.
 1. Les attributs optionnels. Leur présence et leur renseignement sont facultatifs. Ces attributs sont désignés *en italique*.
    - ces attributs peuvent être absents de la table concernée
-   - s’ils sont présents, la valeur NULL est admise
+   - s’ils sont présents, la valeur `NULL` est admise
 
 ### 4.9 **Contraintes ou restrictions sur les valeurs d’attributs**
-On respectera les contraintes définies pour chaque attribut dans le §3.3 Catalogie d’objet.
+On respectera les contraintes définies pour chaque attribut dans le §3.3 Catalogue d’objet.
 Il s’agit notamment des mentions :
 - « valeur NC non autorisée » (dans le cas d’une liste de valeurs),
 - « valeur vide autorisée » (comprendre : valeur null autorisée, cf. ci-dessus)
@@ -247,24 +247,24 @@ Le premier attribut de chaque table est son identifiant : id<classe>. Cet attri
 
 |**Classe**|**Clé primaire**|
 | :- | :- |
-|**cheminement**|idcheminement|
-|**troncon\_cheminement**|idtroncon|
-|**noeud\_cheminement**|idnoeud|
-|**obstacle**|idobstacle|
-|**circulation**|idcirculation|
-|**traversee**|idtraversee|
-|**rampe\_acces**|idrampe|
-|**escalier**|idescalier|
-|**escalator**|idescalator|
-|**tapis\_roulant**|idtapisroulant|
-|**ascenseur**|idascenseur|
-|**elevateur**|idelevateur|
-|**entree**|identree|
-|**passage\_sélectif**|idpassageselectif|
-|**quai**|idquai|
-|**stationnement\_pmr**|idstationnement|
-|**erp**|iderp|
-|**cheminement\_erp**|idcheminementerp|
+|**`cheminement`**|`idcheminement`|
+|**`troncon_cheminement`**|`idtroncon`|
+|**`noeud_cheminement`**|`idnoeud`|
+|**`obstacle`**|`idobstacle`|
+|**`circulation`**|vidcirculation`|
+|**`traversee`**|`idtraversee`|
+|**`rampe_acces`**|`idrampe`|
+|**`escalier`**|`idescalier`|
+|**`escalator`**|`idescalator`|
+|**`tapis_roulant`**|`idtapisroulant`|
+|**`ascenseur`**|`idascenseur`|
+|**`elevateur`**|`idelevateur`|
+|**`entree`**|`identree`|
+|**`passage_sélectif`**|`idpassageselectif`|
+|**`quai`**|`idquai`|
+|**`stationnement_pmr`**|`idstationnement`|
+|**`erp`**|`iderp`|
+|**`cheminement_erp`**|`idcheminementerp`|
 
 ### 4.11 **Tables correspondant aux listes de valeurs énumérées**
 
