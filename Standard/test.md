@@ -151,19 +151,20 @@ Remarque : Toutes les tables sont obligatires. Par exemple, un lot de données 
 
 |**Nom de la table**|<p>**Type de table**</p><p>**(GPKG)**</p>|<p>**Type de**</p><p>**géométrie**</p>|**Classes d’objets implémentées**|
 | :- | :- | :- | :- |
-|**`gpkg_contents`**|Tables ‘systèmes’ propres au format GPKG|aucune|table dictionnaire des tables (hors tables "systèmes")|
-|**`gpkg_geometry_columns`**||aucune|table identifiant les attributs de type géométrie|
-|**`gpkg_spatial_ref_sys`**||aucune|table des systèmes de coordonnées pour les géométries|
-|**`gpkg_metadata`**||aucune|table des éléments de métadonnées|
-|**`gpkg_metadata_reference`**||aucune|table référençant la table des éléments de métadonnées|
+|**`gpkg_contents`**|Table propre au format GPKG|aucune|table dictionnaire des tables (hors tables "systèmes")|
+|**`gpkg_geometry_columns`**|Table propre au format GPKG|aucune|table identifiant les attributs de type géométrie|
+|**`gpkg_spatial_ref_sys`**|Table propre au format GPKG|aucune|table des systèmes de coordonnées pour les géométries|
+|**`gpkg_metadata`**|Table propre au format GPKG|aucune|table des éléments de métadonnées|
+|**`gpkg_metadata_reference`**|Table propre au format GPKG|aucune|table référençant la table des éléments de métadonnées|
 
 ### 4.3 **Tables correspondant aux classes d’objets**
 
-|**`cheminement`**|`attributes`|aucune|
+|**Classe**|Type|Géométrie|
 | :- | :- | :- |
+|**`cheminement`**|`attributes`|aucune|
 |**`troncon_cheminement`**|`features`|`LINESTRING`|
 |**`nœud_cheminement`**|`features`|`POINT`|
-|**`obstacle`**|features`|`POINT`|
+|**`obstacle`**|`features`|`POINT`|
 |**`circulation`**|`attributes`|aucune|
 |**`traversee`**|`attributes`|aucune|
 |**`rampe_acces`**|`attributes`|aucune|
