@@ -296,8 +296,8 @@ a-b) la présence de l’attribut `idtroncon` comme clé étrangère, et les att
 
 |**traversee**||
 | :- | :- |
-|`idtraversee`|clé primaire de la table|
-|`idtroncon`|clé étrangère issue de la table troncon_cheminement|
+|`idtraversee`|clé primaire de la table `traversee`|
+|`idtroncon`|clé étrangère issue de la table `troncon_cheminement`|
 |*\<attributs  de la table `troncon_cheminement`...>*||
 |*\<attributs de la table `traversee`...\>*||
 |*`geom`*|géométrie du tronçon de cheminement|
@@ -319,7 +319,7 @@ Dans cet exemple : `idtroncon` devient clé étrangère dans la table `obstacle`
 
 |**obstacle**||
 | :- | :- |
-|`idobstacle`|clé primaire de la table|
+|`idobstacle`|clé primaire de la table `obstacle`|
 |`idtroncon`|clé étrangère issue de la table `troncon_cheminement`|
 |*\<attributs suivants de la table obstacle...>*||
 |`geom`|géométrie ponctuelle de l’obstacle|
