@@ -139,43 +139,45 @@ Ces noms sont écrits intégralement en minuscules, ce qui évite d’avoir à l
 
 ### 4.2 **Dictionnaire des tables**
 Le tableau suivant liste l'ensemble des tables faisant partie de la livraison en précisant :
-- le nom de la table : valeur de table\_name dans la table **gpkg\_contents** ;
-- le type de table selon la nomenclature de GeoPackage (valeur de l’attribut data\_type dans la table **gpkg\_contents**) ;
-- le type de Géométrie de la table dans la nomenclature de GeoPackage (valeur de l’attribut geometry\_type\_name dans la table **gpkg\_geometry\_columns**) ;
+- le nom de la table : valeur de `table_name` dans la table **`gpkg_contents`** ;
+- le type de table selon la nomenclature de GeoPackage (valeur de l’attribut `data_type` dans la table **`gpkg_contents`**) ;
+- le type de Géométrie de la table dans la nomenclature de GeoPackage (valeur de l’attribut `geometry_type_name` dans la table **`gpkg\_geometry\_columns`**) ;
 - les références aux entités du modèle conceptuel implémentées par la table.
-Les tables du standard présentes dans la livraison doivent être déclarées dans la table **gpkg\_contents** avec le type de table indiqué dans le tableau suivant.
-Les tables ayant pour type features doivent également être déclarées dans la table **gpkg\_geometry\_columns** avec le type de géométrie indiqué dans le tableau suivant.
-Remarque : Toutes les tables sont obligatires. Un lot de données ne comprenant pas de passages sélectifs comprendra bien la table **passage\_selectif** mais vide (aucun enregistrement à l’intérieur de la table)
+
+Les tables du standard présentes dans la livraison doivent être déclarées dans la table **`gpkg_contents`** avec le type de table indiqué dans le tableau suivant.
+
+Les tables ayant pour type `features` doivent également être déclarées dans la table **`gpkg_geometry_columns`** avec le type de géométrie indiqué dans le tableau suivant.
+Remarque : Toutes les tables sont obligatires. Par exemple, un lot de données ne comprenant pas de passages sélectifs comprendra bien la table **`passage_selectif`** mais vide (aucun enregistrement à l’intérieur de la table)
 
 |**Nom de la table**|<p>**Type de table**</p><p>**(GPKG)**</p>|<p>**Type de**</p><p>**géométrie**</p>|**Classes d’objets implémentées**|
 | :- | :- | :- | :- |
-|**gpkg\_contents**|Tables ‘systèmes’ propres au format GPKG|aucune|table dictionnaire des tables (hors tables "systèmes")|
-|**gpkg\_geometry\_columns**||aucune|table identifiant les attributs de type géométrie|
-|**gpkg\_spatial\_ref\_sys**||aucune|table des systèmes de coordonnées pour les géométries|
-|**gpkg\_metadata**||aucune|table des éléments de métadonnées|
-|**gpkg\_metadata\_reference**||aucune|table référençant la table des éléments de métadonnées|
+|**`gpkg_contents`**|Tables ‘systèmes’ propres au format GPKG|aucune|table dictionnaire des tables (hors tables "systèmes")|
+|**`gpkg_geometry_columns`**||aucune|table identifiant les attributs de type géométrie|
+|**`gpkg_spatial_ref_sys`**||aucune|table des systèmes de coordonnées pour les géométries|
+|**`gpkg_metadata`**||aucune|table des éléments de métadonnées|
+|**`gpkg_metadata_reference`**||aucune|table référençant la table des éléments de métadonnées|
 
 ### 4.3 **Tables correspondant aux classes d’objets**
 
-|**cheminement**|attributes|aucune|
+|**`cheminement`**|`attributes`|aucune|
 | :- | :- | :- |
-|**troncon\_cheminement**|features|LINESTRING|
-|**nœud\_cheminement**|features|POINT|
-|**obstacle**|features|POINT|
-|**circulation**|attributes|aucune|
-|**traversee**|attributes|aucune|
-|**rampe\_acces**|attributes|aucune|
-|**escalier**|attributes|aucune|
-|**escalator**|attributes|aucune|
-|**tapis\_roulant**|attributes|aucune|
-|**ascenseur**|attributes|aucune|
-|**elevateur**|attributes|aucune|
-|**entree**|attributes|aucune|
-|**passage\_selectif**|attributes|aucune|
-|**quai**|attributes|aucune|
-|**stationnement\_pmr**|features|POINT|
-|**erp**|features|POLYGON|
-|**cheminement\_erp**|attributes|aucune|
+|**`troncon_cheminement`**|`features`|`LINESTRING`|
+|**`nœud_cheminement`**|`features`|`POINT`|
+|**`obstacle`**|features`|`POINT`|
+|**`circulation`**|`attributes`|aucune|
+|**`traversee`**|`attributes`|aucune|
+|**`rampe_acces`**|`attributes`|aucune|
+|**`escalier`**|`attributes`|aucune|
+|**`escalator`**|`attributes`|aucune|
+|**`tapis_roulant`**|`attributes`|aucune|
+|**`ascenseur`**|`attributes`|aucune|
+|**`elevateur`**|`attributes`|aucune|
+|**`entree`**|`attributes`|aucune|
+|**`passage_selectif`**|`attributes`|aucune|
+|**`quai`**|`attributes`|aucune|
+|**`stationnement_pmr`**|`features`|`POINT`|
+|**`erp`**|`features`|`POLYGON`|
+|**`cheminement_erp`**|`attributes`|aucune|
 
 ### 4.4 **Description des tables**
 Chaque table correspondant à une classe d’objets reprend la structure définie au §3.3 Catalogue d’objets du [standard CNIG Accessibilité](https://cnig.gouv.fr/ressources-accessibilite-a25335.html).
