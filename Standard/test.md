@@ -1,4 +1,4 @@
-# **Format d’échange des données**
+# **Format d’échange CNIG Accessibilité**
 
 ## **1. Généralités**
 Le modèle conceptuel de données, le catalogue d’objets, les règles de saisie des données et des métadonnées présentés dans les parties précédentes sont traduits en un format d’échange des données basé sur le format standardisé [GeoPackage.](https://fr.wikipedia.org/wiki/Geopackage)
