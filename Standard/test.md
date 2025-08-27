@@ -262,7 +262,7 @@ Le premier attribut de chaque table est son identifiant : id<classe>. Cet attri
 |**entree**|`identree`|
 |**passage_sélectif**|`idpassageselectif`|
 |**quai**|`idquai`|
-|**stationnement_pmr**|`idstationnement`|
+|**stationnement_pmr**|`idstationnementpmr`|
 |**erp**|`iderp`|
 |**cheminement_erp**|`idcheminementerp`|
 
@@ -345,7 +345,7 @@ Ces relations impliquent la création de trois tables relationnelles spécifique
 |**relation_noeud_stationnement**||
 | :- | :- |
 |`idnoeud`|clé étrangère issue de la table `noeud_cheminement`|
-|`idstationnement`|clé étrangère issue de la table `stationnement_pmr`|
+|`idstationnementpmr`|clé étrangère issue de la table `stationnement_pmr`|
 
 
 |**relation_entree_erp**||
