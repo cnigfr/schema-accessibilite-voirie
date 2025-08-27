@@ -161,24 +161,24 @@ Remarque : Toutes les tables sont obligatires. Par exemple, un lot de données 
 
 |**Classe**|Type|Géométrie|
 | :- | :- | :- |
-|**`cheminement`**|`attributes`|aucune|
-|**`troncon_cheminement`**|`features`|`LINESTRING`|
-|**`nœud_cheminement`**|`features`|`POINT`|
-|**`obstacle`**|`features`|`POINT`|
-|**`circulation`**|`attributes`|aucune|
-|**`traversee`**|`attributes`|aucune|
-|**`rampe_acces`**|`attributes`|aucune|
-|**`escalier`**|`attributes`|aucune|
-|**`escalator`**|`attributes`|aucune|
-|**`tapis_roulant`**|`attributes`|aucune|
-|**`ascenseur`**|`attributes`|aucune|
-|**`elevateur`**|`attributes`|aucune|
-|**`entree`**|`attributes`|aucune|
-|**`passage_selectif`**|`attributes`|aucune|
-|**`quai`**|`attributes`|aucune|
-|**`stationnement_pmr`**|`features`|`POINT`|
-|**`erp`**|`features`|`POLYGON`|
-|**`cheminement_erp`**|`attributes`|aucune|
+|**cheminement**|`attributes`|aucune|
+|**troncon_cheminement**|`features`|`LINESTRING`|
+|**nœud_cheminement**|`features`|`POINT`|
+|**obstacle**|`features`|`POINT`|
+|**circulation**|`attributes`|aucune|
+|**traversee**|`attributes`|aucune|
+|**rampe_acces**|`attributes`|aucune|
+|**escalier**|`attributes`|aucune|
+|**escalator**|`attributes`|aucune|
+|**tapis_roulant**|`attributes`|aucune|
+|**ascenseur**|`attributes`|aucune|
+|**elevateur**|`attributes`|aucune|
+|**entree**|`attributes`|aucune|
+|**passage_selectif**|`attributes`|aucune|
+|**quai**|`attributes`|aucune|
+|**stationnement_pmr**|`features`|`POINT`|
+|**erp**|`features`|`POLYGON`|
+|**cheminement_erp**|`attributes`|aucune|
 
 ### 4.4 **Description des tables**
 Chaque table correspondant à une classe d’objets reprend la structure définie au §3.3 Catalogue d’objets du [standard CNIG Accessibilité](https://cnig.gouv.fr/ressources-accessibilite-a25335.html).
@@ -247,62 +247,66 @@ Le premier attribut de chaque table est son identifiant : id<classe>. Cet attri
 
 |**Classe**|**Clé primaire**|
 | :- | :- |
-|**`cheminement`**|`idcheminement`|
-|**`troncon_cheminement`**|`idtroncon`|
-|**`noeud_cheminement`**|`idnoeud`|
-|**`obstacle`**|`idobstacle`|
-|**`circulation`**|vidcirculation`|
-|**`traversee`**|`idtraversee`|
-|**`rampe_acces`**|`idrampe`|
-|**`escalier`**|`idescalier`|
-|**`escalator`**|`idescalator`|
-|**`tapis_roulant`**|`idtapisroulant`|
-|**`ascenseur`**|`idascenseur`|
-|**`elevateur`**|`idelevateur`|
-|**`entree`**|`identree`|
-|**`passage_sélectif`**|`idpassageselectif`|
-|**`quai`**|`idquai`|
-|**`stationnement_pmr`**|`idstationnement`|
-|**`erp`**|`iderp`|
-|**`cheminement_erp`**|`idcheminementerp`|
+|**cheminement**|`idcheminement`|
+|**troncon_cheminement**|`idtroncon`|
+|**noeud_cheminement**|`idnoeud`|
+|**obstacle**|`idobstacle`|
+|**circulation**|vidcirculation`|
+|**traversee**|`idtraversee`|
+|**rampe_acces**|`idrampe`|
+|**escalier**|`idescalier`|
+|**escalator**|`idescalator`|
+|**tapis_roulant**|`idtapisroulant`|
+|**ascenseur**|`idascenseur`|
+|**elevateur**|`idelevateur`|
+|**entree**|`identree`|
+|**passage_sélectif**|`idpassageselectif`|
+|**quai**|`idquai`|
+|**stationnement_pmr**|`idstationnement`|
+|**erp**|`iderp`|
+|**cheminement_erp**|`idcheminementerp`|
 
 ### 4.11 **Tables correspondant aux listes de valeurs énumérées**
 
+Toutes les tables correspondant aux listes de valeurs énumérées
+- sont préixées par **enum_**. Par exemple : **enum_controle_acces**, **enum_controle_bev**, etc.
+- sont des tables de type `attributes` pour le format Géopackage
+
 |**enum\_categorie\_erp**|attributes|aucune|
 | :- | :- | :- |
-|**enum\_controle\_acces**|attributes|aucune|
-|**enum\_controle\_bev**|attributes|aucune|
-|**enum\_cote**|attributes|aucune|
-|**enum\_couvert**|attributes|aucune|
-|**enum\_dispositif\_signalisation**|attributes|aucune|
-|**enum\_eclairage**|attributes|aucune|
-|**enum\_etat**|attributes|aucune|
-|**enum\_etat\_revetement**|attributes|aucune|
-|**enum\_marquage**|attributes|aucune|
-|**enum\_masque\_covisibilite**|attributes|aucune|
-|**enum\_personnel\_erp**|attributes|aucune|
-|**enum\_position\_espace**|attributes|aucune|
-|**enum\_position\_hauteur**|attributes|aucune|
-|**enum\_position\_obstacle**|attributes|aucune|
-|**enum\_rampe\_erp**|attributes|aucune|
-|**enum\_rappel\_obstacle**|attributes|aucune|
-|**enum\_relief\_boutons**|attributes|aucune|
-|**enum\_repere\_lineaire**|attributes|aucune|
-|**enum\_sens**|attributes|aucune|
-|**enum\_statut\_voie**|attributes|aucune|
-|**enum\_temporalite**|attributes|aucune|
-|**enum\_transition**|attributes|aucune|
-|**enum\_type\_passage**|attributes|aucune|
-|**enum\_type\_poignee**|attributes|aucune|
-|**enum\_type\_porte**|attributes|aucune|
-|**enum\_type\_troncon**|attributes|aucune|
-|**enum\_type\_entree**|attributes|aucune|
-|**enum\_type\_erp**|attributes|aucune|
-|**enum\_type\_obstacle**|attributes|aucune|
-|**enum\_type\_ouverture**|attributes|aucune|
-|**enum\_type\_stationnement**|attributes|aucune|
-|**enum\_type\_sol**|attributes|aucune|
-|**enum\_voyant\_ascenseur**|attributes|aucune|
+|**enum_controle_acces**|attributes|aucune|
+|**enum_controle_bev**|attributes|aucune|
+|**enum_cote**|attributes|aucune|
+|**enum_couvert**|attributes|aucune|
+|**enum_dispositif_signalisation**|attributes|aucune|
+|**enum_eclairage**|attributes|aucune|
+|**enum_etat**|attributes|aucune|
+|**enum_etat_revetement**|attributes|aucune|
+|**enum_marquage**|attributes|aucune|
+|**enum_masque_covisibilite**|attributes|aucune|
+|**enum_personnel_erp**|attributes|aucune|
+|**enum_position_espace**|attributes|aucune|
+|**enum_position_hauteur**|attributes|aucune|
+|**enum_position_obstacle**|attributes|aucune|
+|**enum_rampe_erp**|attributes|aucune|
+|**enum_rappel_obstacle**|attributes|aucune|
+|**enum_relief_boutons**|attributes|aucune|
+|**enum_repere_lineaire**|attributes|aucune|
+|**enum_sens**|attributes|aucune|
+|**enum_statut_voie**|attributes|aucune|
+|**enum_temporalite**|attributes|aucune|
+|**enum_transition**|attributes|aucune|
+|**enum_type_passage**|attributes|aucune|
+|**enum_type_poignee**|attributes|aucune|
+|**enum_type_porte**|attributes|aucune|
+|**enum_type_troncon**|attributes|aucune|
+|**enum_type_entree**|attributes|aucune|
+|**enum_type_erp**|attributes|aucune|
+|**enum_type_obstacle**|attributes|aucune|
+|**enum_type_ouverture**|attributes|aucune|
+|**enum_type_stationnement**|attributes|aucune|
+|**enum_type_sol**|attributes|aucune|
+|**enum_voyant_ascenseur**|attributes|aucune|
 
 ### 4.12 **Tables correspondant aux relations entre les classes d’objets**
 Les relations entre les classes d'objets, décrites au §3.4 Relations entre les classes d’objets du [standard CNIG Accessibilité](https://cnig.gouv.fr/ressources-accessibilite-a25335.html), se traduisent pour les relations de cardinalité [1..n] (soit : 1 à plusieurs) par l’intégration d’attributs désignant des [clés étrangères](https://fr.wikipedia.org/wiki/Clé_étrangère) (fk pour « foreign key ») dans les tables.
