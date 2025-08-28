@@ -1,4 +1,4 @@
-# **Gabait CNIG Accessibilité au format Géopackage**
+# **Spécification du gabarit CNIG Accessibilité au format Géopackage**
 
 ## **1. Généralités**
 
