@@ -3,7 +3,8 @@
 # - du fichier GPKG vide : gpkg_vide.gpkg
 # - du fichier SQL template de génération des tables du standard : standard_cnig_accessibilite.sql
 
-path='D:\Park\ATELIER_SQL'
+path=<votre répertoire de travail>
+-- exemple : path='D:\Park\ATELIER_SQL'
 
 echo "-------------------------------------------------"
 echo "Genération du gabarit GPKG à partir du code SQL  "
@@ -18,4 +19,5 @@ echo "Exécution du SQL"
 echo "Exécution du SQL : effectuée !"
 echo "Appuyer sur Entrée pour continuer..."
 read a
+
 
