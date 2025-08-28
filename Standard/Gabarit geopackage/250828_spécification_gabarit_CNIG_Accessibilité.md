@@ -1,7 +1,12 @@
-# **Format d’échange des données**
+# **Gabait CNIG Accessibilité au format Géopackage**
 
 ## **1. Généralités**
-Le modèle conceptuel de données, le catalogue d’objets, les règles de saisie des données et des métadonnées présentés dans les parties précédentes sont traduits en un format d’échange des données basé sur le format standardisé [GeoPackage.](https://fr.wikipedia.org/wiki/Geopackage)
+
+Le gabarit CNIG Accessibilité au format Géopackage est utilisable dans QGIS et tout SIG supportant le format Géopackage.
+
+Il est conforme au [Standard CNIG Accessibilité](https://cnig.gouv.fr/ressources-accessibilite-a25335.html) du cheminement en voirie et il est maintenu par le GT CNIG Accessibilité.
+
+Le modèle conceptuel de données, le catalogue d’objets, les règles de saisie des données et des métadonnées présentés dans le standard CNIG Accessibilité sont traduits en un format d’échange des données basé sur le format standardisé [GeoPackage.](https://fr.wikipedia.org/wiki/Geopackage)
 
 Le format d’échange des données d‘accessibilité du cheminement en voirie et espace public défini à la fois :
 - la forme et les exigences d’échange et/ou livraison des données collectées et produites conformément au standard CNIG Accessibilité ;
