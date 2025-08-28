@@ -4,7 +4,7 @@ Le [gabarit CNIG Accessibilité au format Géopackage](https://github.com/cnigfr
 
 Il est conforme au [Standard CNIG Accessibilité du cheminement en voirie](https://cnig.gouv.fr/ressources-accessibilite-a25335.html) et maintenu par le GT CNIG Accessibilité.
 
-Il est utilisable dans le système de projection Lambert 93 (SRS 2154) pour la France Métropolitaine et la Corse. Les autres système de pojection peuvent être utilisés en modiiant le script
+Il est utilisable dans le système de projection Lambert 93 (SRS 2154) pour la France Métropolitaine et la Corse. D'autres systèmes de pojection peuvent aisément être utilisés en modifiant le script SQL.
 
 ## Comment a-t-il été réalisé ?
 
@@ -22,6 +22,7 @@ Il a été réalisé avec :
 - Dans Explorateur / Géopackage, choisir "Nouvelle connexion" avec le fichier [gabarit_cnig_accessibilite.gpkg](https://github.com/cnigfr/schema-accessibilite-voirie/blob/main/Standard/Gabarit%20geopackage/gabarit_cnig_accessibilite.gpkg) _(download raw file)_
  - Sélectionner les tables (par exemple celles portant de la géométrie) et les déplacer dans la liste des couches.
    - Alternative : on peut directement glisser/déposer le ficier dans la fenêtre QGIS, mais les noms des tables et couches sont alors préfixés par « gabarit_cnig_accessibilite -- »
+
 
 
 
