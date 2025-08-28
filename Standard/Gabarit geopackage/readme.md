@@ -21,7 +21,8 @@ Il a été réalisé avec :
 - Lancer QGIS
 - Dans Explorateur / Géopackage, choisir "Nouvelle connexion" avec le fichier [gabarit_cnig_accessibilite.gpkg](https://github.com/cnigfr/schema-accessibilite-voirie/blob/main/Standard/Gabarit%20geopackage/gabarit_cnig_accessibilite.gpkg) _(download raw file)_
  - Sélectionner les tables (par exemple celles portant de la géométrie) et les déplacer dans la liste des couches.
-  - Alternative : on peut directement glisser/déposer le ficier dans la fenêtre QGIS, mais les noms des tables et couches sont alors préfixés par « gabarit_cnig_accessibilite -- »
+   - Alternative : on peut directement glisser/déposer le ficier dans la fenêtre QGIS, mais les noms des tables et couches sont alors préfixés par « gabarit_cnig_accessibilite -- »
+
 
 
 
