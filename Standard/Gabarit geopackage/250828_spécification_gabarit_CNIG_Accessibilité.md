@@ -256,7 +256,7 @@ Le premier attribut de chaque table est son identifiant : id<classe>. Cet attri
 |**troncon_cheminement**|`idtroncon`|
 |**noeud_cheminement**|`idnoeud`|
 |**obstacle**|`idobstacle`|
-|**circulation**|`circulation`|
+|**circulation**|`idcirculation`|
 |**traversee**|`idtraversee`|
 |**rampe_acces**|`idrampe`|
 |**escalier**|`idescalier`|
