@@ -15,6 +15,12 @@ Il a été réalisé avec :
   - l'installation préalable de [SQLite](https://www.sqlite.org/about.html), outil de gestion de base SQL. _(Solution alternative : [DBeaver](https://dbeaver.io/download/))_
 - le [batch](https://github.com/cnigfr/schema-accessibilite-voirie/blob/main/Standard/Gabarit%20geopackage/batch.sh) permettant d'exécuter le script SQL
   - _Comment [utiliser Git Bash sous Windows](https://sps--lab-org.translate.goog/post/2024_windows_bash/?_x_tr_sl=en&_x_tr_tl=fr&_x_tr_hl=fr&_x_tr_pto=rq) pour exécuter des scripts Bash avec PowerShell_
+  - Pour lancer le batch :
+    > - Win+X Terminal (administrateur)   _(ou : WIN+X puis tapez a)_
+    > - cd  <votre répertoire de travail>   , _(par exemple :   cd D:\ATELIER_SQL)_
+    > - Set-Alias -Name bash -Value "<votre répertoire de travail>\GIT\PortableGit\git-bash.exe"
+    > - Set-Alias -Name sqlite3 -Value "<votre répertoire de travail>\SQLITE\sqlite3.exe"
+    > - bash -c "./batch.sh" 
 
 ## Commnent l'intégrer dans QGIS ?
 
@@ -22,6 +28,7 @@ Il a été réalisé avec :
 - Dans Explorateur / Géopackage, choisir "Nouvelle connexion" avec le fichier [gabarit_cnig_accessibilite.gpkg](https://github.com/cnigfr/schema-accessibilite-voirie/blob/main/Standard/Gabarit%20geopackage/gabarit_cnig_accessibilite.gpkg) _(download raw file)_
  - Sélectionner les tables (par exemple celles portant de la géométrie) et les déplacer dans la liste des couches.
    - Alternative : on peut directement glisser/déposer le fichier dans la fenêtre QGIS, mais les noms des tables et couches sont alors préfixés par « gabarit_cnig_accessibilite -- »
+
 
 
 
