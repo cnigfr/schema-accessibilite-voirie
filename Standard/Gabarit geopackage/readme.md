@@ -29,6 +29,10 @@ Il a été réalisé avec :
  - Sélectionner les tables (par exemple celles portant de la géométrie) et les déplacer dans la liste des couches.
    - Alternative : on peut directement glisser/déposer le fichier dans la fenêtre QGIS, mais les noms des tables et couches sont alors préfixés par « gabarit_cnig_accessibilite -- »
 
+## Commnent l'ouvrir dans DBeaver
+- Lancer DBeaver
+- Nouvelle connexion (CTRL+MAJ+N), choisir SQLite, puis ouvrir le fichier [gabarit_cnig_accessibilite.gpkg](https://github.com/cnigfr/schema-accessibilite-voirie/blob/main/Standard/Gabarit%20geopackage/gabarit_cnig_accessibilite.gpkg) _(download raw file)_
+- Vous pouvez ensuite déplier l'arborescence du Géopackage et cliquer droit sur chaque table pour vérifier sa structure, son contenu, les clés étrangères, etc.
 
 
 
