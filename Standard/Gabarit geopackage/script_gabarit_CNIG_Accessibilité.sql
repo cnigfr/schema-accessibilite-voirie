@@ -1891,6 +1891,6 @@ INSERT INTO gpkg_contents VALUES
 --         (datetime('now')),NULL,NULL,NULL,NULL,2154);
 -- 
 -- INSERT INTO gpkg_geometry_columns
--- VALUES ('vue_traversee','geom','LINESTRING',2154,0,0);
+-- VALUES ('vue_traversee','geom','LINESTRING',2154,2,0);
 
 
