@@ -12,7 +12,6 @@ echo "-------------------------------------------------"
 cd "$path"
 
 # PRODUCTION
-# echo "Copie de gpkg_vide efffectuée"
 # echo "Exécution du SQL de production"
 # "$path\SQLITE\sqlite3.exe" gabarit_cnig_accessibilite.gpkg < script_gabarit_CNIG_Accessibilité.sql
 # echo "Exécution du SQL de PRODUCTION : effectuée !"
@@ -24,4 +23,5 @@ echo "Exécution du SQL de TEST : effectuée !"
 
 echo "Appuyer sur Entrée pour continuer..."
 read a
+
 
