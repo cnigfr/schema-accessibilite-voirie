@@ -92,7 +92,7 @@ Pour chacune d'elle, elle permet de préciser :
 
 > Remarques sur les composantes temporelle et altimétrique :
 > - Les tables de la livraison listées dans la table `gpkg_geometry_columns` conformes au standard CNIG Accessibilité n'ont pas de composante temporelle. La valeur de `m` est donc `0`.
-> - Les tables n'ont pas de composante altimétrique, sauf la table `troncon_cheminement` pour laquelle la 3D est recommandée sans être obligatoire ; ainsi que toutes les tables (équipements linéaires, etc. ) dont la gémétrie s'appuie sur celle des tronçons de cheminement.
+> - Les tables n'ont pas de composante altimétrique, sauf la table `troncon_cheminement` pour laquelle la 3D est recommandée sans être obligatoire ; ainsi que toutes les tables (équipements linéaires, etc. ) dont la gémétrie s'appuie sur celle des tronçons de cheminement (cf. §4.3).
 > - La valeur de `z` est donc `0`, hormis `z` = `2` (`2` signifiant : facultatif) pour la table `troncon_cheminement` et toutes les tables (équipements linéaires, etc. ) dont la gémétrie s'appuie sur celle des tronçons de cheminement.
 > - L’altitude des nœuds de cheminement n’est pas portée par leur géométrie mais par l’attribut `altitude`.
 
@@ -174,18 +174,18 @@ Remarque : Toutes les tables sont obligatires. Par exemple, un lot de données 
 |**troncon_cheminement**|`features`|`LINESTRING`|
 |**nœud_cheminement**|`features`|`POINT`|
 |**obstacle**|`features`|`POINT`|
-|**circulation**|`attributes`|aucune|
-|**traversee**|`attributes`|aucune|
-|**rampe_acces**|`attributes`|aucune|
-|**escalier**|`attributes`|aucune|
-|**escalator**|`attributes`|aucune|
-|**tapis_roulant**|`attributes`|aucune|
-|**ascenseur**|`attributes`|aucune|
-|**elevateur**|`attributes`|aucune|
-|**entree**|`attributes`|aucune|
-|**passage_selectif**|`attributes`|aucune|
-|**quai**|`attributes`|aucune|
-|**stationnement_pmr**|`features`|`POINT`|
+|**circulation**|`features`|`LINESTRING` _héritée du troncon_cheminement_|
+|**traversee**|`features`|`LINESTRING` _héritée du troncon_cheminement_|
+|**rampe_acces**|`features`|`LINESTRING` _héritée du troncon_cheminement_|
+|**escalier**|`features`|`LINESTRING` _héritée du troncon_cheminement_|
+|**escalator**|`features`|`LINESTRING` _héritée du troncon_cheminement_|
+|**tapis_roulant**|`features`|`LINESTRING` _héritée du troncon_cheminement_|
+|**ascenseur**|`features`|`POINT` _héritée du noeud_cheminement_|
+|**elevateur**|`features`|`POINT`  _héritée du noeud_cheminement_|
+|**entree**|`features`|`POINT`  _héritée du noeud_cheminement_|
+|**passage_selectif**|`features`|`POINT`  _héritée du noeud_cheminement_|
+|**quai**|`features`|`LINESTRING` _héritée du troncon_cheminement_|
+|**stationnement_pmr**|`features`|`POINT`  _héritée du noeud_cheminement_|
 |**erp**|`features`|`POLYGON`|
 |**cheminement_erp**|`attributes`|aucune|
 
