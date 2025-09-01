@@ -2,7 +2,7 @@
 --titre : Code SQL pour la création d'un gabarit geopackage du Standard CNIG Accessibilité
 --auteur : Arnauld Gallais - GT CNIG Accessibilité
 --version : Standard CNIG Accessibilité v2021 révision 2025-05
---date : 28/08/2025
+--date : 01/09/2025
 
 
 
