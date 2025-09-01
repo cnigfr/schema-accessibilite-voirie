@@ -1114,7 +1114,7 @@ INSERT INTO gpkg_contents VALUES
 
 -- Ajout à la table gpkg_geometry_columns
 INSERT INTO gpkg_geometry_columns VALUES 
-  ('circulation','geom','LINESTRING',2154,0,0)
+  ('circulation','geom','LINESTRING',2154,2,0)
  ;
 
 --------------------------------------------------------------------
@@ -1165,7 +1165,7 @@ INSERT INTO gpkg_contents VALUES
 
 -- Ajout à la table gpkg_geometry_columns
 INSERT INTO gpkg_geometry_columns VALUES 
-  ('traversee','geom','LINESTRING',2154,0,0)
+  ('traversee','geom','LINESTRING',2154,2,0)
  ;
 
 
@@ -1217,7 +1217,7 @@ INSERT INTO gpkg_contents VALUES
 
 -- Ajout à la table gpkg_geometry_columns
 INSERT INTO gpkg_geometry_columns VALUES 
-  ('rampe','geom','LINESTRING',2154,0,0)
+  ('rampe','geom','LINESTRING',2154,2,0)
 ;
 
 ----------------------------------------------------------------
@@ -1273,7 +1273,7 @@ VALUES ('escalier','features','escalier','Table géométrique des escaliers',(da
 
 -- Ajout à la table gpkg_geometry_columns
 INSERT INTO gpkg_geometry_columns
-VALUES ('escalier','geom','LINESTRING',2154,0,0);
+VALUES ('escalier','geom','LINESTRING',2154,2,0);
 
 
 ----------------------------------------------------------------
@@ -1317,7 +1317,7 @@ VALUES ('escalator','features','escalator','Table géométrique des escalators',
 
 -- Ajout à la table gpkg_geometry_columns
 INSERT INTO gpkg_geometry_columns
-VALUES ('escalator','geom','LINESTRING',2154,0,0);
+VALUES ('escalator','geom','LINESTRING',2154,2,0);
 
 
 ----------------------------------------------------------------
@@ -1360,7 +1360,7 @@ VALUES ('tapis_roulant','features','tapis_roulant','Table géométrique des tapi
 
 -- Ajout à la table gpkg_geometry_columns
 INSERT INTO gpkg_geometry_columns
-VALUES ('tapis_roulant','geom','LINESTRING',2154,0,0);
+VALUES ('tapis_roulant','geom','LINESTRING',2154,2,0);
 
 
 
@@ -1628,7 +1628,7 @@ VALUES ('quai','features','quai','Table géométrique des quais',(datetime('now'
 
 -- Ajout à la table gpkg_geometry_columns
 INSERT INTO gpkg_geometry_columns
-VALUES ('quai','geom','LINESTRING',2154,0,0);
+VALUES ('quai','geom','LINESTRING',2154,2,0);
 
 --------------------------------------------------------------------
 -- STATIONNEMENT_PMR (classe 3.3.17)
