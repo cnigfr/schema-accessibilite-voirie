@@ -90,7 +90,11 @@ Pour chacune d'elle, elle permet de préciser :
 - une valeur entière indiquant si la géométrie peut comporter une composante altimétrique (`z`) ;
 - une valeur entière indiquant si la géométrie peut comporter une composante temporelle (`m`).
 
-Remarque : Les tables de la livraison listées dans la table `gpkg_geometry_columns` conformes au standard CNIG Accessibilité n'ont pas de composante altimétrique (car l’altitude des nœuds de cheminement n’est pas portée par leur géométrie mais par l’attribut « altitude »), ni de composante temporelle. Les valeurs de z et m pour ces tables sont donc égales à 0.
+Remarques :
+- Les tables de la livraison listées dans la table `gpkg_geometry_columns` conformes au standard CNIG Accessibilité n'ont pas de composante altimétrique, sauf la table `troncon_cheminement` pour laquelle la 3D est recommandée sans être obligatoire.
+- L’altitude des nœuds de cheminement n’est pas portée par leur géométrie mais par l’attribut `altitude`
+- Les tables de la livraison listées dans la table `gpkg_geometry_columns` ne disposent pas de composante temporelle.
+- Les valeurs de `z` et `m` pour ces tables sont donc `0`, hormis `z` = `2` pour la table `troncon_cheminement` (`2` signifiant : facultatif). 
 
 ### 3.3 **Table gpkg_spatial_ref_sys**
 La table `gpkg_spatial_ref_sys` est une table définie dans [les spécifications du format GeoPackage](https://www.geopackage.org/spec131/).
