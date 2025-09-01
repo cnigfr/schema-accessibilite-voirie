@@ -5,32 +5,98 @@
 --date : 01/09/2025
 
 
+-------------------------------------------------------------------------------------------
+-- Création des tables intrinsèques au format GeoPackage (OGC 12-128r18)
+-- À exécuter dans une base SQLite
+-- Ce bloc crée :
+--   - gpkg_spatial_ref_sys     : définitions de systèmes de coordonnées
+--   - gpkg_contents            : catalogue des tables de données
+--   - gpkg_geometry_columns    : colonnes géométriques des tables features
+-- Il insère les systèmes de coordonnées :
+-- EPSG:4326 (WGS 84) est obligatoire dans tout GeoPackage (spéc. OGC)
+-- EPSG:2154 (RGF93 / Lambert-93) est ajouté pour CNIG
+-------------------------------------------------------------------------------------------
 
--- CREATE TABLE gpkg_spatial_ref_sys (
---  srs_name TEXT NOT NULL,
---  srs_id INTEGER PRIMARY KEY,
---  organization TEXT NOT NULL,
---  organization_coordsys_id INTEGER NOT NULL,
---  definition  TEXT NOT NULL,
---  description TEXT
---);
+-- Table des systèmes de coordonnées
+DROP TABLE IF EXISTS gpkg_spatial_ref_sys;
+CREATE TABLE gpkg_spatial_ref_sys (
+  srs_name TEXT NOT NULL,
+  srs_id INTEGER NOT NULL PRIMARY KEY,
+  organization TEXT NOT NULL,
+  organization_coordsys_id INTEGER NOT NULL,
+  definition TEXT NOT NULL,
+  description TEXT
+);
 
--- CREATE TABLE gpkg_contents (
---  table_name TEXT NOT NULL PRIMARY KEY,
---  data_type TEXT NOT NULL,
---  identifier TEXT UNIQUE,
---  description TEXT DEFAULT '',
---  last_change DATETIME NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')),
---  min_x DOUBLE,
---  min_y DOUBLE,
---  max_x DOUBLE,
---  max_y DOUBLE,
---  srs_id INTEGER,
---  CONSTRAINT fk_gc_r_srs_id FOREIGN KEY (srs_id) REFERENCES gpkg_spatial_ref_sys(srs_id)
--- );
+-- Table des contenus (métadonnées globales)
+DROP TABLE IF EXISTS gpkg_contents;
+CREATE TABLE gpkg_contents (
+  table_name TEXT NOT NULL PRIMARY KEY,
+  data_type TEXT NOT NULL,  -- "features" | "tiles" | "attributes"
+  identifier TEXT UNIQUE,
+  description TEXT DEFAULT '',
+  last_change DATETIME NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')),
+  min_x DOUBLE, min_y DOUBLE, max_x DOUBLE, max_y DOUBLE,
+  srs_id INTEGER,
+  CONSTRAINT fk_gc_r_srs_id FOREIGN KEY (srs_id) REFERENCES gpkg_spatial_ref_sys(srs_id)
+);
+
+-- Table des colonnes géométriques
+DROP TABLE IF EXISTS gpkg_geometry_columns;
+CREATE TABLE gpkg_geometry_columns (
+  table_name TEXT NOT NULL,
+  column_name TEXT NOT NULL,
+  geometry_type_name TEXT NOT NULL, -- POINT, LINESTRING, POLYGON...
+  srs_id INTEGER NOT NULL,
+  z TINYINT NOT NULL DEFAULT 0,     -- 0 = pas de Z, 1 = obligatoire, 2 = facultatif
+  m TINYINT NOT NULL DEFAULT 0,     -- idem pour M
+  CONSTRAINT pk_gpkg_geometry_columns PRIMARY KEY (table_name, column_name),
+  CONSTRAINT fk_geom_cols_table_name FOREIGN KEY (table_name) REFERENCES gpkg_contents(table_name),
+  CONSTRAINT fk_geom_cols_srs FOREIGN KEY (srs_id) REFERENCES gpkg_spatial_ref_sys(srs_id)
+);
+
+--------------------------------------------------------------------
+-- Autres tables Géopackage non utilies à ce projet :
+--------------------------------------------------------------------
+-- gpkg_extensions
+-- DROP TABLE IF EXISTS gpkg_extensions;
+-- CREATE TABLE gpkg_extensions (table_name TEXT,column_name TEXT,extension_name TEXT NOT NULL,definition TEXT NOT NULL,scope TEXT NOT NULL,CONSTRAINT ge_tce UNIQUE (table_name, column_name, extension_name));
+
+-- gpkg_ogr_contents
+-- DROP TABLE IF EXISTS gpkg_ogr_contents;
+-- CREATE TABLE gpkg_ogr_contents(table_name TEXT NOT NULL PRIMARY KEY,feature_count INTEGER DEFAULT NULL);
+
+-- gpkg_tile_matrix
+-- DROP TABLE IF EXISTS gpkg_tile_matrix;
+-- CREATE TABLE gpkg_tile_matrix (table_name TEXT NOT NULL,zoom_level INTEGER NOT NULL,matrix_width INTEGER NOT NULL,matrix_height INTEGER NOT NULL,tile_width INTEGER NOT NULL,tile_height INTEGER NOT NULL,pixel_x_size DOUBLE NOT NULL,pixel_y_size DOUBLE NOT NULL,CONSTRAINT pk_ttm PRIMARY KEY (table_name, zoom_level),CONSTRAINT fk_tmm_table_name FOREIGN KEY (table_name) REFERENCES gpkg_contents(table_name));
+
+-- gpkg_tile_matrix_set
+-- DROP TABLE IF EXISTS gpkg_tile_matrix_set;
+-- CREATE TABLE gpkg_tile_matrix_set (table_name TEXT NOT NULL PRIMARY KEY,srs_id INTEGER NOT NULL,min_x DOUBLE NOT NULL,min_y DOUBLE NOT NULL,max_x DOUBLE NOT NULL,max_y DOUBLE NOT NULL,CONSTRAINT fk_gtms_table_name FOREIGN KEY (table_name) REFERENCES gpkg_contents(table_name),CONSTRAINT fk_gtms_srs FOREIGN KEY (srs_id) REFERENCES gpkg_spatial_ref_sys (srs_id));
+
+
+--------------------------------------------------------------------
+-- Insertions minimales de systèmes de coordonnées
+-- EPSG:4326 (WGS 84) est obligatoire dans tout GeoPackage (spéc. OGC)
+-- EPSG:2154 (RGF93 / Lambert-93)
+--------------------------------------------------------------------
+
+INSERT INTO gpkg_spatial_ref_sys
+(srs_name, srs_id, organization, organization_coordsys_id, definition, description)
+VALUES ('WGS 84',4326,'EPSG',4326,'EPSG:4326','WGS 84 geodetic coordinate system');
+
+INSERT INTO gpkg_spatial_ref_sys
+(srs_name, srs_id, organization, organization_coordsys_id, definition, description)
+VALUES ('RGF93 / Lambert-93',2154,'EPSG',2154,'EPSG:2154','Lambert 93 projection - France');
 
 ---------------------------------------------------------------
--- Insertion des systèmes de coordonnées dans la table gpkg_spatial_ref_sys
+-- Insertion des systèmes de coordonnées dans la table gpkg_spatial_ref_sys (source : IGN)
+-- EPSG:2154 (RGF93LAMB93 - Lambert-93 France métropolitaine)  !! DEJA INTTEGRE CI-DESSUS !!
+-- EPSG:5490 (RGAF09UTM20 - Antilles françaises)
+-- EPSG:2972 (RGFG95UTM22 - Guyane)
+-- EPSG:2975 (RGR92UTM40S - La Réunion)
+-- EPSG:4471 (RGM04UTM38S - Mayotte)
+-- EPSG:4467 (RGM04UTM38S - Mayotte)
 ---------------------------------------------------------------
 
 -- INSERT INTO gpkg_spatial_ref_sys VALUES 
@@ -44,12 +110,12 @@
 --   ('Universal transverse Mercator fuseau 40 sud (RGR92UTM40S)',2975,'EPSG',2975, 'PROJCRS["RGR92 / UTM zone 40S",BASEGEOGCRS["RGR92",DATUM["Reseau Geodesique de la Reunion 1992",ELLIPSOID["GRS 1980",6378137,298.257222101,LENGTHUNIT["metre",1]]],PRIMEM["Greenwich",0,ANGLEUNIT["degree",0.0174532925199433]],ID["EPSG",4627]],CONVERSION["UTM zone 40S",METHOD["Transverse Mercator",ID["EPSG",9807]],PARAMETER["Latitude of natural origin",0,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8801]],PARAMETER["Longitude of natural origin",57,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8802]],PARAMETER["Scale factor at natural origin",0.9996,SCALEUNIT["unity",1],ID["EPSG",8805]],PARAMETER["False easting",500000,LENGTHUNIT["metre",1],ID["EPSG",8806]],PARAMETER["False northing",10000000,LENGTHUNIT["metre",1],ID["EPSG",8807]]],CS[Cartesian,2],AXIS["(E)",east,ORDER[1],LENGTHUNIT["metre",1]],AXIS["(N)",north,ORDER[2],LENGTHUNIT["metre",1]],USAGE[SCOPE["Engineering survey, topographic mapping."],AREA["Reunion - onshore and offshore - east of 54°E."],BBOX[-24.72,54,-18.28,58.24]],ID["EPSG",2975]]','La Réunion'),
 --   /* RGM04UTM38S - Mayotte */
 --   ('Universal transverse Mercator fuseau 38 sud (RGM04UTM38S)',4471,'EPSG',4471, 'PROJCRS["RGM04 / UTM zone 38S",BASEGEOGCRS["RGM04",DATUM["Reseau Geodesique de Mayotte 2004",ELLIPSOID["GRS 1980",6378137,298.257222101,LENGTHUNIT["metre",1]]],PRIMEM["Greenwich",0,ANGLEUNIT["degree",0.0174532925199433]],ID["EPSG",4470]],CONVERSION["UTM zone 38S",METHOD["Transverse Mercator",ID["EPSG",9807]],PARAMETER["Latitude of natural origin",0,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8801]],PARAMETER["Longitude of natural origin",45,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8802]],PARAMETER["Scale factor at natural origin",0.9996,SCALEUNIT["unity",1],ID["EPSG",8805]],PARAMETER["False easting",500000,LENGTHUNIT["metre",1],ID["EPSG",8806]],PARAMETER["False northing",10000000,LENGTHUNIT["metre",1],ID["EPSG",8807]]],CS[Cartesian,2],AXIS["(E)",east,ORDER[1],LENGTHUNIT["metre",1]],AXIS["(N)",north,ORDER[2],LENGTHUNIT["metre",1]],USAGE[SCOPE["Engineering survey, topographic mapping."],AREA["Mayotte - onshore and offshore."],BBOX[-14.49,43.68,-11.33,46.7]],ID["EPSG",4471]]','Mayotte'),
---   /* RGSPM06U21 - Saint-Pierre-et-Miquelon' */
+--   /* RGM04UTM38S - Mayotte' */
 --   ('Universal transverse Mercator fuseau 21 nord (RGSPM06U21)',4467,'EPSG',4467, 'PROJCRS["RGSPM06 / UTM zone 21N",BASEGEOGCRS["RGSPM06",DATUM["Reseau Geodesique de Saint Pierre et Miquelon 2006",ELLIPSOID["GRS 1980",6378137,298.257222101,LENGTHUNIT["metre",1]]],PRIMEM["Greenwich",0,ANGLEUNIT["degree",0.0174532925199433]],ID["EPSG",4463]],CONVERSION["UTM zone 21N",METHOD["Transverse Mercator",ID["EPSG",9807]],PARAMETER["Latitude of natural origin",0,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8801]],PARAMETER["Longitude of natural origin",-57,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8802]],PARAMETER["Scale factor at natural origin",0.9996,SCALEUNIT["unity",1],ID["EPSG",8805]],PARAMETER["False easting",500000,LENGTHUNIT["metre",1],ID["EPSG",8806]],PARAMETER["False northing",0,LENGTHUNIT["metre",1],ID["EPSG",8807]]],CS[Cartesian,2],AXIS["(E)",east,ORDER[1],LENGTHUNIT["metre",1]],AXIS["(N)",north,ORDER[2],LENGTHUNIT["metre",1]],USAGE[SCOPE["Engineering survey, topographic mapping."],AREA["St Pierre and Miquelon - onshore and offshore."],BBOX[43.41,-57.1,47.37,-55.9]],ID["EPSG",4467]]','Saint-Pierre-et-Miquelon')
 --  ;
 
 ---------------------------------------------------------------
---  CREATION DES TABLES
+--  CREATION DES TABLES DU GABARIT CNIG ACCESSIBILITE
 ---------------------------------------------------------------
 
 ----------------------------------------------------------------------------------------------------------------------------
@@ -1550,7 +1616,7 @@ INSERT INTO gpkg_geometry_columns VALUES
 --------------------------------------------------------------------
 DROP TABLE IF EXISTS passage_selectif;
 CREATE TABLE passage_selectif (
-  idpassageeelectif TEXT NOT NULL PRIMARY KEY,
+  idpassageselectif TEXT NOT NULL PRIMARY KEY,
   -- Attributs NOEUD_CHEMINEMENT
   idnoeud TEXT NOT NULL,
   altitude REAL,

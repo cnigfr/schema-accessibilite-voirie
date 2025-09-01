@@ -1728,7 +1728,6 @@ CREATE TABLE stationnement_pmr (
   pente              INTEGER NOT NULL,
   devers             INTEGER NOT NULL,
   typeSol            TEXT,              -- enum: type_sol (optionnel)
-  iderp              TEXT NOT NULL,     -- identifiant ERP (obligatoire)
 
   -- Géométrie
   geom POINT NOT NULL,
