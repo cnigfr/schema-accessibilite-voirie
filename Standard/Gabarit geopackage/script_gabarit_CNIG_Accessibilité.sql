@@ -1015,7 +1015,7 @@ INSERT INTO gpkg_contents VALUES
 
 -- Ajout à la table gpkg_geometry_columns
 INSERT INTO gpkg_geometry_columns VALUES 
-  ('troncon_cheminement','geom','LINESTRING',2154,0,0)
+  ('troncon_cheminement','geom','LINESTRING',2154,2,0)  -- la valeur 2 indique qu'une gémétrie 3D du troncon_cheminement est facultative
  ;
 
 
