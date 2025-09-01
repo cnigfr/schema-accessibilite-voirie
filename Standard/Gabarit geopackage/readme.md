@@ -9,7 +9,7 @@ Il est utilisable dans le système de projection Lambert 93 (SRS 2154) pour la F
 ## Comment a-t-il été réalisé ?
 
 Il a été réalisé avec :
-- la [spécification](https://github.com/cnigfr/schema-accessibilite-voirie/blob/main/Standard/Gabarit%20geopackage/250828_sp%C3%A9cification_gabarit_CNIG_Accessibilit%C3%A9.md) du gabarit 
+- la [spécification](https://github.com/cnigfr/schema-accessibilite-voirie/blob/main/Standard/Gabarit%20geopackage/sp%C3%A9cification_gabarit_CNIG_Accessibilit%C3%A9.md) du gabarit 
 - le [script SQL](https://github.com/cnigfr/schema-accessibilite-voirie/blob/main/Standard/Gabarit%20geopackage/script_gabarit_CNIG_Accessibilit%C3%A9.sql), qui nécessite pour être exécuté :
   - le "[géopackage vide](https://github.com/cnigfr/schema-accessibilite-voirie/blob/main/Standard/Gabarit%20geopackage/gpkg_vide_from_QGIS.gpkg)" _(base SQL de départ qui va être complétée par le script SQL)_
   - l'installation préalable de [SQLite](https://www.sqlite.org/about.html), outil de gestion de base SQL. _(Solution alternative : [DBeaver](https://dbeaver.io/download/))_
@@ -28,6 +28,7 @@ Il a été réalisé avec :
 - Dans Explorateur / Géopackage, choisir "Nouvelle connexion" avec le fichier [gabarit_cnig_accessibilite.gpkg](https://github.com/cnigfr/schema-accessibilite-voirie/blob/main/Standard/Gabarit%20geopackage/gabarit_cnig_accessibilite.gpkg) _(download raw file)_
  - Sélectionner les tables (par exemple celles portant de la géométrie) et les déplacer dans la liste des couches.
    - Alternative : on peut directement glisser/déposer le fichier dans la fenêtre QGIS, mais les noms des tables et couches sont alors préfixés par « gabarit_cnig_accessibilite -- »
+
 
 
 
