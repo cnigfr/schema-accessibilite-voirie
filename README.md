@@ -26,6 +26,7 @@ Le standard détermine, entre autres :
 - La version courante (version projet non encore validée) est disponilble [sur le présent référentiel Github](https://github.com/cnigfr/schema-accessibilite-voirie/tree/main/Standard).
 - Le [Gitbook du GT CNIG Accessibilité](https://app.gitbook.com/@cnig/s/guide-methodo-cnig-accessibilite/) constitue le Guide méthodologique du standard CNIG Accessibilité.
 - Les contributions, demandes de corrections et d'évolutions du standard sont répertoriées dans les [issues](https://github.com/cnigfr/schema-accessibilite-voirie/issues).
+- Le [gabarit CNIG Accessibilité au format Géopackage](https://github.com/cnigfr/schema-accessibilite-voirie/blob/main/Standard/Gabarit%20geopackage/gabarit_cnig_accessibilite.gpkg) est utilisable dans QGIS et tout SIG supportant le format Géopackage.
 
 ## Versions
 - v2021-10 (révision juin 2023) : 1.2.0
