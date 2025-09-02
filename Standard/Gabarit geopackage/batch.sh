@@ -12,18 +12,18 @@ echo "-------------------------------------------------"
 cd "$path"
 
 # PRODUCTION
-echo "   Exécution du SQL de production"
-echo "-------------------------------------------------"
-"$path\SQLITE\sqlite3.exe" gabarit_cnig_accessibilite.gpkg < script_gabarit_CNIG_Accessibilité.sql
-echo "   Exécution du SQL de production : effectuée !"
-echo "-------------------------------------------------"
+# echo "   Exécution du SQL de production"
+# echo "-------------------------------------------------"
+# "$path\SQLITE\sqlite3.exe" gabarit_cnig_accessibilite.gpkg < script_gabarit_CNIG_Accessibilité.sql
+# echo "   Exécution du SQL de production : effectuée !"
+# echo "-------------------------------------------------"
 
 # TEST
-# echo "   Exécution du SQL de TEST"
-# echo "-------------------------------------------------"
-# "$path\SQLITE\sqlite3.exe" gabarit_cnig_accessibilite_TEST.gpkg < script_gabarit_CNIG_Accessibilité_TEST.sql
-# echo "   Exécution du SQL de TEST : effectuée !
-# "echo "-------------------------------------------------"
+echo "   Exécution du SQL de TEST"
+echo "-------------------------------------------------"
+"$path\SQLITE\sqlite3.exe" gabarit_cnig_accessibilite_TEST.gpkg < script_gabarit_CNIG_Accessibilité_TEST.sql
+echo "   Exécution du SQL de TEST : effectuée !"
+echo "-------------------------------------------------"
 
 echo "Appuyer sur Entrée pour continuer..."
 read a
