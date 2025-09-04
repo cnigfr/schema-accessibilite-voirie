@@ -486,6 +486,51 @@ INSERT INTO enum_position_obstacle VALUES
 ('sans objet','')
 ;
 
+-----------------------------------------------------
+-- Création table d'énumération enum_rampe_erp
+-----------------------------------------------------
+
+DROP TABLE IF EXISTS enum_rampe_erp;
+CREATE TABLE enum_rampe_erp (
+valeur text not null primary key,
+definition text
+);
+
+INSERT INTO gpkg_contents VALUES 
+('enum_rampe_erp','attributes','enum_rampe_erp','table énumérant les types de rampes d''accès aux erp',(datetime('now')),NULL,NULL,NULL,NULL,NULL)
+;
+
+INSERT INTO enum_rampe_erp VALUES
+('fixe',''),
+('amovible',''),
+('absence',''),
+('NC','non renseigné'),
+('sans objet','')
+;
+
+-----------------------------------------------------
+-- Création table d'énumération enum_rampe_interne
+-----------------------------------------------------
+
+DROP TABLE IF EXISTS enum_rampe_interne;
+CREATE TABLE enum_rampe_interne (
+valeur text not null primary key,
+definition text
+);
+
+INSERT INTO gpkg_contents VALUES 
+('enum_rampe_interne','attributes','enum_rampe_interne','table énumérant les types de rampes internes aux escaliers',(datetime('now')),NULL,NULL,NULL,NULL,NULL)
+;
+
+INSERT INTO enum_rampe_interne VALUES
+('aucune','aucune'),
+('vélo','goulotte ou rampe utilisée pour pousser un vélo'),
+('valise','rampe permettant de pousser les bagages'),
+('poussette','paire de rampes étroites avec des marches au milieu'),
+('autre','autre'),
+('NC','non renseigné'),
+('sans objet','')
+;
 
 -----------------------------------------------------
 -- Création table d'énumération enum_rappel_obstacle
@@ -510,27 +555,26 @@ INSERT INTO enum_rappel_obstacle VALUES
 ;
 
 -----------------------------------------------------
--- Création table d'énumération enum_rampe_erp
+-- Création table d'énumération enum_regularite
 -----------------------------------------------------
 
-DROP TABLE IF EXISTS enum_rampe_erp;
-CREATE TABLE enum_rampe_erp (
+DROP TABLE IF EXISTS enum_regularite;
+CREATE TABLE enum_regularite (
 valeur text not null primary key,
 definition text
 );
 
 INSERT INTO gpkg_contents VALUES 
-('enum_rampe_erp','attributes','enum_rampe_erp','table énumérant les types de rampes d''accès aux erp',(datetime('now')),NULL,NULL,NULL,NULL,NULL)
+('enum_regularite','attributes','enum_regularite','table énumérant le type de régularité escaliers',(datetime('now')),NULL,NULL,NULL,NULL,NULL)
 ;
 
-INSERT INTO enum_rampe_erp VALUES
-('fixe',''),
-('amovible',''),
-('absence',''),
+INSERT INTO enum_regularite VALUES
+('régulier','l''escalier dispose de marches régulières, toutes de même hauteur et profondeur'),
+('irrégulier','les marches ne sont pas toutes de même taille, certaines peuvent être légèrement en pente'),
+('très irrégulier','les marches sont de tailles très différentes, certaines peuvent être manquantes ou fortement en pente'),
 ('NC','non renseigné'),
 ('sans objet','')
 ;
-
 
 -----------------------------------------------------
 -- Création table d'énumération enum_relief_boutons
@@ -1040,6 +1084,8 @@ CREATE TABLE noeud_cheminement (
   CONSTRAINT fk_bandeEveilVigilance FOREIGN KEY (bandeEveilVigilance) REFERENCES enum_etat(valeur),
   CONSTRAINT fk_masqueCovisibilite FOREIGN KEY (masqueCovisibilite) REFERENCES enum_masqueCovisibilite(valeur),
   CONSTRAINT fk_controleBev FOREIGN KEY (controleBev) REFERENCES enum_controleBev(valeur)
+  -- Contrôle NC non autorisé
+  CONSTRAINT chk_masqueCovisibilite_no_nc CHECK (masqueCovisibilite <> 'NC')
 );
 
 -- Ajout à la table gpkg_contents
@@ -1072,7 +1118,9 @@ CREATE TABLE troncon_cheminement (
   CONSTRAINT fk_from FOREIGN KEY ('from') REFERENCES noeud_cheminement(idnoeud),
   CONSTRAINT fk_to FOREIGN KEY ('to') REFERENCES noeud_cheminement(idnoeud),
   CONSTRAINT fk_typeTroncon FOREIGN KEY (typeTroncon) REFERENCES enum_type_troncon(valeur),
-  CONSTRAINT fk_statutVoie FOREIGN KEY (statutVoie) REFERENCES enum_statut_voie(valeur)
+  CONSTRAINT fk_statutVoie FOREIGN KEY (statutVoie) REFERENCES enum_statut_voie(valeur),
+-- Contrôle NC non autorisé
+  CONSTRAINT chk_typeTroncon_no_nc CHECK (typeTroncon <> 'NC')
 );
 -- Ajout à la table gpkg_contents
 INSERT INTO gpkg_contents VALUES 
@@ -1317,20 +1365,24 @@ CREATE TABLE escalier (
   nbVoleeMarches        INTEGER,
   hauteurMarche         REAL,
   giron                 REAL,
+  regularite            TEXT,
+  rampeInterne          TEXT,
   -- Géométrie
   geom                  LINESTRING NOT NULL,
   -- Contraintes de références
-  CONSTRAINT fk_escalier_troncon FOREIGN KEY (idtroncon) REFERENCES troncon_cheminement(idtroncon),
-  CONSTRAINT fk_from        FOREIGN KEY ('from') REFERENCES noeud_cheminement(idnoeud),
-  CONSTRAINT fk_to          FOREIGN KEY ('to')   REFERENCES noeud_cheminement(idnoeud),
-  CONSTRAINT fk_typeTroncon FOREIGN KEY (typeTroncon) REFERENCES enum_type_troncon(valeur),
-  CONSTRAINT fk_statutVoie  FOREIGN KEY (statutVoie)  REFERENCES enum_statut_voie(valeur),
-  CONSTRAINT fk_etatRev     FOREIGN KEY (etatRevetement)       REFERENCES enum_etat_revetement(valeur),
-  CONSTRAINT fk_mc          FOREIGN KEY (mainCourante)         REFERENCES enum_cote(valeur),
-  CONSTRAINT fk_mccont      FOREIGN KEY (mainCouranteContinue) REFERENCES enum_cote(valeur),
-  CONSTRAINT fk_mcprol      FOREIGN KEY (prolongMainCourante)  REFERENCES enum_cote(valeur),
-  CONSTRAINT fk_vigi        FOREIGN KEY (dispositifVigilance)  REFERENCES enum_etat(valeur),
-  CONSTRAINT fk_contraste   FOREIGN KEY (contrasteVisuel)      REFERENCES enum_etat(valeur)
+  CONSTRAINT fk_escalier_troncon FOREIGN KEY (idtroncon)        REFERENCES troncon_cheminement(idtroncon),
+  CONSTRAINT fk_from         FOREIGN KEY ('from')               REFERENCES noeud_cheminement(idnoeud),
+  CONSTRAINT fk_to           FOREIGN KEY ('to')                 REFERENCES noeud_cheminement(idnoeud),
+  CONSTRAINT fk_typeTroncon  FOREIGN KEY (typeTroncon)          REFERENCES enum_type_troncon(valeur),
+  CONSTRAINT fk_statutVoie   FOREIGN KEY (statutVoie)           REFERENCES enum_statut_voie(valeur),
+  CONSTRAINT fk_etatRev      FOREIGN KEY (etatRevetement)       REFERENCES enum_etat_revetement(valeur),
+  CONSTRAINT fk_mc           FOREIGN KEY (mainCourante)         REFERENCES enum_cote(valeur),
+  CONSTRAINT fk_mccont       FOREIGN KEY (mainCouranteContinue) REFERENCES enum_cote(valeur),
+  CONSTRAINT fk_mcprol       FOREIGN KEY (prolongMainCourante)  REFERENCES enum_cote(valeur),
+  CONSTRAINT fk_vigi         FOREIGN KEY (dispositifVigilance)  REFERENCES enum_etat(valeur),
+  CONSTRAINT fk_contraste    FOREIGN KEY (contrasteVisuel)      REFERENCES enum_etat(valeur),
+  CONSTRAINT fk_reglarite    FOREIGN KEY (regularite)           REFERENCES enum_regularite(valeur),
+  CONSTRAINT fk_rampeInterne FOREIGN KEY (rampeInterne)         REFERENCES enum_rampe_internenterne(valeur)
 );
 
 -- Ajout à la table gpkg_contents
@@ -1728,7 +1780,6 @@ CREATE TABLE stationnement_pmr (
   pente              INTEGER NOT NULL,
   devers             INTEGER NOT NULL,
   typeSol            TEXT,              -- enum: type_sol (optionnel)
-  iderp              TEXT NOT NULL,     -- identifiant ERP (obligatoire)
 
   -- Géométrie
   geom POINT NOT NULL,

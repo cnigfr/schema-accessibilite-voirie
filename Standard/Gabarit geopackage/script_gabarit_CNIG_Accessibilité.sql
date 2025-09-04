@@ -1057,7 +1057,7 @@ INSERT INTO enum_voyant_ascenseur VALUES
 
 DROP TABLE IF EXISTS cheminement;
 CREATE TABLE cheminement ( 
-  idcheminement TEXT NOT NULL PRIMARY KEY, 
+  idCheminement TEXT NOT NULL PRIMARY KEY, 
   libelle TEXT NOT NULL
 );
 -- Ajout à la table gpkg_contents
@@ -1071,13 +1071,13 @@ INSERT INTO gpkg_contents VALUES
 
 DROP TABLE IF EXISTS noeud_cheminement;
 CREATE TABLE noeud_cheminement (  
-  idnoeud TEXT NOT NULL PRIMARY KEY, 
+  idNoeud TEXT NOT NULL PRIMARY KEY, 
   altitude REAL, 
-  bandeEveilVigilance TEXT NOT NULL,
+  bandeEveilVigilance TEXT NOT NULL DEFAULT 'sans objet',
   hauteurRessaut REAL NOT NULL,
   abaissePente INTEGER NOT NULL,
   abaisseLargeur REAL NOT NULL,
-  masqueCovisibilite TEXT NOT NULL,
+  masqueCovisibilite TEXT NOT NULL DEFAULT 'aucun',
   controleBev TEXT NOT NULL,
   bandeInterception BOOLEAN,
   geom POINT NOT NULL,
@@ -1104,7 +1104,7 @@ INSERT INTO gpkg_geometry_columns VALUES
 
 DROP TABLE IF EXISTS troncon_cheminement;
 CREATE TABLE troncon_cheminement (  
-  idtroncon TEXT NOT NULL PRIMARY KEY, 
+  idTroncon TEXT NOT NULL PRIMARY KEY, 
 --  !! from et to sont des mots clés pour SQL => les mettre entre quotes
   'from' TEXT NOT NULL,
   'to' TEXT NOT NULL,
@@ -1115,8 +1115,8 @@ CREATE TABLE troncon_cheminement (
   devers INTEGER NOT NULL,
   urlMedia TEXT,
   geom LINESTRING NOT NULL,
-  CONSTRAINT fk_from FOREIGN KEY ('from') REFERENCES noeud_cheminement(idnoeud),
-  CONSTRAINT fk_to FOREIGN KEY ('to') REFERENCES noeud_cheminement(idnoeud),
+  CONSTRAINT fk_from FOREIGN KEY ('from') REFERENCES noeud_cheminement(idNoeud),
+  CONSTRAINT fk_to FOREIGN KEY ('to') REFERENCES noeud_cheminement(idNoeud),
   CONSTRAINT fk_typeTroncon FOREIGN KEY (typeTroncon) REFERENCES enum_type_troncon(valeur),
   CONSTRAINT fk_statutVoie FOREIGN KEY (statutVoie) REFERENCES enum_statut_voie(valeur),
 -- Contrôle NC non autorisé
@@ -1139,9 +1139,9 @@ INSERT INTO gpkg_geometry_columns VALUES
 
 DROP TABLE IF EXISTS obstacle;
 CREATE TABLE obstacle (  
-  idobstacle TEXT NOT NULL PRIMARY KEY,
+  idObstacle TEXT NOT NULL PRIMARY KEY,
 -- Attributs TRONÇON  
-  idtroncon TEXT NOT NULL, 
+  idTroncon TEXT NOT NULL, 
   'from' TEXT NOT NULL,
   'to' TEXT NOT NULL,
   longueur INTEGER NOT NULL,
@@ -1155,15 +1155,15 @@ CREATE TABLE obstacle (
   largeurUtile REAL NOT NULL,
   positionObstacle TEXT NOT NULL,
   longueurObstacle REAL,
-  rappelObstacle TEXT NOT NULL,
+  rappelObstacle TEXT NOT NULL DEFAULT 'sans objet',
   reperabiliteVisuelle BOOLEAN NOT NULL,
   urlMedia TEXT,
   hauteurSousObs REAL,
   hauteurObsPoseSol REAL,
   geom POINT NOT NULL,
-  CONSTRAINT fk_obstacle_troncon FOREIGN KEY (idtroncon) REFERENCES troncon_cheminement(idtroncon),
-  CONSTRAINT fk_from FOREIGN KEY ('from') REFERENCES noeud_cheminement(idnoeud),
-  CONSTRAINT fk_to FOREIGN KEY ('to') REFERENCES noeud_cheminement(idnoeud),
+  CONSTRAINT fk_obstacle_troncon FOREIGN KEY (idTroncon) REFERENCES troncon_cheminement(idTroncon),
+  CONSTRAINT fk_from FOREIGN KEY ('from') REFERENCES noeud_cheminement(idNoeud),
+  CONSTRAINT fk_to FOREIGN KEY ('to') REFERENCES noeud_cheminement(idNoeud),
   CONSTRAINT fk_typeTroncon FOREIGN KEY (typeTroncon) REFERENCES enum_type_troncon(valeur),
   CONSTRAINT fk_statutVoie FOREIGN KEY (statutVoie) REFERENCES enum_statut_voie(valeur),
   CONSTRAINT fk_typeObstacle FOREIGN KEY (typeObstacle) REFERENCES enum_type_obstacle(valeur),
@@ -1187,9 +1187,9 @@ INSERT INTO gpkg_geometry_columns VALUES
 
 DROP TABLE IF EXISTS circulation;
 CREATE TABLE circulation (
-  idcirculation TEXT NOT NULL PRIMARY KEY,
+  idCirculation TEXT NOT NULL PRIMARY KEY,
 -- Attributs TRONÇON  
-  idtroncon TEXT NOT NULL, 
+  idTroncon TEXT NOT NULL, 
   'from' TEXT NOT NULL,
   'to' TEXT NOT NULL,
   longueur INTEGER NOT NULL,
@@ -1204,13 +1204,13 @@ CREATE TABLE circulation (
   etatRevetement TEXT NOT NULL,
   eclairage TEXT,
   transition TEXT,	
-  typePassage TEXT,
-  repereLineaire TEXT NOT NULL,
+  typePassage TEXT DEFAULT 'en surface',
+  repereLineaire TEXT NOT NULL DEFAULT 'aucun',
   couvert TEXT,
   geom LINESTRING NOT NULL,
-  CONSTRAINT fk_circulation_troncon FOREIGN KEY (idtroncon) REFERENCES troncon_cheminement(idtroncon),
-  CONSTRAINT fk_from FOREIGN KEY ('from') REFERENCES noeud_cheminement(idnoeud),
-  CONSTRAINT fk_to FOREIGN KEY ('to') REFERENCES noeud_cheminement(idnoeud),
+  CONSTRAINT fk_circulation_troncon FOREIGN KEY (idTroncon) REFERENCES troncon_cheminement(idTroncon),
+  CONSTRAINT fk_from FOREIGN KEY ('from') REFERENCES noeud_cheminement(idNoeud),
+  CONSTRAINT fk_to FOREIGN KEY ('to') REFERENCES noeud_cheminement(idNoeud),
   CONSTRAINT fk_typeTroncon FOREIGN KEY (typeTroncon) REFERENCES enum_type_troncon(valeur),
   CONSTRAINT fk_statutVoie FOREIGN KEY (statutVoie) REFERENCES enum_statut_voie(valeur),
   CONSTRAINT fk_typeSol FOREIGN KEY (typeSol) REFERENCES enum_type_sol(valeur),
@@ -1238,9 +1238,9 @@ INSERT INTO gpkg_geometry_columns VALUES
 
 DROP TABLE IF EXISTS traversee;
 CREATE TABLE traversee (
-  idtraversee TEXT NOT NULL PRIMARY KEY,
+  idTraversee TEXT NOT NULL PRIMARY KEY,
 -- Attributs TRONÇON
-  idtroncon TEXT NOT NULL, 
+  idTroncon TEXT NOT NULL, 
   'from' TEXT NOT NULL,
   'to' TEXT NOT NULL,
   longueur INTEGER NOT NULL,
@@ -1255,14 +1255,14 @@ CREATE TABLE traversee (
   etatMarquage TEXT,
   eclairage TEXT,
   feuPietons BOOLEAN NOT NULL,
-  aideSonore TEXT NOT NULL,
-  repereLineaire TEXT NOT NULL,
-  chausseeBombee BOOLEAN TEXT NOT NULL,
-  voiesTraversees TEXT,
+  aideSonore TEXT NOT NULL DEFAULT 'absence',
+  repereLineaire TEXT NOT NULL DEFAULT 'aucun',
+  chausseeBombee BOOLEAN TEXT NOT NULL DEFAULT 'non',
+  voiesTraversees TEXT DEFAULT 'VV',
   geom LINESTRING NOT NULL,
-  CONSTRAINT fk_traversee_troncon FOREIGN KEY (idtroncon) REFERENCES troncon_cheminement(idtroncon),
-  CONSTRAINT fk_from FOREIGN KEY ('from') REFERENCES noeud_cheminement(idnoeud),
-  CONSTRAINT fk_to FOREIGN KEY ('to') REFERENCES noeud_cheminement(idnoeud),
+  CONSTRAINT fk_traversee_troncon FOREIGN KEY (idTroncon) REFERENCES troncon_cheminement(idTroncon),
+  CONSTRAINT fk_from FOREIGN KEY ('from') REFERENCES noeud_cheminement(idNoeud),
+  CONSTRAINT fk_to FOREIGN KEY ('to') REFERENCES noeud_cheminement(idNoeud),
   CONSTRAINT fk_typeTroncon FOREIGN KEY (typeTroncon) REFERENCES enum_type_troncon(valeur),
   CONSTRAINT fk_statutVoie FOREIGN KEY (statutVoie) REFERENCES enum_statut_voie(valeur),
   CONSTRAINT fk_etatRevetement FOREIGN KEY (etatRevetement) REFERENCES enum_etat_revetement(valeur),
@@ -1290,9 +1290,9 @@ INSERT INTO gpkg_geometry_columns VALUES
 
 DROP TABLE IF EXISTS rampe;
 CREATE TABLE rampe (
-  idrampe TEXT NOT NULL PRIMARY KEY,
+  idRampe TEXT NOT NULL PRIMARY KEY,
   -- Attributs TRONÇON
-  idtroncon TEXT NOT NULL,
+  idTroncon TEXT NOT NULL,
   "from" TEXT NOT NULL,
   "to" TEXT NOT NULL,
   longueur INTEGER NOT NULL,
@@ -1312,10 +1312,10 @@ CREATE TABLE rampe (
   -- Géométrie
   geom LINESTRING NOT NULL,
   -- Contraintes de références
-  CONSTRAINT fk_rampe_troncon FOREIGN KEY (idtroncon) REFERENCES troncon_cheminement(idtroncon),
-  CONSTRAINT fk_from FOREIGN KEY ("from") REFERENCES noeud_cheminement(idnoeud),
-  CONSTRAINT fk_to FOREIGN KEY ("to") REFERENCES noeud_cheminement(idnoeud),
-  CONSTRAINT fk_troncon FOREIGN KEY (idtroncon) REFERENCES troncon_cheminement(idtroncon),
+  CONSTRAINT fk_rampe_troncon FOREIGN KEY (idTroncon) REFERENCES troncon_cheminement(idTroncon),
+  CONSTRAINT fk_from FOREIGN KEY ("from") REFERENCES noeud_cheminement(idNoeud),
+  CONSTRAINT fk_to FOREIGN KEY ("to") REFERENCES noeud_cheminement(idNoeud),
+  CONSTRAINT fk_troncon FOREIGN KEY (idTroncon) REFERENCES troncon_cheminement(idTroncon),
   CONSTRAINT fk_typeTroncon FOREIGN KEY (typeTroncon) REFERENCES enum_type_troncon(valeur),
   CONSTRAINT fk_statutVoie FOREIGN KEY (statutVoie) REFERENCES enum_statut_voie(valeur),
   CONSTRAINT fk_etatRevetement FOREIGN KEY (etatRevetement) REFERENCES enum_etat(valeur),
@@ -1342,9 +1342,9 @@ INSERT INTO gpkg_geometry_columns VALUES
 -- DROP TABLE IF EXISTS escalier;
 DROP TABLE IF EXISTS escalier;
 CREATE TABLE escalier (
-  idescalier            TEXT PRIMARY KEY NOT NULL,
+  idEscalier            TEXT PRIMARY KEY NOT NULL,
   -- Attributs TRONÇON
-  idtroncon             TEXT NOT NULL,
+  idTroncon             TEXT NOT NULL,
   'from'                TEXT NOT NULL,
   'to'                  TEXT NOT NULL,
   longueur              INTEGER NOT NULL,
@@ -1370,9 +1370,9 @@ CREATE TABLE escalier (
   -- Géométrie
   geom                  LINESTRING NOT NULL,
   -- Contraintes de références
-  CONSTRAINT fk_escalier_troncon FOREIGN KEY (idtroncon)        REFERENCES troncon_cheminement(idtroncon),
-  CONSTRAINT fk_from         FOREIGN KEY ('from')               REFERENCES noeud_cheminement(idnoeud),
-  CONSTRAINT fk_to           FOREIGN KEY ('to')                 REFERENCES noeud_cheminement(idnoeud),
+  CONSTRAINT fk_escalier_troncon FOREIGN KEY (idTroncon)        REFERENCES troncon_cheminement(idTroncon),
+  CONSTRAINT fk_from         FOREIGN KEY ('from')               REFERENCES noeud_cheminement(idNoeud),
+  CONSTRAINT fk_to           FOREIGN KEY ('to')                 REFERENCES noeud_cheminement(idNoeud),
   CONSTRAINT fk_typeTroncon  FOREIGN KEY (typeTroncon)          REFERENCES enum_type_troncon(valeur),
   CONSTRAINT fk_statutVoie   FOREIGN KEY (statutVoie)           REFERENCES enum_statut_voie(valeur),
   CONSTRAINT fk_etatRev      FOREIGN KEY (etatRevetement)       REFERENCES enum_etat_revetement(valeur),
@@ -1400,9 +1400,9 @@ VALUES ('escalier','geom','LINESTRING',2154,2,0);
 ----------------------------------------------------------------
 DROP TABLE IF EXISTS escalator;
 CREATE TABLE escalator (
-  idescalator           TEXT PRIMARY KEY NOT NULL,
+  idEscalator           TEXT PRIMARY KEY NOT NULL,
   -- Attributs TRONÇON
-  idtroncon             TEXT NOT NULL,
+  idTroncon             TEXT NOT NULL,
   'from'                TEXT NOT NULL,
   'to'                  TEXT NOT NULL,
   longueur              INTEGER NOT NULL,
@@ -1420,9 +1420,9 @@ CREATE TABLE escalator (
   -- Géométrie
   geom                  LINESTRING NOT NULL,
     -- Contraintes de références
-  CONSTRAINT fk_escalator_troncon FOREIGN KEY (idtroncon) REFERENCES troncon_cheminement(idtroncon),
-  CONSTRAINT fk_from        FOREIGN KEY ('from') REFERENCES noeud_cheminement(idnoeud),
-  CONSTRAINT fk_to          FOREIGN KEY ('to')   REFERENCES noeud_cheminement(idnoeud),
+  CONSTRAINT fk_escalator_troncon FOREIGN KEY (idTroncon) REFERENCES troncon_cheminement(idTroncon),
+  CONSTRAINT fk_from        FOREIGN KEY ('from') REFERENCES noeud_cheminement(idNoeud),
+  CONSTRAINT fk_to          FOREIGN KEY ('to')   REFERENCES noeud_cheminement(idNoeud),
   CONSTRAINT fk_typeTroncon FOREIGN KEY (typeTroncon) REFERENCES enum_type_troncon(valeur),
   CONSTRAINT fk_statutVoie  FOREIGN KEY (statutVoie)  REFERENCES enum_statut_voie(valeur),
   CONSTRAINT fk_transition  FOREIGN KEY (transition)  REFERENCES enum_transition(valeur),
@@ -1444,9 +1444,9 @@ VALUES ('escalator','geom','LINESTRING',2154,2,0);
 ----------------------------------------------------------------
 DROP TABLE IF EXISTS tapis_roulant;
 CREATE TABLE tapis_roulant (
-  idtapisroulant        TEXT PRIMARY KEY NOT NULL,
+  idTapisRoulant        TEXT PRIMARY KEY NOT NULL,
   -- Attributs TRONÇON
-  idtroncon             TEXT NOT NULL,
+  idTroncon             TEXT NOT NULL,
   'from'                TEXT NOT NULL,
   'to'                  TEXT NOT NULL,
   longueur              INTEGER NOT NULL,
@@ -1463,9 +1463,9 @@ CREATE TABLE tapis_roulant (
   -- Géométrie
   geom                  LINESTRING NOT NULL,
   -- Contraintes de références
-  CONSTRAINT fk_tapis_roulant_troncon FOREIGN KEY (idtroncon) REFERENCES troncon_cheminement(idtroncon),
-  CONSTRAINT fk_from        FOREIGN KEY ('from') REFERENCES noeud_cheminement(idnoeud),
-  CONSTRAINT fk_to          FOREIGN KEY ('to')   REFERENCES noeud_cheminement(idnoeud),
+  CONSTRAINT fk_tapis_roulant_troncon FOREIGN KEY (idTroncon) REFERENCES troncon_cheminement(idTroncon),
+  CONSTRAINT fk_from        FOREIGN KEY ('from') REFERENCES noeud_cheminement(idNoeud),
+  CONSTRAINT fk_to          FOREIGN KEY ('to')   REFERENCES noeud_cheminement(idNoeud),
   CONSTRAINT fk_typeTroncon FOREIGN KEY (typeTroncon) REFERENCES enum_type_troncon(valeur),
   CONSTRAINT fk_statutVoie  FOREIGN KEY (statutVoie)  REFERENCES enum_statut_voie(valeur),
   CONSTRAINT fk_sens        FOREIGN KEY (sens)        REFERENCES enum_sens(valeur),
@@ -1488,9 +1488,9 @@ VALUES ('tapis_roulant','geom','LINESTRING',2154,2,0);
 --------------------------------------------------------------------
 DROP TABLE IF EXISTS ascenseur;
 CREATE TABLE ascenseur (
-  idascenseur TEXT NOT NULL PRIMARY KEY,
+  idAscenseur TEXT NOT NULL PRIMARY KEY,
   -- Attributs NOEUD_CHEMINEMENT
-  idnoeud TEXT NOT NULL,
+  idNoeud TEXT NOT NULL,
   altitude REAL,
   bandeEveilVigilance TEXT NOT NULL,
   hauteurRessaut REAL NOT NULL,
@@ -1520,7 +1520,7 @@ CREATE TABLE ascenseur (
   -- Géométrie
   geom POINT NOT NULL,
   -- Contraintes de références
-  CONSTRAINT fk_ascenseur_noeud FOREIGN KEY (idnoeud) REFERENCES noeud_cheminement(idnoeud),
+  CONSTRAINT fk_ascenseur_noeud FOREIGN KEY (idNoeud) REFERENCES noeud_cheminement(idNoeud),
   CONSTRAINT fk_bandeEveilVigilance_ascenseur FOREIGN KEY (bandeEveilVigilance) REFERENCES enum_etat(valeur),
   CONSTRAINT fk_masqueCovisibilite_ascenseur FOREIGN KEY (masqueCovisibilite) REFERENCES enum_masqueCovisibilite(valeur),
   CONSTRAINT fk_controleBev_ascenseur FOREIGN KEY (controleBev) REFERENCES enum_controleBev(valeur)
@@ -1548,9 +1548,9 @@ INSERT INTO gpkg_geometry_columns VALUES
 --------------------------------------------------------------------
 DROP TABLE IF EXISTS elevateur;
 CREATE TABLE elevateur (
-  idelevateur TEXT NOT NULL PRIMARY KEY,
+  idElevateur TEXT NOT NULL PRIMARY KEY,
   -- Attributs NOEUD_CHEMINEMENT
-  idnoeud TEXT NOT NULL,
+  idNoeud TEXT NOT NULL,
   altitude REAL,
   bandeEveilVigilance TEXT NOT NULL,
   hauteurRessaut REAL NOT NULL,
@@ -1574,7 +1574,7 @@ CREATE TABLE elevateur (
   -- Géométrie
   geom POINT NOT NULL,
   -- Contraintes de références
-  CONSTRAINT fk_elevateur_noeud FOREIGN KEY (idnoeud) REFERENCES noeud_cheminement(idnoeud),
+  CONSTRAINT fk_elevateur_noeud FOREIGN KEY (idNoeud) REFERENCES noeud_cheminement(idNoeud),
   CONSTRAINT fk_bandeEveilVigilance_elevateur FOREIGN KEY (bandeEveilVigilance) REFERENCES enum_etat(valeur),
   CONSTRAINT fk_masqueCovisibilite_elevateur FOREIGN KEY (masqueCovisibilite) REFERENCES enum_masqueCovisibilite(valeur),
   CONSTRAINT fk_controleBev_elevateur FOREIGN KEY (controleBev) REFERENCES enum_controleBev(valeur),
@@ -1599,9 +1599,9 @@ INSERT INTO gpkg_geometry_columns VALUES
 --------------------------------------------------------------------
 DROP TABLE IF EXISTS entree;
 CREATE TABLE entree (
-  identree TEXT NOT NULL PRIMARY KEY,
+  idEntree TEXT NOT NULL PRIMARY KEY,
   -- Attributs NOEUD_CHEMINEMENT
-  idnoeud TEXT NOT NULL,
+  idNoeud TEXT NOT NULL,
   altitude REAL,
   bandeEveilVigilance TEXT NOT NULL,
   hauteurRessaut REAL NOT NULL,
@@ -1615,7 +1615,7 @@ CREATE TABLE entree (
   typeEntree TEXT,                      -- facultatif
   rampe TEXT NOT NULL,                  -- enum: rampe_erp
   rampeSonnette BOOLEAN,                -- facultatif
-  ascenseur BOOLEAN NOT NULL,
+  ascenseur BOOLEAN NOT NULL DEFAULT FALSE,
   escalierNbMarche INTEGER NOT NULL,
   escalierMainCourante TEXT,            -- enum: cote
   reperabilite BOOLEAN,                 -- facultatif
@@ -1637,7 +1637,7 @@ CREATE TABLE entree (
   -- Géométrie
   geom POINT NOT NULL,
   -- Contraintes de références
-  CONSTRAINT fk_entree_noeud                FOREIGN KEY (idnoeud)               REFERENCES noeud_cheminement(idnoeud),
+  CONSTRAINT fk_entree_noeud                FOREIGN KEY (idNoeud)               REFERENCES noeud_cheminement(idNoeud),
   CONSTRAINT fk_bandeEveilVigilance_entree  FOREIGN KEY (bandeEveilVigilance)   REFERENCES enum_etat(valeur),
   CONSTRAINT fk_masqueCovi_entree           FOREIGN KEY (masqueCovisibilite)    REFERENCES enum_masque_covisibilite(valeur),
   CONSTRAINT fk_controleBev_entree          FOREIGN KEY (controleBev)           REFERENCES enum_controle_bev(valeur),
@@ -1668,9 +1668,9 @@ INSERT INTO gpkg_geometry_columns VALUES
 --------------------------------------------------------------------
 DROP TABLE IF EXISTS passage_selectif;
 CREATE TABLE passage_selectif (
-  idpassageselectif TEXT NOT NULL PRIMARY KEY,
+  idPassageSelectif TEXT NOT NULL PRIMARY KEY,
   -- Attributs NOEUD_CHEMINEMENT
-  idnoeud TEXT NOT NULL,
+  idNoeud TEXT NOT NULL,
   altitude REAL,
   bandeEveilVigilance TEXT NOT NULL,
   hauteurRessaut REAL NOT NULL,
@@ -1687,7 +1687,7 @@ CREATE TABLE passage_selectif (
   -- Géométrie
   geom POINT NOT NULL,
   -- Contraintes de références
-  CONSTRAINT fk_passage_noeud               FOREIGN KEY (idnoeud)             REFERENCES noeud_cheminement(idnoeud),
+  CONSTRAINT fk_passage_noeud               FOREIGN KEY (idNoeud)             REFERENCES noeud_cheminement(idNoeud),
   CONSTRAINT fk_bandeEveilVigilance_passage FOREIGN KEY (bandeEveilVigilance) REFERENCES enum_etat(valeur),
   CONSTRAINT fk_masqueCovisibilite_passage  FOREIGN KEY (masqueCovisibilite)  REFERENCES enum_masque_covisibilite(valeur),
   CONSTRAINT fk_controleBev_passage         FOREIGN KEY (controleBev)         REFERENCES enum_controle_bev(valeur)
@@ -1709,9 +1709,9 @@ INSERT INTO gpkg_geometry_columns VALUES
 ----------------------------------------------------------------
 DROP TABLE IF EXISTS quai;
 CREATE TABLE quai (
-  idquai                TEXT PRIMARY KEY NOT NULL,
+  idQuai                TEXT PRIMARY KEY NOT NULL,
   -- Attributs TRONÇON
-  idtroncon             TEXT NOT NULL,
+  idTroncon             TEXT NOT NULL,
   'from'                TEXT NOT NULL,
   'to'                  TEXT NOT NULL,
   longueur              INTEGER NOT NULL,
@@ -1730,9 +1730,9 @@ CREATE TABLE quai (
   -- Géométrie
   geom                  LINESTRING NOT NULL,
   -- Contraintes de références
-  CONSTRAINT fk_quai_troncon   FOREIGN KEY (idtroncon) REFERENCES troncon_cheminement(idtroncon),
-  CONSTRAINT fk_from           FOREIGN KEY ('from') REFERENCES noeud_cheminement(idnoeud),
-  CONSTRAINT fk_to             FOREIGN KEY ('to')   REFERENCES noeud_cheminement(idnoeud),
+  CONSTRAINT fk_quai_troncon   FOREIGN KEY (idTroncon) REFERENCES troncon_cheminement(idTroncon),
+  CONSTRAINT fk_from           FOREIGN KEY ('from') REFERENCES noeud_cheminement(idNoeud),
+  CONSTRAINT fk_to             FOREIGN KEY ('to')   REFERENCES noeud_cheminement(idNoeud),
   CONSTRAINT fk_typeTroncon    FOREIGN KEY (typeTroncon)        REFERENCES enum_type_troncon(valeur),
   CONSTRAINT fk_statutVoie     FOREIGN KEY (statutVoie)         REFERENCES enum_statut_voie(valeur),
   CONSTRAINT fk_etatRev_quai   FOREIGN KEY (etatRevetement)     REFERENCES enum_etat_revetement(valeur),
@@ -1755,10 +1755,10 @@ VALUES ('quai','geom','LINESTRING',2154,2,0);
 --------------------------------------------------------------------
 DROP TABLE IF EXISTS stationnement_pmr;
 CREATE TABLE stationnement_pmr (
-  idstationnementpmr TEXT NOT NULL PRIMARY KEY,
+  idStationnementPmr TEXT NOT NULL PRIMARY KEY,
 
   -- Attributs NOEUD_CHEMINEMENT (hérités)
-  idnoeud TEXT NOT NULL,
+  idNoeud TEXT NOT NULL,
   altitude REAL,
   bandeEveilVigilance TEXT NOT NULL,
   hauteurRessaut REAL NOT NULL,
@@ -1785,7 +1785,7 @@ CREATE TABLE stationnement_pmr (
   geom POINT NOT NULL,
 
   -- Contraintes de références
-  CONSTRAINT fk_stationnementpmr_noeud                FOREIGN KEY (idnoeud)             REFERENCES noeud_cheminement(idnoeud),
+  CONSTRAINT fk_stationnementpmr_noeud                FOREIGN KEY (idNoeud)             REFERENCES noeud_cheminement(idNoeud),
   CONSTRAINT fk_bandeEveilVigilance_stationnementpmr  FOREIGN KEY (bandeEveilVigilance) REFERENCES enum_etat(valeur),
   CONSTRAINT fk_masqueCovisibilite_stationnementpmr   FOREIGN KEY (masqueCovisibilite)  REFERENCES enum_masque_covisibilite(valeur),
   CONSTRAINT fk_controleBev_stationnementpmr          FOREIGN KEY (controleBev)         REFERENCES enum_controle_bev(valeur),
@@ -1810,7 +1810,7 @@ INSERT INTO gpkg_geometry_columns VALUES
 --------------------------------------------------------------------
 DROP TABLE IF EXISTS erp;
 CREATE TABLE erp (
-  iderp TEXT NOT NULL PRIMARY KEY,
+  idErp TEXT NOT NULL PRIMARY KEY,
 
   -- Attributs ERP (ordre §3.3.18)
   nom TEXT NOT NULL,
@@ -1864,13 +1864,13 @@ INSERT INTO gpkg_geometry_columns VALUES
 --------------------------------------------------------------------
 DROP TABLE IF EXISTS cheminement_erp;
 CREATE TABLE cheminement_erp (
-  idcheminementerp  TEXT NOT NULL PRIMARY KEY,
-  iderp TEXT NOT NULL, 
+  idCheminementErp  TEXT NOT NULL PRIMARY KEY,
+  idErp TEXT NOT NULL, 
   -- Attributs de Cheminement_ERP
   departChemStat BOOLEAN NOT NULL,
   arriveeChemAcc BOOLEAN NOT NULL,
-  identreedep TEXT NOT NULL,
-  identreearr TEXT NOT NULL,
+  idEntreedep TEXT NOT NULL,
+  idEntreearr TEXT NOT NULL,
   typeSol TEXT,                     -- enum_type_sol (optionnel)
   largeurUtile REAL NOT NULL,
   hautRessaut REAL NOT NULL,
@@ -1891,9 +1891,9 @@ CREATE TABLE cheminement_erp (
   exterieur BOOLEAN,                -- optionnel
 
   -- Contraintes de références
-  CONSTRAINT fk_cheminement_erp     FOREIGN KEY (iderp)        REFERENCES erp(iderp),
-  CONSTRAINT fk_cheminement_depart  FOREIGN KEY (identreedep)  REFERENCES entree(identree),
-  CONSTRAINT fk_cheminement_arrivee  FOREIGN KEY (identreearr) REFERENCES entree(identree),
+  CONSTRAINT fk_cheminement_erp     FOREIGN KEY (idErp)        REFERENCES erp(idErp),
+  CONSTRAINT fk_cheminement_depart  FOREIGN KEY (idEntreedep)  REFERENCES entree(idEntree),
+  CONSTRAINT fk_cheminement_arrivee  FOREIGN KEY (idEntreearr) REFERENCES entree(idEntree),
   CONSTRAINT fk_typeSol_chemerp     FOREIGN KEY (typeSol)      REFERENCES enum_type_sol(valeur),
   CONSTRAINT fk_rampe_chemerp       FOREIGN KEY (rampe)        REFERENCES enum_rampe_erp(valeur)
 );
@@ -1910,11 +1910,11 @@ INSERT INTO gpkg_contents VALUES
 
 DROP TABLE IF EXISTS relation_cheminement_troncon;
 CREATE TABLE relation_cheminement_troncon ( 
-  idcheminement TEXT NOT NULL PRIMARY KEY, 
-  idtroncon TEXT NOT NULL
+  idCheminement TEXT NOT NULL PRIMARY KEY, 
+  idTroncon TEXT NOT NULL
     -- Contraintes de références
---  CONSTRAINT fk_cheminement_relation_troncon     FOREIGN KEY (idcheminement)    REFERENCES cheminement(idcheminement),
---  CONSTRAINT fk_troncon_relation_cheminement     FOREIGN KEY (idtroncon)        REFERENCES troncon_cheminement(idtroncon), 
+--  CONSTRAINT fk_cheminement_relation_troncon     FOREIGN KEY (idCheminement)    REFERENCES cheminement(idCheminement),
+--  CONSTRAINT fk_troncon_relation_cheminement     FOREIGN KEY (idTroncon)        REFERENCES troncon_cheminement(idTroncon), 
 );
 -- Ajout à la table gpkg_contents
 INSERT INTO gpkg_contents VALUES 
@@ -1927,11 +1927,11 @@ INSERT INTO gpkg_contents VALUES
 
 DROP TABLE IF EXISTS relation_noeud_stationnementpmr;
 CREATE TABLE relation_noeud_stationnementpmr ( 
-  idnoeud TEXT NOT NULL PRIMARY KEY, 
-  idstationnementpmr TEXT NOT NULL
+  idNoeud TEXT NOT NULL PRIMARY KEY, 
+  idStationnementPmr TEXT NOT NULL
     -- Contraintes de références
---  CONSTRAINT fk_noeud_relation_stationnementpmr     FOREIGN KEY (idnoeud)    REFERENCES noeud_cheminement(idnoeud),
---  CONSTRAINT fk_stationnementpmr_relation_noeud     FOREIGN KEY (idstationnementpmr)  REFERENCES stationnement_pmr(idstationnementpmr), 
+--  CONSTRAINT fk_noeud_relation_stationnementpmr     FOREIGN KEY (idNoeud)    REFERENCES noeud_cheminement(idNoeud),
+--  CONSTRAINT fk_stationnementpmr_relation_noeud     FOREIGN KEY (idStationnementPmr)  REFERENCES stationnement_pmr(idStationnementPmr), 
 );
 -- Ajout à la table gpkg_contents
 INSERT INTO gpkg_contents VALUES 
@@ -1944,11 +1944,11 @@ INSERT INTO gpkg_contents VALUES
 
 DROP TABLE IF EXISTS relation_entree_erp;
 CREATE TABLE relation_entree_erp ( 
-  identree TEXT NOT NULL PRIMARY KEY, 
-  iderp TEXT NOT NULL
+  idEntree TEXT NOT NULL PRIMARY KEY, 
+  idErp TEXT NOT NULL
     -- Contraintes de références
---  CONSTRAINT fk_entree_relation_erp     FOREIGN KEY (identree)  REFERENCES entree(identree),
---  CONSTRAINT fk_erp_relation_entree     FOREIGN KEY (iderp)     REFERENCES erp(iderp), 
+--  CONSTRAINT fk_entree_relation_erp     FOREIGN KEY (idEntree)  REFERENCES entree(idEntree),
+--  CONSTRAINT fk_erp_relation_entree     FOREIGN KEY (idErp)     REFERENCES erp(idErp), 
 );
 -- Ajout à la table gpkg_contents
 INSERT INTO gpkg_contents VALUES 
@@ -1967,8 +1967,8 @@ INSERT INTO gpkg_contents VALUES
 
 -- CREATE VIEW vue_traversee AS
 -- SELECT
---      t.idtraversee,
---     t.idtroncon,
+--      t.idTraversee,
+--     t.idTroncon,
 --     t."from",
 --     t."to",
 --     t.longueur,
@@ -1994,7 +1994,7 @@ INSERT INTO gpkg_contents VALUES
 --     tc.etatRevetement AS etatRevetementTroncon
 -- FROM traversee t
 -- JOIN troncon_cheminement tc
---   ON t.idtroncon = tc.idtroncon;
+--   ON t.idTroncon = tc.idTroncon;
 
 --------------------------------------------------------------------
 -- Déclaration de la vue comme une couche géométrique
