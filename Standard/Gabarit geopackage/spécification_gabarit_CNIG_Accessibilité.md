@@ -252,28 +252,28 @@ Il s’agit notamment des mentions :
 - des valeurs d’attributs conditionnées par la valeur d’un autre attribut de la même table
 
 ### 4.10 **Clés primaires**
-Le premier attribut de chaque table est son identifiant : id<classe>. Cet attribut correspond à la clé primaire de la table relationnelle :
+Le premier attribut de chaque table est son identifiant : id<classe>. Cet attribut correspond à la clé primaire de la table :
 
 |**Classe**|**Clé primaire**|
 | :- | :- |
-|**cheminement**|`idcheminement`|
-|**troncon_cheminement**|`idtroncon`|
-|**noeud_cheminement**|`idnoeud`|
-|**obstacle**|`idobstacle`|
-|**circulation**|`idcirculation`|
-|**traversee**|`idtraversee`|
-|**rampe_acces**|`idrampe`|
-|**escalier**|`idescalier`|
-|**escalator**|`idescalator`|
-|**tapis_roulant**|`idtapisroulant`|
-|**ascenseur**|`idascenseur`|
-|**elevateur**|`idelevateur`|
-|**entree**|`identree`|
-|**passage_sélectif**|`idpassageselectif`|
-|**quai**|`idquai`|
-|**stationnement_pmr**|`idstationnementpmr`|
-|**erp**|`iderp`|
-|**cheminement_erp**|`idcheminementerp`|
+|**cheminement**|`idCheminement`|
+|**troncon_cheminement**|`idTroncon`|
+|**noeud_cheminement**|`idNoeud`|
+|**obstacle**|`idObstacle`|
+|**circulation**|`idCirculation`|
+|**traversee**|`idTraversee`|
+|**rampe_acces**|`idRampe`|
+|**escalier**|`idEscalier`|
+|**escalator**|`idEscalator`|
+|**tapis_roulant**|`idTapisroulant`|
+|**ascenseur**|`idAscenseur`|
+|**elevateur**|`idElevateur`|
+|**entree**|`idEntree`|
+|**passage_sélectif**|`idPassageSelectif`|
+|**quai**|`idQuai`|
+|**stationnement_pmr**|`idStationnementPmr`|
+|**erp**|`idErp`|
+|**cheminement_erp**|`idCheminementErp`|
 
 ### 4.11 **Tables correspondant aux listes de valeurs énumérées**
 
