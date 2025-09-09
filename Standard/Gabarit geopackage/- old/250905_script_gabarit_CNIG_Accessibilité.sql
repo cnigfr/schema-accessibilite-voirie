@@ -2,7 +2,7 @@
 --titre : Code SQL pour la création d'un gabarit geopackage du Standard CNIG Accessibilité
 --auteur : Arnauld Gallais - GT CNIG Accessibilité
 --version : Standard CNIG Accessibilité v2021 révision 2025-05
---date : 09/09/2025
+--date : 01/09/2025
 
 
 -------------------------------------------------------------------------------------------
@@ -56,7 +56,7 @@ CREATE TABLE gpkg_geometry_columns (
 );
 
 --------------------------------------------------------------------
--- Autres tables Géopackage non utiles à ce projet :
+-- Autres tables Géopackage non utilies à ce projet :
 --------------------------------------------------------------------
 -- gpkg_extensions
 -- DROP TABLE IF EXISTS gpkg_extensions;
@@ -1083,7 +1083,7 @@ CREATE TABLE noeud_cheminement (
   geom POINT NOT NULL,
   CONSTRAINT fk_bandeEveilVigilance FOREIGN KEY (bandeEveilVigilance) REFERENCES enum_etat(valeur),
   CONSTRAINT fk_masqueCovisibilite FOREIGN KEY (masqueCovisibilite) REFERENCES enum_masqueCovisibilite(valeur),
-  CONSTRAINT fk_controleBev FOREIGN KEY (controleBev) REFERENCES enum_controleBev(valeur),
+  CONSTRAINT fk_controleBev FOREIGN KEY (controleBev) REFERENCES enum_controleBev(valeur)
   -- Contrôle NC non autorisé
   CONSTRAINT chk_masqueCovisibilite_no_nc CHECK (masqueCovisibilite <> 'NC')
 );
@@ -1168,12 +1168,7 @@ CREATE TABLE obstacle (
   CONSTRAINT fk_statutVoie FOREIGN KEY (statutVoie) REFERENCES enum_statut_voie(valeur),
   CONSTRAINT fk_typeObstacle FOREIGN KEY (typeObstacle) REFERENCES enum_type_obstacle(valeur),
   CONSTRAINT fk_positionObstacle FOREIGN KEY (positionObstacle) REFERENCES enum_position_obstacle(valeur),
-  CONSTRAINT fk_rappelObstacle FOREIGN KEY (rappelObstacle) REFERENCES enum_rappel_obstacle(valeur),
-  -- Contrôle NC non autorisé
-  CONSTRAINT chk_typeTroncon_no_nc CHECK (typeTroncon <> 'NC'),
-  CONSTRAINT chk_typeObstacle_no_nc CHECK (typeObstacle <> 'NC'),
-  CONSTRAINT chk_positionObstacle_no_nc CHECK (positionObstacle <> 'NC'),
-  CONSTRAINT chk_rappelObstacle_no_nc CHECK (rappelObstacle <> 'NC')
+  CONSTRAINT fk_rappelObstacle FOREIGN KEY (rappelObstacle) REFERENCES enum_rappel_obstacle(valeur)
 );
 -- Ajout à la table gpkg_contents
 INSERT INTO gpkg_contents VALUES 
@@ -1224,11 +1219,7 @@ CREATE TABLE circulation (
   CONSTRAINT fk_transition FOREIGN KEY (transition) REFERENCES enum_transition(valeur),
   CONSTRAINT fk_typePassage FOREIGN KEY (typePassage) REFERENCES enum_type_passage(valeur),
   CONSTRAINT fk_repereLineaire FOREIGN KEY (repereLineaire) REFERENCES enum_repere_lineaire(valeur),
-  CONSTRAINT fk_couvert FOREIGN KEY (couvert) REFERENCES enum_couvert(valeur),
-  -- Contrôle NC non autorisé
-  CONSTRAINT chk_typeTroncon_no_nc CHECK (typeTroncon <> 'NC'),
-  CONSTRAINT chk_etatRevetement_no_nc CHECK (etatRevetement <> 'NC'),
-  CONSTRAINT chk_repereLineaire_no_nc CHECK (repereLineaire <> 'NC')
+  CONSTRAINT fk_couvert FOREIGN KEY (couvert) REFERENCES enum_couvert(valeur)
 );
 -- Ajout à la table gpkg_contents
 INSERT INTO gpkg_contents VALUES 
@@ -1279,13 +1270,7 @@ CREATE TABLE traversee (
   CONSTRAINT fk_etatMarqauge FOREIGN KEY (etatMarquage) REFERENCES enum_etat(valeur),
   CONSTRAINT fk_eclairage FOREIGN KEY (eclairage) REFERENCES enum_eclairage(valeur),
   CONSTRAINT fk_etatAideSonore FOREIGN KEY (aideSonore) REFERENCES enum_etat(valeur),
-  CONSTRAINT fk_repereLineaire FOREIGN KEY (repereLineaire) REFERENCES enum_repere_lineaire(valeur),
-  -- Contrôle NC non autorisé
-  CONSTRAINT chk_typeTroncon_no_nc CHECK (typeTroncon <> 'NC'),
-  CONSTRAINT chk_etatRevetement_no_nc CHECK (etatRevetement <> 'NC'),
-  CONSTRAINT chk_typeMarquage_no_nc CHECK (typeMarquage <> 'NC'),
-  CONSTRAINT chk_aideSonore_no_nc CHECK (aideSonore <> 'NC'),
-  CONSTRAINT chk_repereLineaire_no_nc CHECK (repereLineaire <> 'NC')
+  CONSTRAINT fk_repereLineaire FOREIGN KEY (repereLineaire) REFERENCES enum_repere_lineaire(valeur)
 );
 -- Ajout à la table gpkg_contents
 INSERT INTO gpkg_contents VALUES 
@@ -1336,11 +1321,7 @@ CREATE TABLE rampe (
   CONSTRAINT fk_etatRevetement FOREIGN KEY (etatRevetement) REFERENCES enum_etat(valeur),
   CONSTRAINT fk_mainCourante FOREIGN KEY (mainCourante) REFERENCES enum_cote(valeur),
   CONSTRAINT fk_chasseRoue FOREIGN KEY (chasseRoue) REFERENCES enum_cote(valeur),
-  CONSTRAINT fk_aireRotation FOREIGN KEY (aireRotation) REFERENCES enum_position_hauteur(valeur),
-  -- Contrôle NC non autorisé
-  CONSTRAINT chk_typeTroncon_no_nc CHECK (typeTroncon <> 'NC'),
-  CONSTRAINT chk_etatRevetement_no_nc CHECK (etatRevetement <> 'NC'),
-  CONSTRAINT chk_mainCourante_no_nc CHECK (mainCourante <> 'NC')
+  CONSTRAINT fk_aireRotation FOREIGN KEY (aireRotation) REFERENCES enum_position_hauteur(valeur)
 );
 
 -- Ajout à la table gpkg_contents
@@ -1401,13 +1382,7 @@ CREATE TABLE escalier (
   CONSTRAINT fk_vigi         FOREIGN KEY (dispositifVigilance)  REFERENCES enum_etat(valeur),
   CONSTRAINT fk_contraste    FOREIGN KEY (contrasteVisuel)      REFERENCES enum_etat(valeur),
   CONSTRAINT fk_reglarite    FOREIGN KEY (regularite)           REFERENCES enum_regularite(valeur),
-  CONSTRAINT fk_rampeInterne FOREIGN KEY (rampeInterne)         REFERENCES enum_rampe_internenterne(valeur),
-  -- Contrôle NC non autorisé
-  CONSTRAINT chk_typeTroncon_no_nc CHECK (typeTroncon <> 'NC'),
-  CONSTRAINT chk_etatRevetement_no_nc CHECK (etatRevetement <> 'NC'),
-  CONSTRAINT chk_mainCourante_no_nc CHECK (mainCourante <> 'NC'),
-  CONSTRAINT chk_dispositifVigilance_no_nc CHECK (dispositifVigilance <> 'NC'),
-  CONSTRAINT chk_contrasteVisuel_no_nc CHECK (contrasteVisuel <> 'NC')
+  CONSTRAINT fk_rampeInterne FOREIGN KEY (rampeInterne)         REFERENCES enum_rampe_internenterne(valeur)
 );
 
 -- Ajout à la table gpkg_contents
@@ -1451,10 +1426,7 @@ CREATE TABLE escalator (
   CONSTRAINT fk_typeTroncon FOREIGN KEY (typeTroncon) REFERENCES enum_type_troncon(valeur),
   CONSTRAINT fk_statutVoie  FOREIGN KEY (statutVoie)  REFERENCES enum_statut_voie(valeur),
   CONSTRAINT fk_transition  FOREIGN KEY (transition)  REFERENCES enum_transition(valeur),
-  CONSTRAINT fk_vigi        FOREIGN KEY (dispositifVigilance) REFERENCES enum_etat(valeur),
-  -- Contrôle NC non autorisé
-  CONSTRAINT chk_typeTroncon_no_nc CHECK (typeTroncon <> 'NC'),
-  CONSTRAINT chk_dispositifVigilance_no_nc CHECK (dispositifVigilance <> 'NC')
+  CONSTRAINT fk_vigi        FOREIGN KEY (dispositifVigilance) REFERENCES enum_etat(valeur)
 );
 
 -- Ajout à la table gpkg_contents
@@ -1497,11 +1469,7 @@ CREATE TABLE tapis_roulant (
   CONSTRAINT fk_typeTroncon FOREIGN KEY (typeTroncon) REFERENCES enum_type_troncon(valeur),
   CONSTRAINT fk_statutVoie  FOREIGN KEY (statutVoie)  REFERENCES enum_statut_voie(valeur),
   CONSTRAINT fk_sens        FOREIGN KEY (sens)        REFERENCES enum_sens(valeur),
-  CONSTRAINT fk_vigi        FOREIGN KEY (dispositifVigilance) REFERENCES enum_etat(valeur),
-  -- Contrôle NC non autorisé
-  CONSTRAINT chk_typeTroncon_no_nc CHECK (typeTroncon <> 'NC'),
-  CONSTRAINT chk_sens_no_nc CHECK (sens <> 'NC'),
-  CONSTRAINT chk_dispositifVigilance_no_nc CHECK (dispositifVigilance <> 'NC')
+  CONSTRAINT fk_vigi        FOREIGN KEY (dispositifVigilance) REFERENCES enum_etat(valeur)
 );
 
 -- Ajout à la table gpkg_contents
@@ -1562,13 +1530,7 @@ CREATE TABLE ascenseur (
   CONSTRAINT fk_typeOuverture      FOREIGN KEY (typeOuverture)        REFERENCES enum_type_ouverture(valeur),
   CONSTRAINT fk_etatRevetement     FOREIGN KEY (etatRevetement)       REFERENCES enum_etat_revetement(valeur),
   CONSTRAINT fk_mainCourante       FOREIGN KEY (mainCourante)         REFERENCES enum_cote(valeur),
-  CONSTRAINT fk_autrePorteSortie   FOREIGN KEY (autrePorteSortie)     REFERENCES enum_cote(valeur),
-    -- Contrôle NC non autorisé
-  CONSTRAINT chk_masqueCovisibilite_no_nc CHECK (masqueCovisibilite <> 'NC'),
-  CONSTRAINT chk_signalEtage_no_nc CHECK (signalEtage <> 'NC'),
-  CONSTRAINT chk_voyantAlerte_no_nc CHECK (voyantAlerte <> 'NC'),
-  CONSTRAINT chk_typeOuverture_no_nc CHECK (typeOuverture <> 'NC')
-  
+  CONSTRAINT fk_autrePorteSortie   FOREIGN KEY (autrePorteSortie)     REFERENCES enum_cote(valeur)
 );
 
 -- Ajout à la table gpkg_contents
@@ -1620,10 +1582,7 @@ CREATE TABLE elevateur (
   CONSTRAINT fk_typeOuverture_elevateur FOREIGN KEY (typeOuverture) REFERENCES enum_type_ouverture(valeur),
   CONSTRAINT fk_etatRevetement_elevateur FOREIGN KEY (etatRevetement) REFERENCES enum_etat_revetement(valeur),
   CONSTRAINT fk_autrePorteSortie_elevateur FOREIGN KEY (autrePorteSortie) REFERENCES enum_cote(valeur)
-  CONSTRAINT fk_accompagnateur_elevateur FOREIGN KEY (accompagnateur) REFERENCES enum_temporalite(valeur),
-      -- Contrôle NC non autorisé
-  CONSTRAINT chk_masqueCovisibilite_no_nc CHECK (masqueCovisibilite <> 'NC'),
-  CONSTRAINT chk_typeOuverture_no_nc CHECK (typeOuverture <> 'NC')
+  CONSTRAINT fk_accompagnateur_elevateur FOREIGN KEY (accompagnateur) REFERENCES enum_temporalite(valeur)
 );
 
 -- Ajout à la table gpkg_contents
@@ -1691,12 +1650,7 @@ CREATE TABLE entree (
   CONSTRAINT fk_typePorte_entree            FOREIGN KEY (typePorte)             REFERENCES enum_type_porte(valeur),
   CONSTRAINT fk_typeOuverture_entree        FOREIGN KEY (typeOuverture)         REFERENCES enum_type_ouverture(valeur),
   CONSTRAINT fk_espaceManoeuvre_entree      FOREIGN KEY (espaceManoeuvre)       REFERENCES enum_position_espace(valeur),
-  CONSTRAINT fk_typePoignee_entree          FOREIGN KEY (typePoignee)           REFERENCES enum_type_poignee(valeur),
-      -- Contrôle NC non autorisé
-  CONSTRAINT chk_masqueCovisibilite_no_nc CHECK (masqueCovisibilite <> 'NC'),
-  CONSTRAINT chk_rampe_no_nc CHECK (rampe <> 'NC'),
-  CONSTRAINT chk_typeOuverture_no_nc CHECK (typeOuverture <> 'NC'),
-  CONSTRAINT chk_espaceManoeuvre_no_nc CHECK (espaceManoeuvre <> 'NC')
+  CONSTRAINT fk_typePoignee_entree          FOREIGN KEY (typePoignee)           REFERENCES enum_type_poignee(valeur)
 );
 
 -- Ajout à la table gpkg_contents
@@ -1736,9 +1690,7 @@ CREATE TABLE passage_selectif (
   CONSTRAINT fk_passage_noeud               FOREIGN KEY (idNoeud)             REFERENCES noeud_cheminement(idNoeud),
   CONSTRAINT fk_bandeEveilVigilance_passage FOREIGN KEY (bandeEveilVigilance) REFERENCES enum_etat(valeur),
   CONSTRAINT fk_masqueCovisibilite_passage  FOREIGN KEY (masqueCovisibilite)  REFERENCES enum_masque_covisibilite(valeur),
-  CONSTRAINT fk_controleBev_passage         FOREIGN KEY (controleBev)         REFERENCES enum_controle_bev(valeur),
-      -- Contrôle NC non autorisé
-  CONSTRAINT chk_masqueCovisibilite_no_nc CHECK (masqueCovisibilite <> 'NC')
+  CONSTRAINT fk_controleBev_passage         FOREIGN KEY (controleBev)         REFERENCES enum_controle_bev(valeur)
 );
 
 -- Ajout à la table gpkg_contents
@@ -1785,11 +1737,7 @@ CREATE TABLE quai (
   CONSTRAINT fk_statutVoie     FOREIGN KEY (statutVoie)         REFERENCES enum_statut_voie(valeur),
   CONSTRAINT fk_etatRev_quai   FOREIGN KEY (etatRevetement)     REFERENCES enum_etat_revetement(valeur),
   CONSTRAINT fk_signa_porte    FOREIGN KEY (signalisationPorte) REFERENCES enum_dispositif_signalisation(valeur),
-  CONSTRAINT fk_vigi_quai      FOREIGN KEY (dispositifVigilance)REFERENCES enum_etat(valeur),
-  -- Contrôle NC non autorisé
-  CONSTRAINT chk_typeTroncon_no_nc CHECK (typeTroncon <> 'NC'),
-  CONSTRAINT chk_etatRevetement_no_nc CHECK (etatRevetement <> 'NC'),
-  CONSTRAINT chk_dispositifVigilance_no_nc CHECK (dispositifVigilance <> 'NC')
+  CONSTRAINT fk_vigi_quai      FOREIGN KEY (dispositifVigilance)REFERENCES enum_etat(valeur)
 );
 
 -- Ajout à la table gpkg_contents
@@ -1844,10 +1792,7 @@ CREATE TABLE stationnement_pmr (
 
   CONSTRAINT fk_typeStationnementpmr_stationnementpmr FOREIGN KEY (typeStationnement)   REFERENCES enum_type_stationnementpmr(valeur),
   CONSTRAINT fk_etatRevetement_stationnementpmr       FOREIGN KEY (etatRevetement)      REFERENCES enum_etat_revetement(valeur),
-  CONSTRAINT fk_typeSol_stationnementpmr              FOREIGN KEY (typeSol)             REFERENCES enum_type_sol(valeur),
-      -- Contrôle NC non autorisé
-  CONSTRAINT chk_masqueCovisibilite_no_nc CHECK (masqueCovisibilite <> 'NC'),
-  CONSTRAINT chk_etatRevetement_no_nc CHECK (etatRevetement <> 'NC')
+  CONSTRAINT fk_typeSol_stationnementpmr              FOREIGN KEY (typeSol)             REFERENCES enum_type_sol(valeur)
 );
 
 -- Ajout à la table gpkg_contents
@@ -1900,10 +1845,7 @@ CREATE TABLE erp (
   CONSTRAINT fk_erpCategorie     FOREIGN KEY (erpCategorie)    REFERENCES enum_categorie_erp(valeur),
   CONSTRAINT fk_erpType          FOREIGN KEY (erpType)         REFERENCES enum_type_erp(valeur),
   CONSTRAINT fk_accueilPersonnel FOREIGN KEY (accueilPersonnel) REFERENCES enum_personnel_erp(valeur),
-  CONSTRAINT fk_erpActivite      FOREIGN KEY (erpActivite)     REFERENCES enum_erp_activite(valeur),
-        -- Contrôle NC non autorisé
-  CONSTRAINT chk_erpCategorie_no_nc CHECK (erpCategorie <> 'NC'),
-  CONSTRAINT chk_erpType_no_nc CHECK (erpType <> 'NC')
+  CONSTRAINT fk_erpActivite      FOREIGN KEY (erpActivite)     REFERENCES enum_erp_activite(valeur)
 );
 
 -- Ajout à la table gpkg_contents
@@ -2025,7 +1967,7 @@ INSERT INTO gpkg_contents VALUES
 
 -- CREATE VIEW vue_traversee AS
 -- SELECT
---     t.idTraversee,
+--      t.idTraversee,
 --     t.idTroncon,
 --     t."from",
 --     t."to",
@@ -2039,7 +1981,7 @@ INSERT INTO gpkg_contents VALUES
 --     t.typeMarquage,
 --     t.etatMarquage,
 --     t.eclairage,
---     t.feuPietons,
+-- t.feuPietons,
 --     t.aideSonore,
 --     t.repereLineaire,
 --     t.chausseeBombee,
@@ -2062,8 +2004,8 @@ INSERT INTO gpkg_contents VALUES
 -- 
 -- INSERT INTO gpkg_contents
 -- VALUES ('vue_traversee','features','vue_traversee',
---        'Vue enrichie des traversées avec attributs de tronçon',
---        (datetime('now')),NULL,NULL,NULL,NULL,2154);
+ --        'Vue enrichie des traversées avec attributs de tronçon',
+--         (datetime('now')),NULL,NULL,NULL,NULL,2154);
 -- 
 -- INSERT INTO gpkg_geometry_columns
 -- VALUES ('vue_traversee','geom','LINESTRING',2154,2,0);
