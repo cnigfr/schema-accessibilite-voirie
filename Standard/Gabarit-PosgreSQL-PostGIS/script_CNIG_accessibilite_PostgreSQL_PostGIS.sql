@@ -1752,6 +1752,7 @@ CREATE TABLE IF NOT EXISTS cnig_accessibilite.obstacle (
     , "urlMedia" VARCHAR -- Niveau 2
     , "hauteurSousObs" DOUBLE PRECISION -- Niveau 2
     , "hauteurObsPoseSol" DOUBLE PRECISION -- Niveau 3
+    , "idTroncon" VARCHAR NOT NULL
     , the_geom geometry(MultiPointZ,2154) NOT NULL
     --, photo TEXT -- hors standard
     --, commentaire TEXT -- hors standard
@@ -2504,6 +2505,7 @@ CREATE TABLE IF NOT EXISTS cnig_accessibilite.entree (
     , "typePoignée" VARCHAR -- Niveau 3
     , "effortOuverture" INTEGER -- Niveau 3
     , "idNoeud" VARCHAR NOT NULL -- hors standard
+    , "idERP" VARCHAR NOT NULL -- hors standard
     --, photo TEXT -- hors standard
     --, commentaire TEXT -- hors standard
     --, usr_cre VARCHAR -- hors standard
@@ -2744,6 +2746,7 @@ CREATE TABLE IF NOT EXISTS cnig_accessibilite.stationnement_pmr (
     , pente INTEGER NOT NULL -- Niveau 1
     , devers INTEGER NOT NULL -- Niveau 1
     , "typeSol" VARCHAR -- Niveau 3
+    , "idNoeud" VARCHAR NOT NULL
     , the_geom geometry(MultiPoint,2154) NOT NULL
     --, photo TEXT -- hors standard
     --, commentaire TEXT -- hors standard
