@@ -4,7 +4,7 @@ Le [script_CNIG_accessibilite_PostgreSQL_PostGIS](https://github.com/cnigfr/sche
 ## Schema et gestion des droits
 Le schéma est l'emplacement de la base de données dédié au déploiement de la structure du standard. Le nom par défaut utilisé est "cnig_accessibilite" mais celui-ci peut être modifié dans le script.
 
-Les groupes ou rôles administrateurs, utilisateurs en mode édition, utilisateurs en lecture seule sont défini respectivement par 'usr_admin', 'usr_edit' et 'usr_read'. Ils peuvent être remplacer par ceux utilisés dans la base PostgreSQL dans laquelle le schéma est déployé.
+Les groupes ou rôles administrateurs, utilisateurs en mode édition, utilisateurs en lecture seule sont définis respectivement par 'usr_admin', 'usr_edit' et 'usr_read'. Ils peuvent être remplacés par ceux utilisés dans la base PostgreSQL dans laquelle le schéma est déployé.
 
 ## Fonctions PL/pgSQL
 PL/pgSQL est un langage procédural géré par PostgreSQL. Il est ici utilisé pour créer des fonctions d'automatisation de valeurs et de création d'identifiants selon la structure dictée par le standard.
@@ -15,7 +15,7 @@ Ces fonctions sont activées par des triggers lors de certains événements (par
 Tables contenant les valeurs et les descriptions des types énumérés, elles sont préfixées par 'enum_%'
 
 ## Tables objets
-Les tables des objets décrits dans le standards sont accompagné de séquences (utilisées pour la génération des identifiants objets) et d'index sur ces derniers.
+Les tables des objets décrits dans le standard sont accompagnées de séquences (utilisées pour la génération des identifiants objets) et d'index sur ces derniers.
 
 ### Identifiants objets
 Selon la codification retenue pour la compatibité avec NeTEx, les identifants sont structurés comme suit :
@@ -33,7 +33,7 @@ Les champs attributaires sont suivi d'annotations Niveau 1, 2 ou 3 selon la règ
 - Attributs de niveau 3: présence et saisie optionnelles
 
 ### Champs attributaires hors standard
-Des champs supplémentaires sont proposés. Ils ont été annoté car ils ne font pas partie du standard:
+Des champs supplémentaires sont proposés. Ils ont été annotés car ils ne font pas partie du standard :
 - gid: indentifiant système, incrément INTEGER suivant la séquence de la table
 - photo: champ textuel pour recevoir des chemins pour le stockage de photos
 - commentaire: champ textuel libre
