@@ -1911,7 +1911,7 @@ CREATE TABLE IF NOT EXISTS cnig_accessibilite.traversee (
     , eclairage VARCHAR -- Niveau 2
     , "feuPietons" BOOLEAN NOT NULL -- Niveau 1
     , "aideSonore" VARCHAR NOT NULL -- Niveau 1
-    , "repereLineaire" VARCHAR NOT NULL -- Niveau 2
+    , "repereLineaire" VARCHAR DEFAULT 'aucun' -- Niveau 2
     , "chausseeBombee" BOOLEAN NOT NULL DEFAULT FALSE -- Niveau 1
     , "voiesTraversees" VARCHAR(10) DEFAULT 'VV' -- Niveau 2
     , "idTroncon" VARCHAR NOT NULL -- hors standard
@@ -2816,8 +2816,8 @@ DROP TABLE IF EXISTS cnig_accessibilite.erp;
 CREATE TABLE IF NOT EXISTS cnig_accessibilite.erp (
     --gid bigint DEFAULT nextval('cnig_accessibilite.erp_seq'), -- hors standard
     "idERP" VARCHAR NOT NULL PRIMARY KEY DEFAULT cnig_accessibilite.create_id('CODESPACE'::VARCHAR(5), 'ERP'::VARCHAR(3), 'CNIG'::VARCHAR || currval('cnig_accessibilite.erp_seq')) -- Niveau 1
-    , nom VARCHAR -- Niveau 1
-    , adresse VARCHAR -- Niveau 1
+    , nom VARCHAR NOT NULL -- Niveau 1
+    , adresse VARCHAR NOT NULL -- Niveau 1
     , "codePostal" VARCHAR (5) NOT NULL -- Niveau 1
     , "erpCategorie" VARCHAR NOT NULL -- Niveau 1
     , "erpType" VARCHAR NOT NULL -- Niveau 1
