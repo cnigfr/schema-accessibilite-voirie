@@ -3,7 +3,7 @@
 --auteur : Arnauld Gallais - GT CNIG Accessibilité
 --version : Standard CNIG Accessibilité v2021 révision 2025-05
 --date : 09/09/2025
---révision : 24/11/2025 résolution du bug enum_controleBev au lieu de enum_controle_bev
+--révision : 24/11/2025 résolution du bug enum_controleBev au lieu de enum_controle_bev (idem pour enum_masqueCovisibilite au lieu de enum_masque_covisibilite)
 
 
 -------------------------------------------------------------------------------------------
@@ -1083,7 +1083,7 @@ CREATE TABLE noeud_cheminement (
   bandeInterception BOOLEAN,
   geom POINT NOT NULL,
   CONSTRAINT fk_bandeEveilVigilance FOREIGN KEY (bandeEveilVigilance) REFERENCES enum_etat(valeur),
-  CONSTRAINT fk_masqueCovisibilite FOREIGN KEY (masqueCovisibilite) REFERENCES enum_masqueCovisibilite(valeur),
+  CONSTRAINT fk_masqueCovisibilite FOREIGN KEY (masqueCovisibilite) REFERENCES enum_masque_covisibilite(valeur),
   CONSTRAINT fk_controleBev FOREIGN KEY (controleBev) REFERENCES enum_controle_bev(valeur),
   -- Contrôle NC non autorisé
   CONSTRAINT chk_masqueCovisibilite_no_nc CHECK (masqueCovisibilite <> 'NC')
@@ -1555,7 +1555,7 @@ CREATE TABLE ascenseur (
   -- Contraintes de références
   CONSTRAINT fk_ascenseur_noeud FOREIGN KEY (idNoeud) REFERENCES noeud_cheminement(idNoeud),
   CONSTRAINT fk_bandeEveilVigilance_ascenseur FOREIGN KEY (bandeEveilVigilance) REFERENCES enum_etat(valeur),
-  CONSTRAINT fk_masqueCovisibilite_ascenseur FOREIGN KEY (masqueCovisibilite) REFERENCES enum_masqueCovisibilite(valeur),
+  CONSTRAINT fk_masqueCovisibilite_ascenseur FOREIGN KEY (masqueCovisibilite) REFERENCES enum_masque_covisibilite(valeur),
   CONSTRAINT fk_controleBev_ascenseur FOREIGN KEY (controleBev) REFERENCES enum_controle_bev(valeur)
   CONSTRAINT fk_boutonsEnRelief   FOREIGN KEY (boutonsEnRelief)     REFERENCES enum_relief_boutons(valeur),
   CONSTRAINT fk_signalEtage       FOREIGN KEY (signalEtage)         REFERENCES enum_dispositif_signalisation(valeur),
@@ -1615,7 +1615,7 @@ CREATE TABLE elevateur (
   -- Contraintes de références
   CONSTRAINT fk_elevateur_noeud FOREIGN KEY (idNoeud) REFERENCES noeud_cheminement(idNoeud),
   CONSTRAINT fk_bandeEveilVigilance_elevateur FOREIGN KEY (bandeEveilVigilance) REFERENCES enum_etat(valeur),
-  CONSTRAINT fk_masqueCovisibilite_elevateur FOREIGN KEY (masqueCovisibilite) REFERENCES enum_masqueCovisibilite(valeur),
+  CONSTRAINT fk_masqueCovisibilite_elevateur FOREIGN KEY (masqueCovisibilite) REFERENCES enum_masque_covisibilite(valeur),
   CONSTRAINT fk_controleBev_elevateur FOREIGN KEY (controleBev) REFERENCES enum_controle_bev(valeur),
   CONSTRAINT fk_boutonsEnRelief_elevateur FOREIGN KEY (boutonsEnRelief) REFERENCES enum_relief_boutons(valeur),
   CONSTRAINT fk_typeOuverture_elevateur FOREIGN KEY (typeOuverture) REFERENCES enum_type_ouverture(valeur),
