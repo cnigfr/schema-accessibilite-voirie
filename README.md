@@ -1,13 +1,10 @@
 # Standard de données accessibilité du cheminement en voirie
 
-> [!TIP]
-> Le standard CNIG Accessibilité n'a pas de schéma directement exploitable par schema.data.gouv.fr. Vous pouvez consulter la documentation du standard sur la page du [GT Accessibilité](http://cnig.gouv.fr/gt-accessibilite-a18058.html) sur le site du CNIG.  
-
-## GT CNIG Accessibilite
+## GT CNIG Accessibilité
 - Le [GT CNIG Accessibilité](http://cnig.gouv.fr/gt-accessibilite-a18058.html) est régi par ce [Mandat](http://cnig.gouv.fr/IMG/pdf/2018-09-mandat-netex-inspire-v5.pdf) et se réunit depuis 2020 : [compte-rendus de réunion](https://cnig.gouv.fr/gt-accessibilite-a18058.html#H_Reunions)
 - [Ressources associées](http://cnig.gouv.fr/ressources-accessibilite-a25335.html)
 
-## Description
+## Description du standard
 Le [standard national d’échange de données d’Accessibilité](http://cnig.gouv.fr/ressources-accessibilite-a25335.html) a pour objectif d'harmoniser la collecte des informations géographiques de description de l’accessibilité des cheminements pour les personnes à mobilité réduite ou en situation de handicap dans les différents domaines voirie, espace public, et établissements recevant du public (ERP).
 Les déplacements via les transports publics relèvent de la norme européenne NeTEx (Network Exchange) permettant d’échanger les données d’offre théorique du transport public. Visant à assurer l'interopérabilité des données vis-à-vis des infrastructures de données géographiques et des calculateurs d’itinéraires, le présent standard s'appuie sur les spécifications du profil accessibilité France du format d'échange NeTEx.
 Il se place du point de vue de :
@@ -32,3 +29,7 @@ Le standard détermine, entre autres :
 - v2021-10 (révision juin 2023) : 1.2.0
 - v2021-10 (révision mai 2022) : 1.1.0
 - v2021-10 (version initiale) : 1.0.0
+
+> [!TIP]
+> Le standard CNIG Accessibilité n'a pas de schéma directement exploitable par schema.data.gouv.fr.
+ 
