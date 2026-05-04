@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cnig-accessibilite"
+version = "1.0.0"
+description = "Librairie Python pour la gestion du format d'échange GeoPackage CNIG Accessibilité"
+authors = [{ name="Someware"}]
+readme = "readme.md"
+#license-files = ["LICEN[CS]E.*"]
+requires-python = ">=3.10"
+dependencies = [
+    "sqlalchemy>=2.0",
+    "alembic>=1.18",
+    "shapely>=2.0",
+    "pyproj>=3.0",
+    "click>=8.3",
+]
+
+[project.scripts]
+gpkg-cnig = "cnig_accessibilite.cli:cli"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["cnig_accessibilite*"]
+
+[tool.setuptools.package-data]
+cnig_accessibilite = [
+    "alembic.ini",
+    "migrations/script.py.mako",
+    "migrations/versions/*.py",
+]
