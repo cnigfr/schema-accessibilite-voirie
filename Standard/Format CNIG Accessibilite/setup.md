@@ -4,12 +4,27 @@
 
 - Python 3.10+
 
+**Installation de Python**
+
+- **Windows** : télécharger l'installateur depuis [python.org](https://www.python.org/downloads/) et cocher *"Add Python to PATH"* lors de l'installation.
+- **macOS** : utiliser [Homebrew](https://brew.sh/) — `brew install python` — ou l'installateur officiel depuis [python.org](https://www.python.org/downloads/).
+- **Linux** : Python est généralement préinstallé. Sinon : `sudo apt install python3 python3-pip` (Debian/Ubuntu) ou `sudo dnf install python3 python3-pip` (Fedora/RHEL).
+
+`pip` est inclus avec Python 3.4+. Pour vérifier l'installation :
+
+```bash
+python3 --version
+pip3 --version
+```
+
+Les prochaines commandes sont à exécuter dans un terminal.
+
 ### Dans un projet existant
 
 ```bash
 pip install cnig-accessibilite
 ```
-⚠️ Commande actuellement indisponible, utiliser l'installation ci-dessous
+⚠️ Commande actuellement indisponible, utiliser l'installation ci-dessous.
 
 ### Pour le développement
 
@@ -37,11 +52,11 @@ pip install -e .
 
 Le module est utilisable en Python et en ligne de commande (CLI), via la CLI `gpkg-cnig` ou directement via Alembic.
 
-## 1. CLI gpkg-cnig
+## I - CLI gpkg-cnig
 
 Après installation, la commande `gpkg-cnig` est disponible.
 
-### Créer un nouveau GeoPackage
+### 1. Créer un nouveau GeoPackage
 
 ```bash
 gpkg-cnig create cnig_accessibilite.gpkg
@@ -60,13 +75,13 @@ gpkg-cnig create cnig_accessibilite.gpkg --revision 001
 gpkg-cnig create cnig_accessibilite.gpkg --revision head --overwrite
 ```
 
-### Connaître la version du schéma
+### 2. Connaître la version du schéma
 
 ```bash
 gpkg-cnig version cnig_accessibilite.gpkg
 ```
 
-### Mettre à jour vers une version plus récente
+### 3. Mettre à jour vers une version plus récente
 
 ```bash
 gpkg-cnig upgrade cnig_accessibilite.gpkg
@@ -85,7 +100,7 @@ gpkg-cnig upgrade cnig_accessibilite.gpkg --revision 002
 gpkg-cnig upgrade cnig_accessibilite.gpkg --output ./cnig_accessibilite_v2.gpkg
 ```
 
-### Rétrograder vers une version antérieure
+### 4. Rétrograder vers une version antérieure
 
 ```bash
 gpkg-cnig downgrade cnig_accessibilite.gpkg
@@ -106,11 +121,11 @@ gpkg-cnig downgrade cnig_accessibilite_v2.gpkg --output ./cnig_accessibilite_v1.
 
 ---
 
-## 2. API Python
+## II - API Python
 
 Un exemple d'utilisation est donné dans [`tests/example.py`](tests/example.py).
 
-### Créer un nouveau GeoPackage
+### 1. Créer un nouveau GeoPackage
 
 ```python
 from cnig_accessibilite import create_gpkg
@@ -138,7 +153,7 @@ Le fichier est créé avec le schéma complet du standard, les métadonnées Geo
 
 ---
 
-### Connaître la version du schéma
+### 2. Connaître la version du schéma
 
 ```python
 from cnig_accessibilite import get_schema_version
@@ -155,7 +170,7 @@ version = get_schema_version("cnig_accessibilite.gpkg")
 
 ---
 
-### Mettre à jour un GeoPackage
+### 3. Mettre à jour un GeoPackage
 
 ```python
 from cnig_accessibilite import upgrade_gpkg
@@ -177,7 +192,7 @@ Retourne le `Path` de la copie créée.
 
 ---
 
-### Rétrograder un GeoPackage
+### 4. Rétrograder un GeoPackage
 
 ```python
 from cnig_accessibilite import downgrade_gpkg
@@ -197,7 +212,7 @@ Même comportement qu'`upgrade_gpkg` : crée une copie versionnée, laisse l'ori
 
 ---
 
-### Accès aux listes de valeurs  
+### 5. Accès aux listes de valeurs  
 
 ```python
 from cnig_accessibilite import allowed_values
@@ -211,7 +226,7 @@ Les listes sont celles de la dernière version du standard.
 
 ---
 
-## 3. Alembic — gestion avancée des versions
+## III - Alembic — gestion avancée des versions
 
 Pour utiliser la CLI Alembic directement (autogenerate, historique…), spécifiez le fichier de configuration embarqué dans le package et la variable `GPKG_PATH` :
 
@@ -221,7 +236,7 @@ alembic -c cnig_accessibilite/alembic.ini current     # révision active
 alembic -c cnig_accessibilite/alembic.ini history     # liste des migrations
 ```
 
-### Montée de version
+### 1. Montée de version
 
 ```bash
 alembic -c cnig_accessibilite/alembic.ini upgrade +1      # révision suivante
@@ -229,7 +244,7 @@ alembic -c cnig_accessibilite/alembic.ini upgrade head    # dernière version
 alembic -c cnig_accessibilite/alembic.ini upgrade 002     # révision précise
 ```
 
-### Rétrogradation
+### 2. Rétrogradation
 
 ```bash
 alembic -c cnig_accessibilite/alembic.ini downgrade -1      # révision précédente
@@ -239,7 +254,7 @@ alembic -c cnig_accessibilite/alembic.ini downgrade 001     # révision précise
 
 > **Note** — La CLI Alembic modifie le fichier **en place**, sans créer de copie. Utilisez `upgrade_gpkg` / `downgrade_gpkg` de l'API Python ou la CLI `gpkg-cnig` pour conserver l'original.
 
-### Générer une migration pour une nouvelle version du standard
+### 3. Générer une migration pour une nouvelle version du standard
 
 Pour générer une nouvelle migration, il est nécessaire d’implémenter la nouvelle version du standard (voir les scripts dans `cnig_accessibilite/cnig_versions`).
 
@@ -249,7 +264,7 @@ Le script `mappings.py` doit ensuite être complété avec les règles de conver
 
 Enfin, il faut définir la version courante du standard dans les scripts `cnig_accessibilite/schema.py` et `cnig_accessibilite/enums.py`.
 
-#### Générer automatiquement le script de migration
+#### 4. Générer automatiquement le script de migration
 
 ```bash
 export GPKG_PATH=cnig_accessibilite.gpkg
@@ -260,7 +275,7 @@ Alembic détecte automatiquement les colonnes ajoutées, supprimées ou renommé
 
 Des fonctions utilitaires sont prévues pour faciliter la complétion du script.
 
-### Fonctions utilitaires pour les migrations
+### 5. Fonctions utilitaires pour les migrations
 
 Le module `cnig_accessibilite.migration_helpers` fournit des fonctions prêtes à l'emploi pour les trois parties récurrentes de toute migration. Elles utilisent `alembic.op` en import différé et ne peuvent être appelées que depuis le contexte `upgrade()` / `downgrade()`.
 
@@ -372,7 +387,7 @@ remap_column_values("quai", "etatRevetement", ETAT_V001_TO_ETAT_REVETEMENT_V002)
 
 ---
 
-## Notes techniques
+## IV - Notes techniques
 
 - **Format géométrie** : GeoPackageBinary (magic `GP` + WKB little-endian), conforme à la spécification OGC GeoPackage 1.3.
 - **Systèmes de coordonnées** : EPSG:4326 (WGS84) et EPSG:2154 (Lambert-93) sont inclus par défaut dans `gpkg_spatial_ref_sys`. Tout autre EPSG est pris en charge via `pyproj` (`pip install pyproj`). Le SRID par défaut à la création est `2154`.
