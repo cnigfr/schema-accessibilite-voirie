@@ -1,5 +1,6 @@
 __pycache__
 venv
 *.egg-info/
-tests/
 packages/
+tests/*
+!tests/example.py
