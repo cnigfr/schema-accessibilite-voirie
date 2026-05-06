@@ -53,8 +53,7 @@ NOEUD_CHEMINEMENT = Table(
     Column("abaissePente",       Integer),  # % as integer
     Column("abaisseLargeur",     Float),  # metre, cm resolution
     Column("masqueCovisibilite", Text),   # enum: visibility mask
-    # enum: BEV control (multi-value, | separator)
-    Column("controleBEV",        Text),
+    Column("controleBEV",        Text),     # enum: BEV control (multi-value, | separator)
     Column("bandeInterception",  Boolean),  # boolean (0/1)
     Column("geom", LargeBinary),          # POINT
 )
@@ -227,6 +226,14 @@ ASCENSEUR = Table(
     "ascenseur", metadata,
     Column("fid",                Integer, primary_key=True),
     Column("idAscenseur",        Text,    unique=True),
+    Column("altitude",           Float),  # metre NGF, cm resolution
+    Column("bandeEveilVigilance", Text),   # enum: condition
+    Column("hauteurRessaut",     Float),  # metre, cm resolution
+    Column("abaissePente",       Integer),  # % as integer
+    Column("abaisseLargeur",     Float),  # metre, cm resolution
+    Column("masqueCovisibilite", Text),   # enum: visibility mask
+    Column("controleBEV",        Text),     # enum: BEV control (multi-value, | separator)
+    Column("bandeInterception",  Boolean),  # boolean (0/1)
     Column("largeurUtile",       Float),  # metre, cm resolution
     Column("diamManoeuvFauteuil", Float),  # metre, cm resolution
     Column("largeurCabine",      Float),  # metre, cm resolution
@@ -254,6 +261,14 @@ ELEVATEUR = Table(
     "elevateur", metadata,
     Column("fid",                 Integer, primary_key=True),
     Column("idElevateur",         Text,    unique=True),
+    Column("altitude",           Float),  # metre NGF, cm resolution
+    Column("bandeEveilVigilance", Text),   # enum: condition
+    Column("hauteurRessaut",     Float),  # metre, cm resolution
+    Column("abaissePente",       Integer),  # % as integer
+    Column("abaisseLargeur",     Float),  # metre, cm resolution
+    Column("masqueCovisibilite", Text),   # enum: visibility mask
+    Column("controleBEV",        Text),     # enum: BEV control (multi-value, | separator)
+    Column("bandeInterception",  Boolean),  # boolean (0/1)
     Column("largeurUtile",        Float),  # metre, cm resolution
     Column("boutonsEnRelief",     Text),   # enum: button relief
     Column("typeOuverture",       Text),   # enum: opening type
@@ -275,7 +290,14 @@ ENTREE = Table(
     "entree", metadata,
     Column("fid",                 Integer, primary_key=True),
     Column("idEntree",            Text,    unique=True),
-    Column("idERP",               Text),   # ERP this entrance belongs to
+    Column("altitude",           Float),  # metre NGF, cm resolution
+    Column("bandeEveilVigilance", Text),   # enum: condition
+    Column("hauteurRessaut",     Float),  # metre, cm resolution
+    Column("abaissePente",       Integer),  # % as integer
+    Column("abaisseLargeur",     Float),  # metre, cm resolution
+    Column("masqueCovisibilite", Text),   # enum: visibility mask
+    Column("controleBEV",        Text),     # enum: BEV control (multi-value, | separator)
+    Column("bandeInterception",  Boolean),  # boolean (0/1)
     Column("adresse",             Text),
     Column("typeEntree",          Text),   # enum: entrance type
     Column("rampe",               Text),   # enum: ERP ramp
@@ -308,6 +330,14 @@ PASSAGE_SELECTIF = Table(
     "passage_selectif", metadata,
     Column("fid",                Integer, primary_key=True),
     Column("idPassageSelectif",  Text,    unique=True),
+    Column("altitude",           Float),  # metre NGF, cm resolution
+    Column("bandeEveilVigilance", Text),   # enum: condition
+    Column("hauteurRessaut",     Float),  # metre, cm resolution
+    Column("abaissePente",       Integer),  # % as integer
+    Column("abaisseLargeur",     Float),  # metre, cm resolution
+    Column("masqueCovisibilite", Text),   # enum: visibility mask
+    Column("controleBEV",        Text),     # enum: BEV control (multi-value, | separator)
+    Column("bandeInterception",  Boolean),  # boolean (0/1)
     Column("passageMecanique",   Boolean),  # boolean
     Column("largeurUtile",       Float),  # metre, cm resolution
     Column("profondeur",         Float),  # metre, cm resolution
