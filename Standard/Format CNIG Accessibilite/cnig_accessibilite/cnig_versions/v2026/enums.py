@@ -559,8 +559,11 @@ COLUMN_DESCRIPTIONS: dict[tuple[str, str], str] = {
 _SEP = "|"
 MULTIVALUE_COLUMNS: frozenset[tuple[str, str]] = frozenset({
     ("noeud_cheminement", "controleBEV"),
+    ("ascenseur", "controleBEV"),
+    ("elevateur", "controleBEV"),
+    ("entree", "controleBEV"),
+    ("passage_selectif", "controleBEV"),
 })
-
 
 # Validation value tools
 def allowed_values(table: str, column: str) -> tuple[str, ...] | None:
