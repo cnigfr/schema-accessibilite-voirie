@@ -49,9 +49,9 @@ CONTROLE_BEV = (
     "largeur trop importante|non contrastée",
     "largeur trop importante|profondeur insuffisante",
     "largeur trop importante|non contrastée|profondeur insuffisante",
-    # contarst cases
+    # contrast cases
     "non contrastée",
-    "non contrastée|profondeur insuffisante"
+    "non contrastée|profondeur insuffisante",
     #  depth
     "profondeur insuffisante",
 ) + EXTRAS
@@ -387,6 +387,14 @@ COLUMN_SPECS: dict[tuple[str, str], tuple[str | None, str]] = {
     ("quai", "diamZoneManoeuvre"):   (None,                      "diamètre de la zone de manœuvre en mètres"),
     # ── ASCENSEUR ────────────────────────────────────────────────────────────
     ("ascenseur", "idAscenseur"):         (None,                     "identifiant CNIG de l'ascenseur, auto-généré si absent"),
+    ("ascenseur", "altitude"):            (None,                  "altitude NGF du nœud en mètres (résolution cm)"),
+    ("ascenseur", "bandeEveilVigilance"): ("etat",                "surface contrastée permettant de signaler un danger"),
+    ("ascenseur", "hauteurRessaut"):      (None,                  "hauteur du ressaut en mètres (résolution cm)"),
+    ("ascenseur", "abaissePente"):        (None,                  "pente de l'abaissé de trottoir en %"),
+    ("ascenseur", "abaisseLargeur"):      (None,                  "largeur de l'abaissé de trottoir en mètres"),
+    ("ascenseur", "masqueCovisibilite"):  ("masque_covisibilite", "masque visuel sur 5 m en amont d'une traversée"),
+    ("ascenseur", "controleBEV"):         ("controle_bev",        "contrôle de l'état des bandes d'éveil à la vigilance"),
+    ("ascenseur", "bandeInterception"):   (None,                  "présence d'une bande d'interception entre trottoir et chaussée (booléen)"),
     ("ascenseur", "largeurUtile"):        (None,                     "largeur utile de la cabine en mètres"),
     ("ascenseur", "diamManoeuvFauteuil"): (None,                     "diamètre de la zone de manœuvre devant l'ascenseur en mètres"),
     ("ascenseur", "largeurCabine"):       (None,                     "largeur intérieure de la cabine en mètres"),
@@ -406,6 +414,14 @@ COLUMN_SPECS: dict[tuple[str, str], tuple[str | None, str]] = {
     ("ascenseur", "autrePorteSortie"):    ("cote",                   "côté de la porte aux étages, si différent du rez-de-chaussée"),
     # ── ELEVATEUR ────────────────────────────────────────────────────────────
     ("elevateur", "idElevateur"):         (None,             "identifiant CNIG de l'élévateur, auto-généré si absent"),
+    ("elevateur", "altitude"):            (None,                  "altitude NGF du nœud en mètres (résolution cm)"),
+    ("elevateur", "bandeEveilVigilance"): ("etat",                "surface contrastée permettant de signaler un danger"),
+    ("elevateur", "hauteurRessaut"):      (None,                  "hauteur du ressaut en mètres (résolution cm)"),
+    ("elevateur", "abaissePente"):        (None,                  "pente de l'abaissé de trottoir en %"),
+    ("elevateur", "abaisseLargeur"):      (None,                  "largeur de l'abaissé de trottoir en mètres"),
+    ("elevateur", "masqueCovisibilite"):  ("masque_covisibilite", "masque visuel sur 5 m en amont d'une traversée"),
+    ("elevateur", "controleBEV"):         ("controle_bev",        "contrôle de l'état des bandes d'éveil à la vigilance"),
+    ("elevateur", "bandeInterception"):   (None,                  "présence d'une bande d'interception entre trottoir et chaussée (booléen)"),
     ("elevateur", "largeurUtile"):        (None,             "largeur utile de la plateforme en mètres"),
     ("elevateur", "boutonsEnRelief"):     ("relief_boutons", "touches en relief et en braille pour désigner les étages"),
     ("elevateur", "typeOuverture"):       ("type_ouverture", "type d'ouverture (manuelle / automatique)"),
@@ -419,7 +435,14 @@ COLUMN_SPECS: dict[tuple[str, str], tuple[str | None, str]] = {
     ("elevateur", "accompagnateur"):      ("temporalite",    "existence d'un agent préposé à l'utilisation de l'élévateur"),
     # ── ENTREE ───────────────────────────────────────────────────────────────
     ("entree", "idEntree"):             (None,               "identifiant CNIG de l'entrée, auto-généré si absent"),
-    ("entree", "idERP"):                (None,               "identifiant CNIG de l'ERP auquel appartient cette entrée"),
+    ("entree", "altitude"):             (None,                  "altitude NGF du nœud en mètres (résolution cm)"),
+    ("entree", "bandeEveilVigilance"):  ("etat",                "surface contrastée permettant de signaler un danger"),
+    ("entree", "hauteurRessaut"):       (None,                  "hauteur du ressaut en mètres (résolution cm)"),
+    ("entree", "abaissePente"):         (None,                  "pente de l'abaissé de trottoir en %"),
+    ("entree", "abaisseLargeur"):       (None,                  "largeur de l'abaissé de trottoir en mètres"),
+    ("entree", "masqueCovisibilite"):   ("masque_covisibilite", "masque visuel sur 5 m en amont d'une traversée"),
+    ("entree", "controleBEV"):          ("controle_bev",        "contrôle de l'état des bandes d'éveil à la vigilance"),
+    ("entree", "bandeInterception"):    (None,                  "présence d'une bande d'interception entre trottoir et chaussée (booléen)"),
     ("entree", "adresse"):              (None,               "adresse de l'entrée"),
     ("entree", "typeEntree"):           ("type_entree",      "type d'entrée"),
     ("entree", "rampe"):                ("rampe_erp",        "présence d'une rampe d'accès à l'entrée"),
@@ -444,11 +467,19 @@ COLUMN_SPECS: dict[tuple[str, str], tuple[str | None, str]] = {
     ("entree", "typePoignee"):          ("type_poignee",     "type de poignée"),
     ("entree", "effortOuverture"):      (None,               "effort d'ouverture de la porte en newtons"),
     # ── PASSAGE_SELECTIF ─────────────────────────────────────────────────────
-    ("passage_selectif", "idPassageSelectif"): (None, "identifiant CNIG du passage sélectif, auto-généré si absent"),
-    ("passage_selectif", "passageMecanique"):  (None, "passage à mécanisme motorisé (booléen)"),
-    ("passage_selectif", "largeurUtile"):      (None, "largeur utile du passage en mètres"),
-    ("passage_selectif", "profondeur"):        (None, "profondeur du passage en mètres"),
-    ("passage_selectif", "contrasteVisuel"):   (None, "présence d'un contraste visuel (booléen)"),
+    ("passage_selectif", "idPassageSelectif"):  (None, "identifiant CNIG du passage sélectif, auto-généré si absent"),
+    ("passage_selectif", "altitude"):           (None,                  "altitude NGF du nœud en mètres (résolution cm)"),
+    ("passage_selectif", "bandeEveilVigilance"):("etat",                "surface contrastée permettant de signaler un danger"),
+    ("passage_selectif", "hauteurRessaut"):     (None,                  "hauteur du ressaut en mètres (résolution cm)"),
+    ("passage_selectif", "abaissePente"):       (None,                  "pente de l'abaissé de trottoir en %"),
+    ("passage_selectif", "abaisseLargeur"):     (None,                  "largeur de l'abaissé de trottoir en mètres"),
+    ("passage_selectif", "masqueCovisibilite"): ("masque_covisibilite", "masque visuel sur 5 m en amont d'une traversée"),
+    ("passage_selectif", "controleBEV"):        ("controle_bev",        "contrôle de l'état des bandes d'éveil à la vigilance"),
+    ("passage_selectif", "bandeInterception"):  (None,                  "présence d'une bande d'interception entre trottoir et chaussée (booléen)"),
+    ("passage_selectif", "passageMecanique"):   (None, "passage à mécanisme motorisé (booléen)"),
+    ("passage_selectif", "largeurUtile"):       (None, "largeur utile du passage en mètres"),
+    ("passage_selectif", "profondeur"):         (None, "profondeur du passage en mètres"),
+    ("passage_selectif", "contrasteVisuel"):    (None, "présence d'un contraste visuel (booléen)"),
     # ── STATIONNEMENT_PMR ────────────────────────────────────────────────────
     ("stationnement_pmr", "idStationnement"):   (None,                 "identifiant CNIG de la place de stationnement PMR, auto-généré si absent"),
     ("stationnement_pmr", "typeStationnement"): ("type_stationnement", "type de stationnement (longitudinal, épi, bataille)"),
@@ -502,6 +533,10 @@ COLUMN_DESCRIPTIONS: dict[tuple[str, str], str] = {
 _SEP = "|"
 MULTIVALUE_COLUMNS: frozenset[tuple[str, str]] = frozenset({
     ("noeud_cheminement", "controleBEV"),
+    ("ascenseur", "controleBEV"),
+    ("elevateur", "controleBEV"),
+    ("entree", "controleBEV"),
+    ("passage_selectif", "controleBEV"),
 })
 
 
