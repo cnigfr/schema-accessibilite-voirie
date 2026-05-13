@@ -92,7 +92,7 @@ ETAT = (
 ETAT_REVETEMENT = (
     "roulant", "dégradation sans gravité",
     "dégradation entraînant un problème de sécurité immédiat",
-    "Meuble", "secouant", "glissant",
+    "meuble", "secouant", "glissant",
 ) + EXTRAS
 
 MARQUAGE = (
