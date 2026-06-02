@@ -1,5 +1,5 @@
 # Script de création des tables du standard sous PostgreSQL/PostGIS
-Le [script_CNIG_accessibilite_PostgreSQL_PostGIS](https://github.com/cnigfr/schema-accessibilite-voirie/blob/main/Schema/PostgresSQL_PostGIS/script_CNIG_accessibilite_PostgreSQL_PostGIS.sql) est utilisable pour créer, dans un environnement PostgreSQL/PostGIS, un schéma contenant les tables objets du [Standard CNIG Accessibilité du cheminement en voirie](https://cnig.gouv.fr/ressources-accessibilite-a25335.html). Il est conforme à la version 2021 révision 2025-03.
+Le [script_CNIG_accessibilite_PostgreSQL_PostGIS](https://github.com/cnigfr/schema-accessibilite-voirie/blob/main/Schema/Gabarit-PostgreSQL-PostGIS/script_CNIG_accessibilite_PostgreSQL_PostGIS.sql) est utilisable pour créer, dans un environnement PostgreSQL/PostGIS, un schéma contenant les tables objets du [Standard CNIG Accessibilité du cheminement en voirie](https://cnig.gouv.fr/ressources-accessibilite-a25335.html). Il est conforme à la version 2021 révision 2025-03.
 
 ## Schema et gestion des droits
 Le schéma est l'emplacement de la base de données dédié au déploiement de la structure du standard. Le nom par défaut utilisé est "cnig_accessibilite" mais celui-ci peut être modifié dans le script.
