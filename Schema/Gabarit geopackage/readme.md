@@ -1,3 +1,10 @@
+
+# ATTENTION !
+
+> [!CAUTION]
+> Ce gabarit est **déclassé** et remplacé par le **[Format CNIG Accessibilité](https://github.com/cnigfr/schema-accessibilite-voirie/tree/main/Schema/format_cnig_accessibilite_geopackage)**
+>
+ 
 # Gabarit géopackage
 
 Le [gabarit CNIG Accessibilité au format Géopackage](https://github.com/cnigfr/schema-accessibilite-voirie/blob/main/Schema/Gabarit%20geopackage/gabarit_cnig_accessibilite.gpkg) est utilisable dans QGIS et tout SIG supportant le format Géopackage. 
