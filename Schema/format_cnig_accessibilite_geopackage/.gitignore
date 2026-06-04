@@ -1,0 +1,6 @@
+__pycache__
+venv
+*.egg-info/
+packages/
+tests/*
+!tests/example.py
