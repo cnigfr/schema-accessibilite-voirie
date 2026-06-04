@@ -1,12 +1,19 @@
-"""CNIG Accessibility standard v2021-10 rev.2025-03 value lists.
+"""CNIG Accessibility standard v2021-10 rev.2026-04 value lists.
 
-All lists accept 'NC' (unknown / not filled in) and 'sans objet',
+Changes from rev.2025-03:
+  - ETAT: + "dégradation forte" and "dégradation très forte"
+  - TYPE_TRONCON: + "espace partagé"
+  - New lists: REGULARITE, RAMPE_INTERNE
+  - COLUMN_CONSTRAINTS: quai.etatRevetement and stationnement_pmr.etatRevetement
+    change constraint from "etat" to "etat_revetement";
+    escalier.regularite -> "regularite" and escalier.rampeInterne -> "rampe_interne"
 """
 
 # Extra values
 NC = "NC"
 SANS_OBJET = "sans objet"
 EXTRAS = (NC, SANS_OBJET)
+
 
 # Enumerated types
 CATEGORIE_ERP = (
@@ -74,10 +81,12 @@ ECLAIRAGE = (
     "bon éclairage", "éclairage insuffisant", "absence d'éclairage",
 ) + EXTRAS
 
+# ── Modified v2026: + "dégradation forte" and "dégradation très forte" ───────
 ETAT = (
     "absence", "bon état", "dégradation sans gravité",
     "dégradation entraînant une difficulté d'usage ou d'inconfort",
     "dégradation entraînant un problème de sécurité immédiat",
+    "dégradation forte", "dégradation très forte",
 ) + EXTRAS
 
 ETAT_REVETEMENT = (
@@ -188,7 +197,7 @@ TYPE_PORTE = (
 TYPE_SOL = (
     "tapis", "béton", "asphalte, enrobé", "liège", "caillebotis en fibre de verre",
     "carreaux de céramique émaillés", "matière plastique", "carrelage", "caoutchouc",
-    "plaques métaliques", "vynil", "bois", "pierre, pavé", "gazon", "terre",
+    "plaques métalliques", "vynil", "bois", "pierre, pavé", "gazon", "terre",
     "graviers", "matériau inégal par nature", "sable stabilisé", "autre"
 ) + EXTRAS
 
@@ -196,18 +205,29 @@ TYPE_STATIONNEMENT = (
     "longitudinal", "épi", "bataille",
 ) + EXTRAS
 
+# ── Modified v2026: + "espace partagé" ──────────────────────────────────────
 TYPE_TRONCON = (
     "ascenseur", "tapis roulant", "rampe", "escalier", "série d'escaliers",
     "traversée piétonne", "îlot de traversée piétonne",
     "présence de barrière(s)", "passage étroit", "hall",
     "couloir intérieur", "espace confiné", "gestion de queue",
     "espace ouvert", "rue", "trottoir", "chemin piéton", "passage",
-    "navette", "quai", "escalator", "monte-charge / monte personne",
+    "navette", "quai", "escalator", "monte-charge ou monte personne",
+    "espace partagé",
 ) + EXTRAS
 
 VOYANT_ASCENSEUR = (
     "aucun", "voyant demande secours enregistrée",
     "voyant demande secours en transmission", "les deux",
+) + EXTRAS
+
+# New v2026 lists
+REGULARITE = (
+    "régulier", "irrégulier", "très irrégulier",
+) + EXTRAS
+
+RAMPE_INTERNE = (
+    "aucune", "vélo", "poussette", "valise", "autre",
 ) + EXTRAS
 
 # Index by constraint name
@@ -229,6 +249,8 @@ ENUM_CONSTRAINTS: dict[str, tuple[str, ...]] = {
     "position_obstacle":        POSITION_OBSTACLE,
     "rappel_obstacle":          RAPPEL_OBSTACLE,
     "rampe_erp":                RAMPE_ERP,
+    "rampe_interne":            RAMPE_INTERNE,
+    "regularite":               REGULARITE,
     "relief_boutons":           RELIEF_BOUTONS,
     "repere_lineaire":          REPERE_LINEAIRE,
     "sens":                     SENS,
@@ -247,6 +269,7 @@ ENUM_CONSTRAINTS: dict[str, tuple[str, ...]] = {
     "type_troncon":             TYPE_TRONCON,
     "voyant_ascenseur":         VOYANT_ASCENSEUR,
 }
+
 
 # COLUMN_SPECS: (table, column) -> (constraint_name | None, description)
 COLUMN_SPECS: dict[tuple[str, str], tuple[str | None, str]] = {
@@ -306,7 +329,7 @@ COLUMN_SPECS: dict[tuple[str, str], tuple[str | None, str]] = {
     ("traversee", "aideSonore"):     ("etat",             "répétiteurs sonores émettant des signaux codés et parlés"),
     ("traversee", "repereLineaire"): ("repere_lineaire",  "repère linéaire continu au sol"),
     ("traversee", "chausseeBombee"): (None,               "la chaussée est bombée (booléen)"),
-    ("traversee", "voiesTraversees"): (None,               "codes des voies traversées (B, C, T, V concatenés)"),
+    ("traversee", "voiesTraversees"): (None,               "codes des voies traversées (B, C, T, V concatenés) — CHECK SQL"),
     # ── RAMPE ────────────────────────────────────────────────────────────────
     ("rampe", "idRampe"):         (None,               "identifiant CNIG de la rampe, auto-généré si absent"),
     ("rampe", "from"):            (None,               "identifiant du nœud de départ"),
@@ -324,52 +347,54 @@ COLUMN_SPECS: dict[tuple[str, str], tuple[str | None, str]] = {
     ("rampe", "aireRotation"):    ("position_hauteur", "présence d'une aire de rotation (UFR) en bas et/ou en haut de la rampe"),
     ("rampe", "poidsSupporte"):   (None,               "charge maximale supportée en kg"),
     # ── ESCALIER ─────────────────────────────────────────────────────────────
-    ("escalier", "idEscalier"):           (None,          "identifiant CNIG de l'escalier, auto-généré si absent"),
-    ("escalier", "from"):                 (None,          "identifiant du nœud de départ"),
-    ("escalier", "to"):                   (None,          "identifiant du nœud d'arrivée"),
-    ("escalier", "longueur"):             (None,          "longueur de l'escalier en mètres"),
-    ("escalier", "statutVoie"):           ("statut_voie", "type de voie"),
-    ("escalier", "pente"):                (None,          "inclinaison du terrain la plus défavorable (en %)"),
-    ("escalier", "devers"):               (None,          "inclinaison transversale du terrain (en %)"),
-    ("escalier", "urlMedia"):             (None,          "lien vers une ressource multimédia"),
-    ("escalier", "etatRevetement"):       ("etat",        "usure nuisant à la praticabilité du cheminement"),
-    ("escalier", "mainCourante"):         ("cote",        "élément sur lequel on pose la main pour s'appuyer"),
-    ("escalier", "dispositifVigilance"):  ("etat",        "dispositif d'éveil de vigilance en haut de l'escalier"),
-    ("escalier", "contrasteVisuel"):      ("etat",        "dispositif contrastant sur le nez des première et dernière marches"),
-    ("escalier", "largeurUtile"):         (None,          "largeur utile de l'escalier en mètres"),
-    ("escalier", "mainCouranteContinue"): ("cote",        "la main courante est-elle continue entre les volées de marches"),
-    ("escalier", "prolongMainCourante"):  ("cote",        "prolongement de la main courante au-delà des première et dernière marches"),
-    ("escalier", "nbMarches"):            (None,          "nombre de marches total de l'escalier"),
-    ("escalier", "nbVoleeMarches"):       (None,          "nombre de volées de marches"),
-    ("escalier", "hauteurMarche"):        (None,          "hauteur des contremarches en mètres"),
-    ("escalier", "giron"):                (None,          "profondeur des marches (giron) en mètres"),
+    ("escalier", "idEscalier"):           (None,           "identifiant CNIG de l'escalier, auto-généré si absent"),
+    ("escalier", "from"):                 (None,           "identifiant du nœud de départ"),
+    ("escalier", "to"):                   (None,           "identifiant du nœud d'arrivée"),
+    ("escalier", "longueur"):             (None,           "longueur de l'escalier en mètres"),
+    ("escalier", "statutVoie"):           ("statut_voie",  "type de voie"),
+    ("escalier", "pente"):                (None,           "inclinaison du terrain la plus défavorable (en %)"),
+    ("escalier", "devers"):               (None,           "inclinaison transversale du terrain (en %)"),
+    ("escalier", "urlMedia"):             (None,           "lien vers une ressource multimédia"),
+    ("escalier", "etatRevetement"):       ("etat",         "usure nuisant à la praticabilité du cheminement"),
+    ("escalier", "mainCourante"):         ("cote",         "élément sur lequel on pose la main pour s'appuyer"),
+    ("escalier", "dispositifVigilance"):  ("etat",         "dispositif d'éveil de vigilance en haut de l'escalier"),
+    ("escalier", "contrasteVisuel"):      ("etat",         "dispositif contrastant sur le nez des première et dernière marches"),
+    ("escalier", "largeurUtile"):         (None,           "largeur utile de l'escalier en mètres"),
+    ("escalier", "mainCouranteContinue"): ("cote",         "la main courante est-elle continue entre les volées de marches"),
+    ("escalier", "prolongMainCourante"):  ("cote",         "prolongement de la main courante au-delà des première et dernière marches"),
+    ("escalier", "nbMarches"):            (None,           "nombre de marches total de l'escalier"),
+    ("escalier", "nbVoleeMarches"):       (None,           "nombre de volées de marches"),
+    ("escalier", "hauteurMarche"):        (None,           "hauteur des contremarches en mètres"),
+    ("escalier", "giron"):                (None,           "profondeur des marches (giron) en mètres"),
+    ("escalier", "regularite"):           ("regularite",   "caractère régulier de l'escalier"),
+    ("escalier", "rampeInterne"):         ("rampe_interne", "présence d'une rampe de conduite d'objets, interne à l'escalier"),
     # ── ESCALATOR ────────────────────────────────────────────────────────────
-    ("escalator", "idEscalator"):         (None,          "identifiant CNIG de l'escalier mécanique, auto-généré si absent"),
-    ("escalator", "from"):                (None,          "identifiant du nœud de départ"),
-    ("escalator", "to"):                  (None,          "identifiant du nœud d'arrivée"),
-    ("escalator", "longueur"):            (None,          "longueur de l'escalier mécanique en mètres"),
-    ("escalator", "statutVoie"):          ("statut_voie", "type de voie"),
-    ("escalator", "pente"):               (None,          "inclinaison du terrain la plus défavorable (en %)"),
-    ("escalator", "devers"):              (None,          "inclinaison transversale du terrain (en %)"),
-    ("escalator", "urlMedia"):            (None,          "lien vers une ressource multimédia"),
-    ("escalator", "transition"):          ("transition",  "type d'escalator : montée, descente, variable"),
-    ("escalator", "dispositifVigilance"): ("etat",        "dispositif d'éveil de vigilance"),
-    ("escalator", "largeurUtile"):        (None,          "largeur utile de l'escalier mécanique en mètres"),
-    ("escalator", "detecteur"):           (None,          "présence d'un détecteur automatique de présence (booléen)"),
-    ("escalator", "supervision"):         (None,          "l'équipement est supervisé à distance (booléen)"),
+    ("escalator", "idEscalator"):         (None,           "identifiant CNIG de l'escalier mécanique, auto-généré si absent"),
+    ("escalator", "from"):                (None,           "identifiant du nœud de départ"),
+    ("escalator", "to"):                  (None,           "identifiant du nœud d'arrivée"),
+    ("escalator", "longueur"):            (None,           "longueur de l'escalier mécanique en mètres"),
+    ("escalator", "statutVoie"):          ("statut_voie",  "type de voie"),
+    ("escalator", "pente"):               (None,           "inclinaison du terrain la plus défavorable (en %)"),
+    ("escalator", "devers"):              (None,           "inclinaison transversale du terrain (en %)"),
+    ("escalator", "urlMedia"):            (None,           "lien vers une ressource multimédia"),
+    ("escalator", "transition"):          ("transition",   "type d'escalator : montée, descente, variable"),
+    ("escalator", "dispositifVigilance"): ("etat",         "dispositif d'éveil de vigilance"),
+    ("escalator", "largeurUtile"):        (None,           "largeur utile de l'escalier mécanique en mètres"),
+    ("escalator", "detecteur"):           (None,           "présence d'un détecteur automatique de présence (booléen)"),
+    ("escalator", "supervision"):         (None,           "l'équipement est supervisé à distance (booléen)"),
     # ── TAPIS_ROULANT ────────────────────────────────────────────────────────
-    ("tapis_roulant", "idTapisRoulant"):      (None,          "identifiant CNIG du tapis roulant, auto-généré si absent"),
-    ("tapis_roulant", "from"):                (None,          "identifiant du nœud de départ"),
-    ("tapis_roulant", "to"):                  (None,          "identifiant du nœud d'arrivée"),
-    ("tapis_roulant", "longueur"):            (None,          "longueur du tapis roulant en mètres"),
-    ("tapis_roulant", "statutVoie"):          ("statut_voie", "type de voie"),
-    ("tapis_roulant", "pente"):               (None,          "inclinaison du terrain la plus défavorable (en %)"),
-    ("tapis_roulant", "devers"):              (None,          "inclinaison transversale du terrain (en %)"),
-    ("tapis_roulant", "urlMedia"):            (None,          "lien vers une ressource multimédia"),
-    ("tapis_roulant", "sens"):                ("sens",        "sens de la translation du tapis roulant"),
-    ("tapis_roulant", "dispositifVigilance"): ("etat",        "dispositif d'éveil de vigilance"),
-    ("tapis_roulant", "largeurUtile"):        (None,          "largeur utile du tapis roulant en mètres"),
-    ("tapis_roulant", "detecteur"):           (None,          "présence d'un détecteur automatique de présence (booléen)"),
+    ("tapis_roulant", "idTapisRoulant"):      (None,           "identifiant CNIG du tapis roulant, auto-généré si absent"),
+    ("tapis_roulant", "from"):                (None,           "identifiant du nœud de départ"),
+    ("tapis_roulant", "to"):                  (None,           "identifiant du nœud d'arrivée"),
+    ("tapis_roulant", "longueur"):            (None,           "longueur du tapis roulant en mètres"),
+    ("tapis_roulant", "statutVoie"):          ("statut_voie",  "type de voie"),
+    ("tapis_roulant", "pente"):               (None,           "inclinaison du terrain la plus défavorable (en %)"),
+    ("tapis_roulant", "devers"):              (None,           "inclinaison transversale du terrain (en %)"),
+    ("tapis_roulant", "urlMedia"):            (None,           "lien vers une ressource multimédia"),
+    ("tapis_roulant", "sens"):                ("sens",         "sens de la translation du tapis roulant"),
+    ("tapis_roulant", "dispositifVigilance"): ("etat",         "dispositif d'éveil de vigilance"),
+    ("tapis_roulant", "largeurUtile"):        (None,           "largeur utile du tapis roulant en mètres"),
+    ("tapis_roulant", "detecteur"):           (None,           "présence d'un détecteur automatique de présence (booléen)"),
     # ── QUAI ─────────────────────────────────────────────────────────────────
     ("quai", "idQuai"):              (None,                      "identifiant CNIG du quai, auto-généré si absent"),
     ("quai", "from"):                (None,                      "identifiant du nœud de départ"),
@@ -379,7 +404,7 @@ COLUMN_SPECS: dict[tuple[str, str], tuple[str | None, str]] = {
     ("quai", "pente"):               (None,                      "inclinaison du terrain la plus défavorable (en %)"),
     ("quai", "devers"):              (None,                      "inclinaison transversale du terrain (en %)"),
     ("quai", "urlMedia"):            (None,                      "lien vers une ressource multimédia"),
-    ("quai", "etatRevetement"):      ("etat",                    "usure nuisant à la praticabilité du cheminement"),
+    ("quai", "etatRevetement"):      ("etat_revetement",         "usure nuisant à la praticabilité du cheminement"),
     ("quai", "hauteur"):             (None,                      "hauteur du quai en mètres (résolution cm)"),
     ("quai", "largeurPassage"):      (None,                      "largeur utile de passage en mètres"),
     ("quai", "signalisationPorte"):  ("dispositif_signalisation", "dispositif de signalisation de la porte accessible"),
@@ -412,6 +437,7 @@ COLUMN_SPECS: dict[tuple[str, str], tuple[str | None, str]] = {
     ("ascenseur", "etatRevetement"):      ("etat",                   "usure nuisant à la praticabilité du cheminement"),
     ("ascenseur", "supervision"):         (None,                     "l'équipement est supervisé à distance (booléen)"),
     ("ascenseur", "autrePorteSortie"):    ("cote",                   "côté de la porte aux étages, si différent du rez-de-chaussée"),
+    ("ascenseur", "opaciteParois"):       (None,                     "toutes les parois de l'ascenseur sont opaques (booléen)"),
     # ── ELEVATEUR ────────────────────────────────────────────────────────────
     ("elevateur", "idElevateur"):         (None,             "identifiant CNIG de l'élévateur, auto-généré si absent"),
     ("elevateur", "altitude"):            (None,                  "altitude NGF du nœud en mètres (résolution cm)"),
@@ -481,18 +507,18 @@ COLUMN_SPECS: dict[tuple[str, str], tuple[str | None, str]] = {
     ("passage_selectif", "profondeur"):         (None, "profondeur du passage en mètres"),
     ("passage_selectif", "contrasteVisuel"):    (None, "présence d'un contraste visuel (booléen)"),
     # ── STATIONNEMENT_PMR ────────────────────────────────────────────────────
-    ("stationnement_pmr", "idStationnement"):   (None,                 "identifiant CNIG de la place de stationnement PMR, auto-généré si absent"),
-    ("stationnement_pmr", "typeStationnement"): ("type_stationnement", "type de stationnement (longitudinal, épi, bataille)"),
-    ("stationnement_pmr", "etatRevetement"):    ("etat",               "usure nuisant à la praticabilité du cheminement"),
-    ("stationnement_pmr", "largeurStat"):       (None,                 "largeur de la place de stationnement en mètres"),
-    ("stationnement_pmr", "longueurStat"):      (None,                 "longueur de la place de stationnement en mètres"),
-    ("stationnement_pmr", "bandLatSecurite"):   (None,                 "présence d'une bande latérale de sécurité (booléen)"),
-    ("stationnement_pmr", "surLongueur"):       (None,                 "surlongueur de la place en mètres"),
-    ("stationnement_pmr", "signalPMR"):         (None,                 "présence d'une signalisation PMR (booléen)"),
-    ("stationnement_pmr", "marquageSol"):       (None,                 "présence d'un marquage au sol (booléen)"),
-    ("stationnement_pmr", "pente"):             (None,                 "inclinaison de la place de stationnement (en %)"),
-    ("stationnement_pmr", "devers"):            (None,                 "inclinaison transversale de la place de stationnement (en %)"),
-    ("stationnement_pmr", "typeSol"):           ("type_sol",           "matériau de revêtement du stationnement"),
+    ("stationnement_pmr", "idStationnementPmr"): (None,                 "identifiant CNIG de la place de stationnement PMR, auto-généré si absent"),
+    ("stationnement_pmr", "typeStationnement"):  ("type_stationnement", "type de stationnement (longitudinal, épi, bataille)"),
+    ("stationnement_pmr", "etatRevetement"):     ("etat_revetement",    "usure nuisant à la praticabilité du cheminement"),
+    ("stationnement_pmr", "largeurStat"):        (None,                 "largeur de la place de stationnement en mètres"),
+    ("stationnement_pmr", "longueurStat"):       (None,                 "longueur de la place de stationnement en mètres"),
+    ("stationnement_pmr", "bandLatSecurite"):    (None,                 "présence d'une bande latérale de sécurité (booléen)"),
+    ("stationnement_pmr", "surLongueur"):        (None,                 "surlongueur de la place en mètres"),
+    ("stationnement_pmr", "signalPMR"):          (None,                 "présence d'une signalisation PMR (booléen)"),
+    ("stationnement_pmr", "marquageSol"):        (None,                 "présence d'un marquage au sol (booléen)"),
+    ("stationnement_pmr", "pente"):              (None,                 "inclinaison de la place de stationnement (en %)"),
+    ("stationnement_pmr", "devers"):             (None,                 "inclinaison transversale de la place de stationnement (en %)"),
+    ("stationnement_pmr", "typeSol"):            ("type_sol",           "matériau de revêtement du stationnement"),
     # ── ERP ──────────────────────────────────────────────────────────────────
     ("erp", "idERP"):               (None,            "identifiant CNIG de l'ERP, auto-généré si absent"),
     ("erp", "nom"):                 (None,            "nom de l'ERP"),
@@ -538,7 +564,6 @@ MULTIVALUE_COLUMNS: frozenset[tuple[str, str]] = frozenset({
     ("entree", "controleBEV"),
     ("passage_selectif", "controleBEV"),
 })
-
 
 # Validation value tools
 def allowed_values(table: str, column: str) -> tuple[str, ...] | None:
