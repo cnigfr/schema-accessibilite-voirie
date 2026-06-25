@@ -86,6 +86,7 @@ TRAVERSEE = Table(
     Column("from",            Text),   # start node
     Column("to",              Text),   # end node
     Column("longueur",        Integer),  # metre
+    Column("typeTroncon",     Text),        # enum: segment type
     Column("statutVoie",      Text),   # enum: road status
     Column("pente",           Integer),  # % (signed integer)
     Column("devers",          Integer),  # % (signed integer)
@@ -113,6 +114,7 @@ RAMPE = Table(
     Column("from",            Text),
     Column("to",              Text),
     Column("longueur",        Integer),
+    Column("typeTroncon",     Text),        # enum: segment type
     Column("statutVoie",      Text),
     Column("pente",           Integer),
     Column("devers",          Integer),
@@ -136,6 +138,7 @@ ESCALIER = Table(
     Column("from",                Text),
     Column("to",                  Text),
     Column("longueur",            Integer),
+    Column("typeTroncon",     Text),        # enum: segment type
     Column("statutVoie",          Text),
     Column("pente",               Integer),
     Column("devers",              Integer),
@@ -163,6 +166,7 @@ ESCALATOR = Table(
     Column("from",                Text),
     Column("to",                  Text),
     Column("longueur",            Integer),
+    Column("typeTroncon",         Text),        # enum: segment type
     Column("statutVoie",          Text),
     Column("pente",               Integer),
     Column("devers",              Integer),
@@ -184,6 +188,7 @@ TAPIS_ROULANT = Table(
     Column("from",                Text),
     Column("to",                  Text),
     Column("longueur",            Integer),
+    Column("typeTroncon",         Text),        # enum: segment type
     Column("statutVoie",          Text),
     Column("pente",               Integer),
     Column("devers",              Integer),
@@ -204,6 +209,7 @@ QUAI = Table(
     Column("from",                Text),
     Column("to",                  Text),
     Column("longueur",            Integer),
+    Column("typeTroncon",         Text),        # enum: segment type
     Column("statutVoie",          Text),
     Column("pente",               Integer),
     Column("devers",              Integer),
@@ -232,7 +238,7 @@ ASCENSEUR = Table(
     Column("controleBEV",        Text),     # enum: BEV control (multi-value, | separator)
     Column("bandeInterception",  Boolean),  # boolean (0/1)
     Column("largeurUtile",       Float),  # metre, cm resolution
-    Column("diamManoeuvFauteuil", Float),  # metre, cm resolution
+    Column("diamManoeuvreFauteuil", Float),  # metre, cm resolution
     Column("largeurCabine",      Float),  # metre, cm resolution
     Column("longueurCabine",     Float),  # metre, cm resolution
     Column("boutonsEnRelief",    Text),   # enum: button relief
